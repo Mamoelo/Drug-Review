@@ -1,0 +1,38 @@
+﻿# Virtual Environment
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python
+__pycache__/
+*.py[cod]
+*.class
+*.so
+.Python
+
+# Model files (large binaries)
+*.pkl
+*.joblib
+*.h5
+*.pb
+*.onnx
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data files (if large)
+*.csv
+*.xlsx
+*.parquet
