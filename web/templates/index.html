@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+
+{% block title %}Drug Advisor - Home{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Hero Section -->
+    <div class="row align-items-center mb-5">
+        <div class="col-lg-6">
+            <h1 class="display-4 fw-bold mb-4">
+                Find the Right Medication for Your Condition
+            </h1>
+            <p class="lead mb-4">
+                Describe your symptoms and our AI will recommend the most effective medications based on thousands of patient reviews.
+            </p>
+            <a href="{{ url_for('main.predict') }}" class="btn btn-primary btn-lg">
+                <i class="fas fa-stethoscope me-2"></i>Check Your Symptoms
+            </a>
+        </div>
+        <div class="col-lg-6">
+            <img src="{{ url_for('static', filename='images/hero.svg') }}" alt="Hero" class="img-fluid">
+        </div>
+    </div>
+    
+    <!-- Stats Section -->
+    <div class="row text-center mb-5">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <i class="fas fa-database fa-3x text-primary mb-3"></i>
+                    <h3>{{ stats.reviews }}</h3>
+                    <p class="text-muted">Patient Reviews Analyzed</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
+                    <h3>{{ stats.accuracy }}</h3>
+                    <p class="text-muted">Prediction Accuracy</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <i class="fas fa-notes-medical fa-3x text-info mb-3"></i>
+                    <h3>{{ stats.conditions }}</h3>
+                    <p class="text-muted">Medical Conditions</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Conditions Section -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Supported Conditions</h2>
+        </div>
+        {% for condition in conditions %}
+        <div class="col-md-4 mb-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <i class="fas fa-heartbeat fa-2x text-primary mb-3"></i>
+                    <h5 class="card-title">{{ condition }}</h5>
+                    <p class="card-text text-muted">
+                        Click below to check symptoms and find effective medications.
+                    </p>
+                    <a href="{{ url_for('main.predict') }}" class="btn btn-outline-primary">
+                        Check Symptoms
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- How It Works -->
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-4">How It Works</h2>
+        </div>
+        <div class="col-md-3 text-center mb-3">
+            <div class="step-circle">1</div>
+            <h5>Describe Symptoms</h5>
+            <p class="text-muted">Tell us how you're feeling in your own words</p>
+        </div>
+        <div class="col-md-3 text-center mb-3">
+            <div class="step-circle">2</div>
+            <h5>AI Analysis</h5>
+            <p class="text-muted">Our model analyzes your description</p>
+        </div>
+        <div class="col-md-3 text-center mb-3">
+            <div class="step-circle">3</div>
+            <h5>Condition Prediction</h5>
+            <p class="text-muted">Get a predicted condition with confidence score</p>
+        </div>
+        <div class="col-md-3 text-center mb-3">
+            <div class="step-circle">4</div>
+            <h5>Drug Recommendations</h5>
+            <p class="text-muted">Receive personalized medication suggestions</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

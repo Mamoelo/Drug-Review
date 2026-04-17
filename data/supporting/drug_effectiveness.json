@@ -1,0 +1,2608 @@
+{
+  "Depression": [
+    {
+      "drug_name": "Abilify",
+      "avg_rating": 6.592,
+      "review_count": 142,
+      "rating_std": 3.541,
+      "total_useful": 9754,
+      "avg_useful": 68.69,
+      "effectiveness_score": 5.984782020838941,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Alprazolam",
+      "avg_rating": 9.082,
+      "review_count": 61,
+      "rating_std": 1.917,
+      "total_useful": 4628,
+      "avg_useful": 75.869,
+      "effectiveness_score": 6.593241340085912,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Amitriptyline",
+      "avg_rating": 8.59,
+      "review_count": 39,
+      "rating_std": 2.256,
+      "total_useful": 2409,
+      "avg_useful": 61.769,
+      "effectiveness_score": 6.130852772243652,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Amitriptyline / chlordiazepoxide",
+      "avg_rating": 9.667,
+      "review_count": 3,
+      "rating_std": 0.577,
+      "total_useful": 83,
+      "avg_useful": 27.667,
+      "effectiveness_score": 5.232263209005073,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Anafranil",
+      "avg_rating": 8.4,
+      "review_count": 5,
+      "rating_std": 2.074,
+      "total_useful": 250,
+      "avg_useful": 50.0,
+      "effectiveness_score": 5.035149332953915,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Aplenzin",
+      "avg_rating": 4.75,
+      "review_count": 4,
+      "rating_std": 3.775,
+      "total_useful": 76,
+      "avg_useful": 19.0,
+      "effectiveness_score": 3.27253486647793,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Aripiprazole",
+      "avg_rating": 6.974,
+      "review_count": 151,
+      "rating_std": 3.235,
+      "total_useful": 10116,
+      "avg_useful": 66.993,
+      "effectiveness_score": 6.164771398380539,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Armodafinil",
+      "avg_rating": 6.846,
+      "review_count": 13,
+      "rating_std": 3.508,
+      "total_useful": 375,
+      "avg_useful": 28.846,
+      "effectiveness_score": 4.738217813720498,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Brexpiprazole",
+      "avg_rating": 8.235,
+      "review_count": 17,
+      "rating_std": 2.587,
+      "total_useful": 398,
+      "avg_useful": 23.412,
+      "effectiveness_score": 5.386782260705004,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Budeprion SR",
+      "avg_rating": 8.4,
+      "review_count": 5,
+      "rating_std": 1.517,
+      "total_useful": 55,
+      "avg_useful": 11.0,
+      "effectiveness_score": 4.742328016023115,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Budeprion XL",
+      "avg_rating": 7.333,
+      "review_count": 12,
+      "rating_std": 2.103,
+      "total_useful": 130,
+      "avg_useful": 10.833,
+      "effectiveness_score": 4.709951149094289,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Bupropion",
+      "avg_rating": 7.359,
+      "review_count": 549,
+      "rating_std": 2.941,
+      "total_useful": 31101,
+      "avg_useful": 56.65,
+      "effectiveness_score": 6.930955234913935,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Celexa",
+      "avg_rating": 7.361,
+      "review_count": 233,
+      "rating_std": 2.869,
+      "total_useful": 13074,
+      "avg_useful": 56.112,
+      "effectiveness_score": 6.502534264350514,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Citalopram",
+      "avg_rating": 7.565,
+      "review_count": 405,
+      "rating_std": 2.745,
+      "total_useful": 15542,
+      "avg_useful": 38.375,
+      "effectiveness_score": 6.784881348670024,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Clomipramine",
+      "avg_rating": 9.182,
+      "review_count": 11,
+      "rating_std": 1.601,
+      "total_useful": 447,
+      "avg_useful": 40.636,
+      "effectiveness_score": 5.677677392668917,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Cymbalta",
+      "avg_rating": 6.323,
+      "review_count": 303,
+      "rating_std": 3.407,
+      "total_useful": 13714,
+      "avg_useful": 45.261,
+      "effectiveness_score": 6.172248564229859,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Deplin",
+      "avg_rating": 7.49,
+      "review_count": 49,
+      "rating_std": 3.286,
+      "total_useful": 4271,
+      "avg_useful": 87.163,
+      "effectiveness_score": 5.864906155637925,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Desipramine",
+      "avg_rating": 9.857,
+      "review_count": 7,
+      "rating_std": 0.378,
+      "total_useful": 286,
+      "avg_useful": 40.857,
+      "effectiveness_score": 5.771097846149344,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Desvenlafaxine",
+      "avg_rating": 7.239,
+      "review_count": 414,
+      "rating_std": 2.984,
+      "total_useful": 17115,
+      "avg_useful": 41.341,
+      "effectiveness_score": 6.678737753182976,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Desyrel",
+      "avg_rating": 7.333,
+      "review_count": 3,
+      "rating_std": 4.619,
+      "total_useful": 384,
+      "avg_useful": 128.0,
+      "effectiveness_score": 4.557533736183024,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Doxepin",
+      "avg_rating": 7.636,
+      "review_count": 11,
+      "rating_std": 3.414,
+      "total_useful": 487,
+      "avg_useful": 44.273,
+      "effectiveness_score": 5.060590264145091,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Duloxetine",
+      "avg_rating": 6.549,
+      "review_count": 328,
+      "rating_std": 3.331,
+      "total_useful": 16052,
+      "avg_useful": 48.939,
+      "effectiveness_score": 6.318236886432467,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Effexor",
+      "avg_rating": 5.845,
+      "review_count": 194,
+      "rating_std": 3.449,
+      "total_useful": 8126,
+      "avg_useful": 41.887,
+      "effectiveness_score": 5.742966254834623,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Effexor XR",
+      "avg_rating": 7.582,
+      "review_count": 141,
+      "rating_std": 2.884,
+      "total_useful": 5204,
+      "avg_useful": 36.908,
+      "effectiveness_score": 6.25676976642531,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Elavil",
+      "avg_rating": 8.222,
+      "review_count": 9,
+      "rating_std": 2.906,
+      "total_useful": 897,
+      "avg_useful": 99.667,
+      "effectiveness_score": 5.365211180063517,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Emsam",
+      "avg_rating": 8.533,
+      "review_count": 15,
+      "rating_std": 1.246,
+      "total_useful": 958,
+      "avg_useful": 63.867,
+      "effectiveness_score": 5.662678429155301,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Escitalopram",
+      "avg_rating": 7.613,
+      "review_count": 380,
+      "rating_std": 2.755,
+      "total_useful": 17440,
+      "avg_useful": 45.895,
+      "effectiveness_score": 6.8079867780471375,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Fetzima",
+      "avg_rating": 4.622,
+      "review_count": 37,
+      "rating_std": 3.616,
+      "total_useful": 1253,
+      "avg_useful": 33.865,
+      "effectiveness_score": 4.388558370319401,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Fluoxetine",
+      "avg_rating": 7.256,
+      "review_count": 305,
+      "rating_std": 3.026,
+      "total_useful": 13520,
+      "avg_useful": 44.328,
+      "effectiveness_score": 6.546713942286179,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Fluoxetine / olanzapine",
+      "avg_rating": 9.154,
+      "review_count": 13,
+      "rating_std": 0.801,
+      "total_useful": 398,
+      "avg_useful": 30.615,
+      "effectiveness_score": 5.70663419075783,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Fluvoxamine",
+      "avg_rating": 6.75,
+      "review_count": 12,
+      "rating_std": 3.441,
+      "total_useful": 275,
+      "avg_useful": 22.917,
+      "effectiveness_score": 4.6160824314064355,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Imipramine",
+      "avg_rating": 6.455,
+      "review_count": 11,
+      "rating_std": 2.423,
+      "total_useful": 407,
+      "avg_useful": 37.0,
+      "effectiveness_score": 4.558939569460821,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Isocarboxazid",
+      "avg_rating": 9.0,
+      "review_count": 3,
+      "rating_std": 1.0,
+      "total_useful": 68,
+      "avg_useful": 22.667,
+      "effectiveness_score": 4.912709609255419,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "L-methylfolate",
+      "avg_rating": 8.061,
+      "review_count": 66,
+      "rating_std": 2.935,
+      "total_useful": 4691,
+      "avg_useful": 71.076,
+      "effectiveness_score": 6.201943588381874,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Lamotrigine",
+      "avg_rating": 8.105,
+      "review_count": 57,
+      "rating_std": 2.944,
+      "total_useful": 2710,
+      "avg_useful": 47.544,
+      "effectiveness_score": 6.066502442637695,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Levomilnacipran",
+      "avg_rating": 4.92,
+      "review_count": 50,
+      "rating_std": 3.68,
+      "total_useful": 1889,
+      "avg_useful": 37.78,
+      "effectiveness_score": 4.677781632795557,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Lexapro",
+      "avg_rating": 7.461,
+      "review_count": 306,
+      "rating_std": 2.824,
+      "total_useful": 16230,
+      "avg_useful": 53.039,
+      "effectiveness_score": 6.667540606472236,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Lisdexamfetamine",
+      "avg_rating": 6.8,
+      "review_count": 5,
+      "rating_std": 3.962,
+      "total_useful": 13,
+      "avg_useful": 2.6,
+      "effectiveness_score": 3.8054924707382236,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Lithium",
+      "avg_rating": 5.867,
+      "review_count": 15,
+      "rating_std": 3.871,
+      "total_useful": 419,
+      "avg_useful": 27.933,
+      "effectiveness_score": 4.407157224293871,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Luvox",
+      "avg_rating": 9.333,
+      "review_count": 3,
+      "rating_std": 0.577,
+      "total_useful": 166,
+      "avg_useful": 55.333,
+      "effectiveness_score": 5.236098611719762,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Marplan",
+      "avg_rating": 9.0,
+      "review_count": 3,
+      "rating_std": 1.0,
+      "total_useful": 68,
+      "avg_useful": 22.667,
+      "effectiveness_score": 4.912709609255419,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Methylphenidate",
+      "avg_rating": 9.16,
+      "review_count": 25,
+      "rating_std": 0.898,
+      "total_useful": 1790,
+      "avg_useful": 71.6,
+      "effectiveness_score": 6.192221880806995,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Mirtazapine",
+      "avg_rating": 7.249,
+      "review_count": 205,
+      "rating_std": 2.931,
+      "total_useful": 8938,
+      "avg_useful": 43.6,
+      "effectiveness_score": 6.343037471293213,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Modafinil",
+      "avg_rating": 7.962,
+      "review_count": 26,
+      "rating_std": 2.946,
+      "total_useful": 1047,
+      "avg_useful": 40.269,
+      "effectiveness_score": 5.589820951378611,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Nardil",
+      "avg_rating": 8.64,
+      "review_count": 25,
+      "rating_std": 1.729,
+      "total_useful": 1091,
+      "avg_useful": 43.64,
+      "effectiveness_score": 5.869225651809959,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Nefazodone",
+      "avg_rating": 8.938,
+      "review_count": 16,
+      "rating_std": 2.016,
+      "total_useful": 447,
+      "avg_useful": 27.938,
+      "effectiveness_score": 5.679279148373603,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Niacin",
+      "avg_rating": 9.857,
+      "review_count": 14,
+      "rating_std": 0.363,
+      "total_useful": 1178,
+      "avg_useful": 84.143,
+      "effectiveness_score": 6.24306701197152,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Nortriptyline",
+      "avg_rating": 6.882,
+      "review_count": 17,
+      "rating_std": 3.371,
+      "total_useful": 525,
+      "avg_useful": 30.882,
+      "effectiveness_score": 4.895849829856909,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Nuvigil",
+      "avg_rating": 6.909,
+      "review_count": 11,
+      "rating_std": 3.36,
+      "total_useful": 419,
+      "avg_useful": 38.091,
+      "effectiveness_score": 4.740058717008397,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Olanzapine",
+      "avg_rating": 6.196,
+      "review_count": 51,
+      "rating_std": 3.262,
+      "total_useful": 2192,
+      "avg_useful": 42.98,
+      "effectiveness_score": 5.225841428092356,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Oleptro",
+      "avg_rating": 4.0,
+      "review_count": 3,
+      "rating_std": 5.196,
+      "total_useful": 256,
+      "avg_useful": 85.333,
+      "effectiveness_score": 3.1418429701181103,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Paliperidone",
+      "avg_rating": 7.0,
+      "review_count": 3,
+      "rating_std": 2.646,
+      "total_useful": 45,
+      "avg_useful": 15.0,
+      "effectiveness_score": 4.009043905242125,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Pamelor",
+      "avg_rating": 4.0,
+      "review_count": 3,
+      "rating_std": 3.606,
+      "total_useful": 93,
+      "avg_useful": 31.0,
+      "effectiveness_score": 2.9462580767743365,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Parnate",
+      "avg_rating": 8.763,
+      "review_count": 38,
+      "rating_std": 2.432,
+      "total_useful": 1240,
+      "avg_useful": 32.632,
+      "effectiveness_score": 6.058140580017345,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Paroxetine",
+      "avg_rating": 6.66,
+      "review_count": 141,
+      "rating_std": 3.279,
+      "total_useful": 4352,
+      "avg_useful": 30.865,
+      "effectiveness_score": 5.849842171839962,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Paxil",
+      "avg_rating": 6.903,
+      "review_count": 103,
+      "rating_std": 3.095,
+      "total_useful": 4560,
+      "avg_useful": 44.272,
+      "effectiveness_score": 5.863996729504776,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Paxil CR",
+      "avg_rating": 6.5,
+      "review_count": 10,
+      "rating_std": 2.877,
+      "total_useful": 150,
+      "avg_useful": 15.0,
+      "effectiveness_score": 4.348617688227515,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Phenelzine",
+      "avg_rating": 9.077,
+      "review_count": 26,
+      "rating_std": 1.412,
+      "total_useful": 1100,
+      "avg_useful": 42.308,
+      "effectiveness_score": 6.061805256963415,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Pristiq",
+      "avg_rating": 7.189,
+      "review_count": 418,
+      "rating_std": 3.016,
+      "total_useful": 16265,
+      "avg_useful": 38.911,
+      "effectiveness_score": 6.65122813812836,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Provigil",
+      "avg_rating": 9.0,
+      "review_count": 4,
+      "rating_std": 2.0,
+      "total_useful": 468,
+      "avg_useful": 117.0,
+      "effectiveness_score": 5.346285260752819,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Prozac",
+      "avg_rating": 7.271,
+      "review_count": 207,
+      "rating_std": 3.014,
+      "total_useful": 12241,
+      "avg_useful": 59.135,
+      "effectiveness_score": 6.417099817374463,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Quetiapine",
+      "avg_rating": 6.989,
+      "review_count": 87,
+      "rating_std": 3.138,
+      "total_useful": 3265,
+      "avg_useful": 37.529,
+      "effectiveness_score": 5.781231562945146,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Remeron",
+      "avg_rating": 7.961,
+      "review_count": 77,
+      "rating_std": 2.302,
+      "total_useful": 6826,
+      "avg_useful": 88.649,
+      "effectiveness_score": 6.287425447444502,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Remeron SolTab",
+      "avg_rating": 8.0,
+      "review_count": 5,
+      "rating_std": 3.937,
+      "total_useful": 90,
+      "avg_useful": 18.0,
+      "effectiveness_score": 4.659954957789834,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Rexulti",
+      "avg_rating": 7.438,
+      "review_count": 16,
+      "rating_std": 2.92,
+      "total_useful": 476,
+      "avg_useful": 29.75,
+      "effectiveness_score": 5.084177505476166,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Risperdal",
+      "avg_rating": 6.2,
+      "review_count": 5,
+      "rating_std": 3.564,
+      "total_useful": 329,
+      "avg_useful": 65.8,
+      "effectiveness_score": 4.199256976393213,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Risperidone",
+      "avg_rating": 6.471,
+      "review_count": 17,
+      "rating_std": 3.023,
+      "total_useful": 604,
+      "avg_useful": 35.529,
+      "effectiveness_score": 4.761414290811955,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "S-adenosylmethionine",
+      "avg_rating": 8.4,
+      "review_count": 5,
+      "rating_std": 0.548,
+      "total_useful": 41,
+      "avg_useful": 8.2,
+      "effectiveness_score": 4.709661247629225,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Selegiline",
+      "avg_rating": 8.333,
+      "review_count": 21,
+      "rating_std": 2.058,
+      "total_useful": 1102,
+      "avg_useful": 52.476,
+      "effectiveness_score": 5.694371651695999,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Seroquel",
+      "avg_rating": 7.0,
+      "review_count": 19,
+      "rating_std": 3.162,
+      "total_useful": 550,
+      "avg_useful": 28.947,
+      "effectiveness_score": 4.985093554036136,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Seroquel XR",
+      "avg_rating": 7.314,
+      "review_count": 35,
+      "rating_std": 3.017,
+      "total_useful": 1938,
+      "avg_useful": 55.371,
+      "effectiveness_score": 5.5395354122368445,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Sertraline",
+      "avg_rating": 7.194,
+      "review_count": 469,
+      "rating_std": 3.008,
+      "total_useful": 23869,
+      "avg_useful": 50.893,
+      "effectiveness_score": 6.764445452078206,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Serzone",
+      "avg_rating": 9.8,
+      "review_count": 5,
+      "rating_std": 0.447,
+      "total_useful": 293,
+      "avg_useful": 58.6,
+      "effectiveness_score": 5.663352294581696,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Sinequan",
+      "avg_rating": 8.667,
+      "review_count": 3,
+      "rating_std": 1.528,
+      "total_useful": 192,
+      "avg_useful": 64.0,
+      "effectiveness_score": 4.974783308142261,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "St. john's wort",
+      "avg_rating": 8.767,
+      "review_count": 43,
+      "rating_std": 1.875,
+      "total_useful": 2951,
+      "avg_useful": 68.628,
+      "effectiveness_score": 6.274887136015203,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Symbyax",
+      "avg_rating": 8.846,
+      "review_count": 13,
+      "rating_std": 1.345,
+      "total_useful": 435,
+      "avg_useful": 33.462,
+      "effectiveness_score": 5.588289570795323,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Tramadol",
+      "avg_rating": 9.288,
+      "review_count": 52,
+      "rating_std": 1.273,
+      "total_useful": 3838,
+      "avg_useful": 73.808,
+      "effectiveness_score": 6.60087573369932,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Tranylcypromine",
+      "avg_rating": 8.526,
+      "review_count": 38,
+      "rating_std": 2.679,
+      "total_useful": 1150,
+      "avg_useful": 30.263,
+      "effectiveness_score": 5.946327074849376,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Trazodone",
+      "avg_rating": 7.175,
+      "review_count": 57,
+      "rating_std": 3.258,
+      "total_useful": 3952,
+      "avg_useful": 69.333,
+      "effectiveness_score": 5.76806412014454,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Trintellix",
+      "avg_rating": 5.996,
+      "review_count": 243,
+      "rating_std": 3.338,
+      "total_useful": 15004,
+      "avg_useful": 61.745,
+      "effectiveness_score": 5.993830316903749,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Venlafaxine",
+      "avg_rating": 6.475,
+      "review_count": 448,
+      "rating_std": 3.286,
+      "total_useful": 13984,
+      "avg_useful": 31.214,
+      "effectiveness_score": 6.354586765331363,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Viibryd",
+      "avg_rating": 6.814,
+      "review_count": 285,
+      "rating_std": 3.141,
+      "total_useful": 16036,
+      "avg_useful": 56.267,
+      "effectiveness_score": 6.383077065886766,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Vilazodone",
+      "avg_rating": 6.432,
+      "review_count": 315,
+      "rating_std": 3.29,
+      "total_useful": 15447,
+      "avg_useful": 49.038,
+      "effectiveness_score": 6.2518796522077675,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Vortioxetine",
+      "avg_rating": 5.881,
+      "review_count": 345,
+      "rating_std": 3.323,
+      "total_useful": 16305,
+      "avg_useful": 47.261,
+      "effectiveness_score": 6.069321400162675,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Wellbutrin",
+      "avg_rating": 7.335,
+      "review_count": 230,
+      "rating_std": 2.955,
+      "total_useful": 16736,
+      "avg_useful": 72.765,
+      "effectiveness_score": 6.537085186522477,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Wellbutrin SR",
+      "avg_rating": 6.868,
+      "review_count": 53,
+      "rating_std": 3.026,
+      "total_useful": 3179,
+      "avg_useful": 59.981,
+      "effectiveness_score": 5.58166105855284,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Wellbutrin XL",
+      "avg_rating": 7.799,
+      "review_count": 149,
+      "rating_std": 2.746,
+      "total_useful": 8733,
+      "avg_useful": 58.611,
+      "effectiveness_score": 6.464481476522228,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Xanax",
+      "avg_rating": 9.167,
+      "review_count": 42,
+      "rating_std": 1.807,
+      "total_useful": 3581,
+      "avg_useful": 85.262,
+      "effectiveness_score": 6.467520573889841,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Zoloft",
+      "avg_rating": 7.336,
+      "review_count": 292,
+      "rating_std": 2.898,
+      "total_useful": 23455,
+      "avg_useful": 80.325,
+      "effectiveness_score": 6.676682285274002,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Zyprexa",
+      "avg_rating": 5.786,
+      "review_count": 28,
+      "rating_std": 3.563,
+      "total_useful": 1670,
+      "avg_useful": 59.643,
+      "effectiveness_score": 4.830739661245812,
+      "effectiveness_category": "Moderately Effective"
+    }
+  ],
+  "Diabetes, Type 2": [
+    {
+      "drug_name": "ActoPlus Met",
+      "avg_rating": 6.5,
+      "review_count": 4,
+      "rating_std": 3.786,
+      "total_useful": 61,
+      "avg_useful": 15.25,
+      "effectiveness_score": 3.929152525707907,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Actos",
+      "avg_rating": 4.864,
+      "review_count": 22,
+      "rating_std": 3.563,
+      "total_useful": 827,
+      "avg_useful": 37.591,
+      "effectiveness_score": 4.251966302186588,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Afrezza",
+      "avg_rating": 7.105,
+      "review_count": 19,
+      "rating_std": 4.267,
+      "total_useful": 318,
+      "avg_useful": 16.737,
+      "effectiveness_score": 4.91274404274088,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Albiglutide",
+      "avg_rating": 4.111,
+      "review_count": 9,
+      "rating_std": 3.689,
+      "total_useful": 52,
+      "avg_useful": 5.778,
+      "effectiveness_score": 3.150560419459139,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Amaryl",
+      "avg_rating": 7.9,
+      "review_count": 10,
+      "rating_std": 2.601,
+      "total_useful": 753,
+      "avg_useful": 75.3,
+      "effectiveness_score": 5.232217119312249,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Avandia",
+      "avg_rating": 5.0,
+      "review_count": 4,
+      "rating_std": 4.69,
+      "total_useful": 58,
+      "avg_useful": 14.5,
+      "effectiveness_score": 3.315913554954256,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Basaglar",
+      "avg_rating": 4.333,
+      "review_count": 3,
+      "rating_std": 4.933,
+      "total_useful": 20,
+      "avg_useful": 6.667,
+      "effectiveness_score": 2.7748476753682634,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Bydureon",
+      "avg_rating": 7.059,
+      "review_count": 136,
+      "rating_std": 3.008,
+      "total_useful": 3377,
+      "avg_useful": 24.831,
+      "effectiveness_score": 5.949552197022387,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Byetta",
+      "avg_rating": 8.176,
+      "review_count": 51,
+      "rating_std": 2.398,
+      "total_useful": 1648,
+      "avg_useful": 32.314,
+      "effectiveness_score": 5.966787056013365,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Canagliflozin",
+      "avg_rating": 5.979,
+      "review_count": 146,
+      "rating_std": 3.615,
+      "total_useful": 5311,
+      "avg_useful": 36.377,
+      "effectiveness_score": 5.625942986637573,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Chromium picolinate",
+      "avg_rating": 9.333,
+      "review_count": 6,
+      "rating_std": 1.211,
+      "total_useful": 700,
+      "avg_useful": 116.667,
+      "effectiveness_score": 5.672703025560871,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Colesevelam",
+      "avg_rating": 3.6,
+      "review_count": 5,
+      "rating_std": 2.702,
+      "total_useful": 71,
+      "avg_useful": 14.2,
+      "effectiveness_score": 2.8598734902874567,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Dapagliflozin",
+      "avg_rating": 4.48,
+      "review_count": 50,
+      "rating_std": 3.358,
+      "total_useful": 818,
+      "avg_useful": 16.36,
+      "effectiveness_score": 4.336110812232703,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Dulaglutide",
+      "avg_rating": 5.965,
+      "review_count": 231,
+      "rating_std": 3.392,
+      "total_useful": 4235,
+      "avg_useful": 18.333,
+      "effectiveness_score": 5.713064823153807,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Empagliflozin",
+      "avg_rating": 7.098,
+      "review_count": 41,
+      "rating_std": 3.169,
+      "total_useful": 1321,
+      "avg_useful": 32.22,
+      "effectiveness_score": 5.421867657089524,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Empagliflozin / linagliptin",
+      "avg_rating": 6.0,
+      "review_count": 7,
+      "rating_std": 3.697,
+      "total_useful": 95,
+      "avg_useful": 13.571,
+      "effectiveness_score": 3.9579922860221295,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Exenatide",
+      "avg_rating": 7.198,
+      "review_count": 192,
+      "rating_std": 2.993,
+      "total_useful": 4846,
+      "avg_useful": 25.24,
+      "effectiveness_score": 6.18027393053726,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Farxiga",
+      "avg_rating": 5.025,
+      "review_count": 40,
+      "rating_std": 3.34,
+      "total_useful": 775,
+      "avg_useful": 19.375,
+      "effectiveness_score": 4.477943598702315,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Glimepiride",
+      "avg_rating": 7.667,
+      "review_count": 33,
+      "rating_std": 3.058,
+      "total_useful": 1526,
+      "avg_useful": 46.242,
+      "effectiveness_score": 5.615562899552281,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Glipizide",
+      "avg_rating": 6.724,
+      "review_count": 29,
+      "rating_std": 2.999,
+      "total_useful": 1832,
+      "avg_useful": 63.172,
+      "effectiveness_score": 5.237707315629478,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Glucophage",
+      "avg_rating": 6.316,
+      "review_count": 19,
+      "rating_std": 3.591,
+      "total_useful": 1242,
+      "avg_useful": 65.368,
+      "effectiveness_score": 4.871958047264441,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Glucotrol",
+      "avg_rating": 7.429,
+      "review_count": 7,
+      "rating_std": 3.823,
+      "total_useful": 654,
+      "avg_useful": 93.429,
+      "effectiveness_score": 4.913093492629136,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Glyburide",
+      "avg_rating": 7.0,
+      "review_count": 4,
+      "rating_std": 4.082,
+      "total_useful": 66,
+      "avg_useful": 16.5,
+      "effectiveness_score": 4.143447190012989,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Glyxambi",
+      "avg_rating": 6.375,
+      "review_count": 8,
+      "rating_std": 3.583,
+      "total_useful": 99,
+      "avg_useful": 12.375,
+      "effectiveness_score": 4.152021179108936,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Humalog",
+      "avg_rating": 8.0,
+      "review_count": 3,
+      "rating_std": 2.0,
+      "total_useful": 44,
+      "avg_useful": 14.667,
+      "effectiveness_score": 4.410554139623365,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Humalog KwikPen",
+      "avg_rating": 3.0,
+      "review_count": 3,
+      "rating_std": 1.732,
+      "total_useful": 7,
+      "avg_useful": 2.333,
+      "effectiveness_score": 2.06837983775539,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Insulin aspart",
+      "avg_rating": 7.333,
+      "review_count": 6,
+      "rating_std": 3.386,
+      "total_useful": 32,
+      "avg_useful": 5.333,
+      "effectiveness_score": 4.2390743746113495,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Insulin degludec",
+      "avg_rating": 6.5,
+      "review_count": 14,
+      "rating_std": 3.653,
+      "total_useful": 181,
+      "avg_useful": 12.929,
+      "effectiveness_score": 4.474707908599235,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Insulin detemir",
+      "avg_rating": 7.071,
+      "review_count": 14,
+      "rating_std": 3.269,
+      "total_useful": 171,
+      "avg_useful": 12.214,
+      "effectiveness_score": 4.693738645316216,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Insulin glargine",
+      "avg_rating": 7.238,
+      "review_count": 42,
+      "rating_std": 2.937,
+      "total_useful": 645,
+      "avg_useful": 15.357,
+      "effectiveness_score": 5.343119986264691,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Insulin inhalation, rapid acting",
+      "avg_rating": 7.105,
+      "review_count": 19,
+      "rating_std": 4.267,
+      "total_useful": 256,
+      "avg_useful": 13.474,
+      "effectiveness_score": 4.869521039162955,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Insulin lispro",
+      "avg_rating": 6.571,
+      "review_count": 7,
+      "rating_std": 2.936,
+      "total_useful": 53,
+      "avg_useful": 7.571,
+      "effectiveness_score": 4.0754357758818465,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Invokana",
+      "avg_rating": 6.112,
+      "review_count": 143,
+      "rating_std": 3.586,
+      "total_useful": 5539,
+      "avg_useful": 38.734,
+      "effectiveness_score": 5.681499440805803,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Janumet",
+      "avg_rating": 6.077,
+      "review_count": 26,
+      "rating_std": 3.687,
+      "total_useful": 940,
+      "avg_useful": 36.154,
+      "effectiveness_score": 4.8102752968500155,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Januvia",
+      "avg_rating": 5.745,
+      "review_count": 47,
+      "rating_std": 3.498,
+      "total_useful": 2356,
+      "avg_useful": 50.128,
+      "effectiveness_score": 5.034621387016553,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Jardiance",
+      "avg_rating": 6.359,
+      "review_count": 39,
+      "rating_std": 3.453,
+      "total_useful": 1196,
+      "avg_useful": 30.667,
+      "effectiveness_score": 5.090235348062146,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Jentadueto",
+      "avg_rating": 6.667,
+      "review_count": 6,
+      "rating_std": 3.445,
+      "total_useful": 25,
+      "avg_useful": 4.167,
+      "effectiveness_score": 3.9246895401724093,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Kombiglyze XR",
+      "avg_rating": 5.111,
+      "review_count": 9,
+      "rating_std": 3.219,
+      "total_useful": 31,
+      "avg_useful": 3.444,
+      "effectiveness_score": 3.4520250075811743,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Lantus",
+      "avg_rating": 6.933,
+      "review_count": 15,
+      "rating_std": 3.15,
+      "total_useful": 391,
+      "avg_useful": 26.067,
+      "effectiveness_score": 4.823325370172196,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Lantus Solostar",
+      "avg_rating": 7.75,
+      "review_count": 12,
+      "rating_std": 2.221,
+      "total_useful": 197,
+      "avg_useful": 16.417,
+      "effectiveness_score": 4.958184472303168,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Levemir",
+      "avg_rating": 7.0,
+      "review_count": 14,
+      "rating_std": 3.442,
+      "total_useful": 240,
+      "avg_useful": 17.143,
+      "effectiveness_score": 4.731886828838791,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Linagliptin",
+      "avg_rating": 4.333,
+      "review_count": 18,
+      "rating_std": 3.343,
+      "total_useful": 517,
+      "avg_useful": 28.722,
+      "effectiveness_score": 3.8895523005716197,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Liraglutide",
+      "avg_rating": 7.722,
+      "review_count": 270,
+      "rating_std": 2.917,
+      "total_useful": 7678,
+      "avg_useful": 28.437,
+      "effectiveness_score": 6.584214310279624,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Metformin",
+      "avg_rating": 6.21,
+      "review_count": 81,
+      "rating_std": 3.093,
+      "total_useful": 3746,
+      "avg_useful": 46.247,
+      "effectiveness_score": 5.476189890937769,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Metformin / sitagliptin",
+      "avg_rating": 5.0,
+      "review_count": 5,
+      "rating_std": 3.808,
+      "total_useful": 15,
+      "avg_useful": 3.0,
+      "effectiveness_score": 3.112844254101564,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Novolog",
+      "avg_rating": 4.5,
+      "review_count": 4,
+      "rating_std": 3.0,
+      "total_useful": 44,
+      "avg_useful": 11.0,
+      "effectiveness_score": 3.069163871684294,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Onglyza",
+      "avg_rating": 6.545,
+      "review_count": 11,
+      "rating_std": 3.56,
+      "total_useful": 390,
+      "avg_useful": 35.455,
+      "effectiveness_score": 4.579143331494877,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Pioglitazone",
+      "avg_rating": 4.333,
+      "review_count": 24,
+      "rating_std": 3.319,
+      "total_useful": 861,
+      "avg_useful": 35.875,
+      "effectiveness_score": 4.073867309349624,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Prandin",
+      "avg_rating": 9.0,
+      "review_count": 4,
+      "rating_std": 1.414,
+      "total_useful": 142,
+      "avg_useful": 35.5,
+      "effectiveness_score": 5.116825320494722,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Repaglinide",
+      "avg_rating": 9.0,
+      "review_count": 4,
+      "rating_std": 1.414,
+      "total_useful": 108,
+      "avg_useful": 27.0,
+      "effectiveness_score": 5.0625259708885695,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Rosiglitazone",
+      "avg_rating": 4.6,
+      "review_count": 5,
+      "rating_std": 4.159,
+      "total_useful": 70,
+      "avg_useful": 14.0,
+      "effectiveness_score": 3.2494474176498334,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Saxagliptin",
+      "avg_rating": 6.1,
+      "review_count": 10,
+      "rating_std": 3.51,
+      "total_useful": 304,
+      "avg_useful": 30.4,
+      "effectiveness_score": 4.3256038861632105,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Sitagliptin",
+      "avg_rating": 5.471,
+      "review_count": 51,
+      "rating_std": 3.523,
+      "total_useful": 2496,
+      "avg_useful": 48.941,
+      "effectiveness_score": 4.960451393174933,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Tanzeum",
+      "avg_rating": 5.333,
+      "review_count": 6,
+      "rating_std": 3.882,
+      "total_useful": 48,
+      "avg_useful": 8.0,
+      "effectiveness_score": 3.5158205127778834,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Toujeo",
+      "avg_rating": 5.556,
+      "review_count": 9,
+      "rating_std": 3.358,
+      "total_useful": 62,
+      "avg_useful": 6.889,
+      "effectiveness_score": 3.764748778821312,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Toujeo Solostar",
+      "avg_rating": 8.0,
+      "review_count": 3,
+      "rating_std": 1.732,
+      "total_useful": 25,
+      "avg_useful": 8.333,
+      "effectiveness_score": 4.304110837023719,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Tradjenta",
+      "avg_rating": 4.381,
+      "review_count": 21,
+      "rating_std": 3.309,
+      "total_useful": 557,
+      "avg_useful": 26.524,
+      "effectiveness_score": 3.967791769142843,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Tresiba",
+      "avg_rating": 7.25,
+      "review_count": 12,
+      "rating_std": 3.864,
+      "total_useful": 182,
+      "avg_useful": 15.167,
+      "effectiveness_score": 4.731941248333062,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Trulicity",
+      "avg_rating": 5.805,
+      "review_count": 221,
+      "rating_std": 3.465,
+      "total_useful": 4149,
+      "avg_useful": 18.774,
+      "effectiveness_score": 5.63137235377998,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Victoza",
+      "avg_rating": 7.98,
+      "review_count": 255,
+      "rating_std": 2.741,
+      "total_useful": 7944,
+      "avg_useful": 31.153,
+      "effectiveness_score": 6.678343669774226,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Welchol",
+      "avg_rating": 3.5,
+      "review_count": 4,
+      "rating_std": 3.109,
+      "total_useful": 74,
+      "avg_useful": 18.5,
+      "effectiveness_score": 2.77066581804859,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Xigduo XR",
+      "avg_rating": 9.25,
+      "review_count": 4,
+      "rating_std": 0.957,
+      "total_useful": 91,
+      "avg_useful": 22.75,
+      "effectiveness_score": 5.1382877094772885,
+      "effectiveness_category": "Effective"
+    }
+  ],
+  "High Blood Pressure": [
+    {
+      "drug_name": "Adcirca",
+      "avg_rating": 6.0,
+      "review_count": 3,
+      "rating_std": 1.0,
+      "total_useful": 23,
+      "avg_useful": 7.667,
+      "effectiveness_score": 3.5014990744055567,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Aldactone",
+      "avg_rating": 4.333,
+      "review_count": 3,
+      "rating_std": 4.933,
+      "total_useful": 388,
+      "avg_useful": 129.333,
+      "effectiveness_score": 3.358659056547268,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Aliskiren",
+      "avg_rating": 7.471,
+      "review_count": 17,
+      "rating_std": 3.125,
+      "total_useful": 389,
+      "avg_useful": 22.882,
+      "effectiveness_score": 5.072983299436013,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Aliskiren / hydrochlorothiazide",
+      "avg_rating": 8.0,
+      "review_count": 3,
+      "rating_std": 1.732,
+      "total_useful": 36,
+      "avg_useful": 12.0,
+      "effectiveness_score": 4.374675111948267,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Altace",
+      "avg_rating": 5.5,
+      "review_count": 4,
+      "rating_std": 4.655,
+      "total_useful": 449,
+      "avg_useful": 112.25,
+      "effectiveness_score": 3.922364356242431,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Ambrisentan",
+      "avg_rating": 8.0,
+      "review_count": 5,
+      "rating_std": 3.937,
+      "total_useful": 97,
+      "avg_useful": 19.4,
+      "effectiveness_score": 4.674776552220579,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Amlodipine",
+      "avg_rating": 4.876,
+      "review_count": 153,
+      "rating_std": 3.413,
+      "total_useful": 10060,
+      "avg_useful": 65.752,
+      "effectiveness_score": 5.327430470959068,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Amlodipine / benazepril",
+      "avg_rating": 6.04,
+      "review_count": 25,
+      "rating_std": 3.102,
+      "total_useful": 706,
+      "avg_useful": 28.24,
+      "effectiveness_score": 4.730013446609163,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Amlodipine / hydrochlorothiazide / olmesartan",
+      "avg_rating": 7.727,
+      "review_count": 11,
+      "rating_std": 2.76,
+      "total_useful": 123,
+      "avg_useful": 11.182,
+      "effectiveness_score": 4.826924052738258,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Amlodipine / olmesartan",
+      "avg_rating": 8.735,
+      "review_count": 34,
+      "rating_std": 2.192,
+      "total_useful": 940,
+      "avg_useful": 27.647,
+      "effectiveness_score": 5.961321367165904,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Amlodipine / telmisartan",
+      "avg_rating": 8.5,
+      "review_count": 4,
+      "rating_std": 1.732,
+      "total_useful": 40,
+      "avg_useful": 10.0,
+      "effectiveness_score": 4.662149008154547,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Atacand",
+      "avg_rating": 5.0,
+      "review_count": 4,
+      "rating_std": 4.243,
+      "total_useful": 100,
+      "avg_useful": 25.0,
+      "effectiveness_score": 3.4249285268791416,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Atenolol",
+      "avg_rating": 6.694,
+      "review_count": 62,
+      "rating_std": 3.165,
+      "total_useful": 2263,
+      "avg_useful": 36.5,
+      "effectiveness_score": 5.48952770962361,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Avalide",
+      "avg_rating": 9.667,
+      "review_count": 3,
+      "rating_std": 0.577,
+      "total_useful": 43,
+      "avg_useful": 14.333,
+      "effectiveness_score": 5.102937776020063,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Avapro",
+      "avg_rating": 4.957,
+      "review_count": 23,
+      "rating_std": 3.126,
+      "total_useful": 1608,
+      "avg_useful": 69.913,
+      "effectiveness_score": 4.437126327218323,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Azilsartan medoxomil",
+      "avg_rating": 5.75,
+      "review_count": 12,
+      "rating_std": 3.911,
+      "total_useful": 170,
+      "avg_useful": 14.167,
+      "effectiveness_score": 4.11817997017817,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Azilsartan medoxomil / chlorthalidone",
+      "avg_rating": 6.75,
+      "review_count": 8,
+      "rating_std": 3.284,
+      "total_useful": 140,
+      "avg_useful": 17.5,
+      "effectiveness_score": 4.372262021677994,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Azor",
+      "avg_rating": 8.85,
+      "review_count": 40,
+      "rating_std": 1.791,
+      "total_useful": 1012,
+      "avg_useful": 25.3,
+      "effectiveness_score": 6.074035372670416,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Benazepril",
+      "avg_rating": 6.556,
+      "review_count": 9,
+      "rating_std": 3.395,
+      "total_useful": 140,
+      "avg_useful": 15.556,
+      "effectiveness_score": 4.325680634529024,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Benicar",
+      "avg_rating": 7.364,
+      "review_count": 55,
+      "rating_std": 2.69,
+      "total_useful": 2379,
+      "avg_useful": 43.255,
+      "effectiveness_score": 5.735276931556359,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Benicar HCT",
+      "avg_rating": 6.765,
+      "review_count": 17,
+      "rating_std": 3.382,
+      "total_useful": 296,
+      "avg_useful": 17.412,
+      "effectiveness_score": 4.734678584978773,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Bisoprolol",
+      "avg_rating": 9.4,
+      "review_count": 5,
+      "rating_std": 0.894,
+      "total_useful": 248,
+      "avg_useful": 49.6,
+      "effectiveness_score": 5.453816730515423,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Bisoprolol / hydrochlorothiazide",
+      "avg_rating": 5.438,
+      "review_count": 16,
+      "rating_std": 3.502,
+      "total_useful": 148,
+      "avg_useful": 9.25,
+      "effectiveness_score": 4.048165614472593,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Bystolic",
+      "avg_rating": 6.616,
+      "review_count": 99,
+      "rating_std": 3.542,
+      "total_useful": 4355,
+      "avg_useful": 43.99,
+      "effectiveness_score": 5.725829685323862,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Candesartan",
+      "avg_rating": 4.643,
+      "review_count": 14,
+      "rating_std": 3.411,
+      "total_useful": 350,
+      "avg_useful": 25.0,
+      "effectiveness_score": 3.8644429012605173,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Captopril",
+      "avg_rating": 9.333,
+      "review_count": 3,
+      "rating_std": 1.155,
+      "total_useful": 27,
+      "avg_useful": 9.0,
+      "effectiveness_score": 4.861932922667992,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Cartia XT",
+      "avg_rating": 8.0,
+      "review_count": 3,
+      "rating_std": 2.0,
+      "total_useful": 121,
+      "avg_useful": 40.333,
+      "effectiveness_score": 4.610025850615952,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Carvedilol",
+      "avg_rating": 3.821,
+      "review_count": 28,
+      "rating_std": 3.244,
+      "total_useful": 1466,
+      "avg_useful": 52.357,
+      "effectiveness_score": 4.0203463813446145,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Catapres-TTS",
+      "avg_rating": 7.4,
+      "review_count": 5,
+      "rating_std": 3.782,
+      "total_useful": 314,
+      "avg_useful": 62.8,
+      "effectiveness_score": 4.668954120938395,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Chlorthalidone",
+      "avg_rating": 4.4,
+      "review_count": 5,
+      "rating_std": 3.782,
+      "total_useful": 71,
+      "avg_useful": 14.2,
+      "effectiveness_score": 3.1737728169764794,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Clonidine",
+      "avg_rating": 6.636,
+      "review_count": 33,
+      "rating_std": 3.21,
+      "total_useful": 1638,
+      "avg_useful": 49.636,
+      "effectiveness_score": 5.216429442254754,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Coreg",
+      "avg_rating": 3.889,
+      "review_count": 9,
+      "rating_std": 3.48,
+      "total_useful": 710,
+      "avg_useful": 78.889,
+      "effectiveness_score": 3.58203144243029,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Coreg CR",
+      "avg_rating": 6.667,
+      "review_count": 3,
+      "rating_std": 3.512,
+      "total_useful": 101,
+      "avg_useful": 33.667,
+      "effectiveness_score": 4.029845991560197,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Cozaar",
+      "avg_rating": 6.273,
+      "review_count": 33,
+      "rating_std": 3.421,
+      "total_useful": 3562,
+      "avg_useful": 107.939,
+      "effectiveness_score": 5.225399107402645,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Diltiazem",
+      "avg_rating": 6.789,
+      "review_count": 19,
+      "rating_std": 3.259,
+      "total_useful": 769,
+      "avg_useful": 40.474,
+      "effectiveness_score": 4.967077475103834,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Diovan",
+      "avg_rating": 6.512,
+      "review_count": 43,
+      "rating_std": 3.066,
+      "total_useful": 2780,
+      "avg_useful": 64.651,
+      "effectiveness_score": 5.350764256792069,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Diovan HCT",
+      "avg_rating": 6.545,
+      "review_count": 11,
+      "rating_std": 3.503,
+      "total_useful": 339,
+      "avg_useful": 30.818,
+      "effectiveness_score": 4.551468535735813,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Doxazosin",
+      "avg_rating": 7.333,
+      "review_count": 9,
+      "rating_std": 2.345,
+      "total_useful": 374,
+      "avg_useful": 41.556,
+      "effectiveness_score": 4.839256099310532,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Dyazide",
+      "avg_rating": 4.5,
+      "review_count": 4,
+      "rating_std": 3.786,
+      "total_useful": 170,
+      "avg_useful": 42.5,
+      "effectiveness_score": 3.332058359999421,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Edarbi",
+      "avg_rating": 6.182,
+      "review_count": 11,
+      "rating_std": 4.143,
+      "total_useful": 164,
+      "avg_useful": 14.909,
+      "effectiveness_score": 4.258904994052507,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Edarbyclor",
+      "avg_rating": 7.125,
+      "review_count": 8,
+      "rating_std": 3.482,
+      "total_useful": 99,
+      "avg_useful": 12.375,
+      "effectiveness_score": 4.452512878493085,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Enalapril",
+      "avg_rating": 6.5,
+      "review_count": 4,
+      "rating_std": 3.873,
+      "total_useful": 97,
+      "avg_useful": 24.25,
+      "effectiveness_score": 4.0203461089472095,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Exforge",
+      "avg_rating": 6.148,
+      "review_count": 27,
+      "rating_std": 2.685,
+      "total_useful": 765,
+      "avg_useful": 28.333,
+      "effectiveness_score": 4.8142348290630945,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Felodipine",
+      "avg_rating": 8.0,
+      "review_count": 4,
+      "rating_std": 2.828,
+      "total_useful": 79,
+      "avg_useful": 19.75,
+      "effectiveness_score": 4.585360002650377,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Furosemide",
+      "avg_rating": 6.286,
+      "review_count": 7,
+      "rating_std": 3.729,
+      "total_useful": 161,
+      "avg_useful": 23.0,
+      "effectiveness_score": 4.176897849237465,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Guanfacine",
+      "avg_rating": 6.75,
+      "review_count": 4,
+      "rating_std": 2.363,
+      "total_useful": 55,
+      "avg_useful": 13.75,
+      "effectiveness_score": 4.017637067214756,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Hydralazine",
+      "avg_rating": 3.364,
+      "review_count": 11,
+      "rating_std": 2.838,
+      "total_useful": 448,
+      "avg_useful": 40.727,
+      "effectiveness_score": 3.3385318095875087,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Hydrochlorothiazide",
+      "avg_rating": 5.485,
+      "review_count": 66,
+      "rating_std": 3.202,
+      "total_useful": 3247,
+      "avg_useful": 49.197,
+      "effectiveness_score": 5.096364917411061,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Hydrochlorothiazide / irbesartan",
+      "avg_rating": 9.4,
+      "review_count": 5,
+      "rating_std": 0.894,
+      "total_useful": 43,
+      "avg_useful": 8.6,
+      "effectiveness_score": 5.107164078006134,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Hydrochlorothiazide / lisinopril",
+      "avg_rating": 6.968,
+      "review_count": 31,
+      "rating_std": 2.834,
+      "total_useful": 1407,
+      "avg_useful": 45.387,
+      "effectiveness_score": 5.302988298632134,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Hydrochlorothiazide / losartan",
+      "avg_rating": 8.0,
+      "review_count": 25,
+      "rating_std": 2.901,
+      "total_useful": 893,
+      "avg_useful": 35.72,
+      "effectiveness_score": 5.562204569145583,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Hydrochlorothiazide / olmesartan",
+      "avg_rating": 7.294,
+      "review_count": 17,
+      "rating_std": 2.932,
+      "total_useful": 274,
+      "avg_useful": 16.118,
+      "effectiveness_score": 4.933498096851299,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Hydrochlorothiazide / telmisartan",
+      "avg_rating": 8.0,
+      "review_count": 10,
+      "rating_std": 2.906,
+      "total_useful": 131,
+      "avg_useful": 13.1,
+      "effectiveness_score": 4.921530604861649,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Hydrochlorothiazide / triamterene",
+      "avg_rating": 5.652,
+      "review_count": 23,
+      "rating_std": 3.325,
+      "total_useful": 817,
+      "avg_useful": 35.522,
+      "effectiveness_score": 4.578710003708171,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Hydrochlorothiazide / valsartan",
+      "avg_rating": 6.714,
+      "review_count": 14,
+      "rating_std": 2.972,
+      "total_useful": 465,
+      "avg_useful": 33.214,
+      "effectiveness_score": 4.752028420791241,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Hyzaar",
+      "avg_rating": 7.071,
+      "review_count": 14,
+      "rating_std": 3.583,
+      "total_useful": 635,
+      "avg_useful": 45.357,
+      "effectiveness_score": 4.953674541709139,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Inderal",
+      "avg_rating": 4.833,
+      "review_count": 6,
+      "rating_std": 4.262,
+      "total_useful": 249,
+      "avg_useful": 41.5,
+      "effectiveness_score": 3.640269409208846,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Irbesartan",
+      "avg_rating": 5.091,
+      "review_count": 33,
+      "rating_std": 3.086,
+      "total_useful": 1734,
+      "avg_useful": 52.545,
+      "effectiveness_score": 4.610534508881108,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Lasix",
+      "avg_rating": 6.8,
+      "review_count": 5,
+      "rating_std": 3.834,
+      "total_useful": 141,
+      "avg_useful": 28.2,
+      "effectiveness_score": 4.269380054109108,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Latanoprost",
+      "avg_rating": 8.5,
+      "review_count": 4,
+      "rating_std": 1.732,
+      "total_useful": 118,
+      "avg_useful": 29.5,
+      "effectiveness_score": 4.875259293435992,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Letairis",
+      "avg_rating": 8.625,
+      "review_count": 8,
+      "rating_std": 2.774,
+      "total_useful": 152,
+      "avg_useful": 19.0,
+      "effectiveness_score": 5.1417520427999674,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Lisinopril",
+      "avg_rating": 5.155,
+      "review_count": 264,
+      "rating_std": 3.48,
+      "total_useful": 12489,
+      "avg_useful": 47.307,
+      "effectiveness_score": 5.64477709699122,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Lopressor",
+      "avg_rating": 6.75,
+      "review_count": 8,
+      "rating_std": 2.915,
+      "total_useful": 438,
+      "avg_useful": 54.75,
+      "effectiveness_score": 4.601610039979374,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Losartan",
+      "avg_rating": 5.524,
+      "review_count": 166,
+      "rating_std": 3.339,
+      "total_useful": 11365,
+      "avg_useful": 68.464,
+      "effectiveness_score": 5.635721273069936,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Lotensin",
+      "avg_rating": 5.0,
+      "review_count": 3,
+      "rating_std": 4.583,
+      "total_useful": 51,
+      "avg_useful": 17.0,
+      "effectiveness_score": 3.2240485691577514,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Lotrel",
+      "avg_rating": 6.286,
+      "review_count": 14,
+      "rating_std": 2.268,
+      "total_useful": 471,
+      "avg_useful": 33.643,
+      "effectiveness_score": 4.588810612649732,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Methyldopa",
+      "avg_rating": 8.333,
+      "review_count": 3,
+      "rating_std": 2.082,
+      "total_useful": 13,
+      "avg_useful": 4.333,
+      "effectiveness_score": 4.309346237594515,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Metoprolol",
+      "avg_rating": 6.293,
+      "review_count": 92,
+      "rating_std": 2.884,
+      "total_useful": 4247,
+      "avg_useful": 46.163,
+      "effectiveness_score": 5.57356721346545,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Metoprolol Tartrate",
+      "avg_rating": 6.2,
+      "review_count": 5,
+      "rating_std": 3.633,
+      "total_useful": 207,
+      "avg_useful": 41.4,
+      "effectiveness_score": 4.106619743348007,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Micardis",
+      "avg_rating": 6.765,
+      "review_count": 17,
+      "rating_std": 3.113,
+      "total_useful": 806,
+      "avg_useful": 47.412,
+      "effectiveness_score": 4.936089414438838,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Micardis HCT",
+      "avg_rating": 7.111,
+      "review_count": 9,
+      "rating_std": 3.551,
+      "total_useful": 123,
+      "avg_useful": 13.667,
+      "effectiveness_score": 4.521205033724121,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Nebivolol",
+      "avg_rating": 6.764,
+      "review_count": 110,
+      "rating_std": 3.4,
+      "total_useful": 4800,
+      "avg_useful": 43.636,
+      "effectiveness_score": 5.836502234827161,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Nifedical XL",
+      "avg_rating": 5.667,
+      "review_count": 3,
+      "rating_std": 4.041,
+      "total_useful": 45,
+      "avg_useful": 15.0,
+      "effectiveness_score": 3.4682539214961148,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Nifedipine",
+      "avg_rating": 5.941,
+      "review_count": 17,
+      "rating_std": 2.883,
+      "total_useful": 468,
+      "avg_useful": 27.529,
+      "effectiveness_score": 4.499385364601757,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Norvasc",
+      "avg_rating": 4.658,
+      "review_count": 38,
+      "rating_std": 3.087,
+      "total_useful": 4215,
+      "avg_useful": 110.921,
+      "effectiveness_score": 4.656064736693509,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Olmesartan",
+      "avg_rating": 7.597,
+      "review_count": 72,
+      "rating_std": 2.641,
+      "total_useful": 2753,
+      "avg_useful": 38.236,
+      "effectiveness_score": 5.937564750349999,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Perindopril",
+      "avg_rating": 6.222,
+      "review_count": 9,
+      "rating_std": 3.308,
+      "total_useful": 134,
+      "avg_useful": 14.889,
+      "effectiveness_score": 4.183843111255352,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Prazosin",
+      "avg_rating": 4.333,
+      "review_count": 6,
+      "rating_std": 3.445,
+      "total_useful": 91,
+      "avg_useful": 15.167,
+      "effectiveness_score": 3.2438279479779206,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Prinivil",
+      "avg_rating": 6.143,
+      "review_count": 7,
+      "rating_std": 3.848,
+      "total_useful": 466,
+      "avg_useful": 66.571,
+      "effectiveness_score": 4.330925376744001,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Procardia XL",
+      "avg_rating": 5.667,
+      "review_count": 3,
+      "rating_std": 4.041,
+      "total_useful": 208,
+      "avg_useful": 69.333,
+      "effectiveness_score": 3.770992492591258,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Propranolol",
+      "avg_rating": 6.8,
+      "review_count": 15,
+      "rating_std": 3.783,
+      "total_useful": 421,
+      "avg_useful": 28.067,
+      "effectiveness_score": 4.781685059784385,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Quinapril",
+      "avg_rating": 5.667,
+      "review_count": 3,
+      "rating_std": 2.309,
+      "total_useful": 27,
+      "avg_useful": 9.0,
+      "effectiveness_score": 3.3793498208273394,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Ramipril",
+      "avg_rating": 6.441,
+      "review_count": 34,
+      "rating_std": 3.145,
+      "total_useful": 1418,
+      "avg_useful": 41.706,
+      "effectiveness_score": 5.118671406231065,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Reserpine",
+      "avg_rating": 9.667,
+      "review_count": 3,
+      "rating_std": 0.577,
+      "total_useful": 27,
+      "avg_useful": 9.0,
+      "effectiveness_score": 5.012540751271452,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Revatio",
+      "avg_rating": 5.857,
+      "review_count": 7,
+      "rating_std": 4.259,
+      "total_useful": 140,
+      "avg_useful": 20.0,
+      "effectiveness_score": 3.97539946244686,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Selexipag",
+      "avg_rating": 4.2,
+      "review_count": 5,
+      "rating_std": 2.588,
+      "total_useful": 37,
+      "avg_useful": 7.4,
+      "effectiveness_score": 2.9729157527582872,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Sildenafil",
+      "avg_rating": 6.5,
+      "review_count": 6,
+      "rating_std": 4.278,
+      "total_useful": 130,
+      "avg_useful": 21.667,
+      "effectiveness_score": 4.177759080027533,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Spironolactone",
+      "avg_rating": 5.778,
+      "review_count": 18,
+      "rating_std": 3.574,
+      "total_useful": 885,
+      "avg_useful": 49.167,
+      "effectiveness_score": 4.573737786100944,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Tadalafil",
+      "avg_rating": 5.25,
+      "review_count": 4,
+      "rating_std": 3.096,
+      "total_useful": 43,
+      "avg_useful": 10.75,
+      "effectiveness_score": 3.364083363013882,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Tafluprost",
+      "avg_rating": 7.333,
+      "review_count": 3,
+      "rating_std": 2.887,
+      "total_useful": 23,
+      "avg_useful": 7.667,
+      "effectiveness_score": 4.010425855985181,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Tekturna",
+      "avg_rating": 7.3,
+      "review_count": 20,
+      "rating_std": 3.13,
+      "total_useful": 426,
+      "avg_useful": 21.3,
+      "effectiveness_score": 5.0689266090232845,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Tekturna HCT",
+      "avg_rating": 9.333,
+      "review_count": 3,
+      "rating_std": 0.577,
+      "total_useful": 71,
+      "avg_useful": 23.667,
+      "effectiveness_score": 5.067833073039623,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Telmisartan",
+      "avg_rating": 6.45,
+      "review_count": 20,
+      "rating_std": 3.284,
+      "total_useful": 860,
+      "avg_useful": 43.0,
+      "effectiveness_score": 4.868318302604067,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Tenormin",
+      "avg_rating": 8.4,
+      "review_count": 5,
+      "rating_std": 0.894,
+      "total_useful": 361,
+      "avg_useful": 72.2,
+      "effectiveness_score": 5.128654993587636,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Terazosin",
+      "avg_rating": 7.0,
+      "review_count": 5,
+      "rating_std": 3.937,
+      "total_useful": 182,
+      "avg_useful": 36.4,
+      "effectiveness_score": 4.399680287054749,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Toprol-XL",
+      "avg_rating": 7.125,
+      "review_count": 24,
+      "rating_std": 2.818,
+      "total_useful": 1567,
+      "avg_useful": 65.292,
+      "effectiveness_score": 5.313365711057931,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Trandolapril / verapamil",
+      "avg_rating": 9.0,
+      "review_count": 3,
+      "rating_std": 1.732,
+      "total_useful": 28,
+      "avg_useful": 9.333,
+      "effectiveness_score": 4.725950695416717,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Treprostinil",
+      "avg_rating": 7.2,
+      "review_count": 5,
+      "rating_std": 2.049,
+      "total_useful": 32,
+      "avg_useful": 6.4,
+      "effectiveness_score": 4.149626991631736,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Tribenzor",
+      "avg_rating": 7.357,
+      "review_count": 14,
+      "rating_std": 2.59,
+      "total_useful": 179,
+      "avg_useful": 12.786,
+      "effectiveness_score": 4.821661583712047,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Twynsta",
+      "avg_rating": 8.833,
+      "review_count": 6,
+      "rating_std": 1.472,
+      "total_useful": 74,
+      "avg_useful": 12.333,
+      "effectiveness_score": 5.020923741857514,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Tyvaso",
+      "avg_rating": 7.875,
+      "review_count": 8,
+      "rating_std": 0.835,
+      "total_useful": 61,
+      "avg_useful": 7.625,
+      "effectiveness_score": 4.689090163016425,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Uptravi",
+      "avg_rating": 4.667,
+      "review_count": 3,
+      "rating_std": 2.517,
+      "total_useful": 23,
+      "avg_useful": 7.667,
+      "effectiveness_score": 2.946732398261115,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Valsartan",
+      "avg_rating": 5.773,
+      "review_count": 66,
+      "rating_std": 3.35,
+      "total_useful": 3128,
+      "avg_useful": 47.394,
+      "effectiveness_score": 5.203290040298193,
+      "effectiveness_category": "Highly Effective"
+    },
+    {
+      "drug_name": "Valturna",
+      "avg_rating": 6.429,
+      "review_count": 7,
+      "rating_std": 3.309,
+      "total_useful": 23,
+      "avg_useful": 3.286,
+      "effectiveness_score": 3.854250469232626,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Verapamil",
+      "avg_rating": 6.25,
+      "review_count": 4,
+      "rating_std": 4.5,
+      "total_useful": 82,
+      "avg_useful": 20.5,
+      "effectiveness_score": 3.884781313471368,
+      "effectiveness_category": "Limited Effectiveness"
+    },
+    {
+      "drug_name": "Zestoretic",
+      "avg_rating": 8.333,
+      "review_count": 3,
+      "rating_std": 2.887,
+      "total_useful": 140,
+      "avg_useful": 46.667,
+      "effectiveness_score": 4.7645670679912255,
+      "effectiveness_category": "Effective"
+    },
+    {
+      "drug_name": "Zestril",
+      "avg_rating": 6.0,
+      "review_count": 7,
+      "rating_std": 3.266,
+      "total_useful": 481,
+      "avg_useful": 68.714,
+      "effectiveness_score": 4.282862447995741,
+      "effectiveness_category": "Moderately Effective"
+    },
+    {
+      "drug_name": "Ziac",
+      "avg_rating": 5.7,
+      "review_count": 10,
+      "rating_std": 3.268,
+      "total_useful": 111,
+      "avg_useful": 11.1,
+      "effectiveness_score": 3.9664985341678833,
+      "effectiveness_category": "Limited Effectiveness"
+    }
+  ]
+}

@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+{% block title %}Drug Advisor - Results{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container py-5 fade-in">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            {% if is_ood %}
+            <!-- Out of Distribution Warning -->
+            <div class="alert alert-warning fade-in">
+                <h5><i class="fas fa-exclamation-triangle me-2"></i>Unable to Make Confident Prediction</h5>
+                <p>{{ ood_reason }}</p>
+                <hr>
+                <p class="mb-0"><strong>Suggestion:</strong> {{ suggestion }}</p>
+            </div>
+            {% endif %}
+
+            {% if is_conversational %}
+            <!-- Conversational Response -->
+            <div class="alert alert-info fade-in">
+                <h5><i class="fas fa-comment me-2"></i>{{ condition }}</h5>
+                <p class="mb-0">{{ message }}</p>
+            </div>
+            {% endif %}
+            
+            <!-- Prediction Card -->
+            <div class="card shadow-lg mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-clipboard-check me-2"></i>
+                        Analysis Results
+                    </h4>
+                </div>
+                <div class="card-body">
+                    
+                    <!-- Condition Prediction -->
+                    <div class="text-center mb-4">
+                        <h5 class="text-muted mb-3">Predicted Condition</h5>
+                        <h2 class="condition-display">{{ condition }}</h2>
+                        
+                        {% set badge_class = {
+                            'High': 'bg-success',
+                            'Moderate': 'bg-warning text-dark',
+                            'Low': 'bg-danger',
+                            'Very Low': 'bg-danger'
+                        }.get(confidence_level, 'bg-secondary') %}
+                        
+                        <span class="badge {{ badge_class }} confidence-badge">
+                            {{ confidence_level }} Confidence ({{ "%.1f"|format(confidence * 100) }}%)
+                        </span>
+                    </div>
+                    
+                    <!-- Original Symptoms -->
+                    <div class="symptom-box mb-4">
+                        <h6 class="text-muted mb-2">
+                            <i class="fas fa-comment-medical me-1"></i>
+                            Your Description:
+                        </h6>
+                        <p class="mb-0 fst-italic">"{{ symptoms }}"</p>
+                    </div>
+                    
+                    <!-- Sentiment Analysis -->
+                    {% if sentiment %}
+                    <div class="mb-4">
+                        <h6 class="text-muted mb-2">Sentiment Analysis:</h6>
+                        
+                        {% set pos_val = sentiment.positive|default(sentiment.pos)|default(0) %}
+                        {% set neu_val = sentiment.neutral|default(sentiment.neu)|default(0) %}
+                        {% set neg_val = sentiment.negative|default(sentiment.neg)|default(0) %}
+                        
+                        {% set pos_pct = (pos_val * 100)|round|int %}
+                        {% set neu_pct = (neu_val * 100)|round|int %}
+                        {% set neg_pct = (neg_val * 100)|round|int %}
+                        
+                        <div class="progress mb-2" style="height: 30px;">
+                            {% if pos_pct > 0 %}
+                            <div class="progress-bar bg-success" style="width: {{ pos_pct }}%;">
+                                Positive {{ pos_pct }}%
+                            </div>
+                            {% endif %}
+                            {% if neu_pct > 0 %}
+                            <div class="progress-bar bg-secondary" style="width: {{ neu_pct }}%;">
+                                Neutral {{ neu_pct }}%
+                            </div>
+                            {% endif %}
+                            {% if neg_pct > 0 %}
+                            <div class="progress-bar bg-danger" style="width: {{ neg_pct }}%;">
+                                Negative {{ neg_pct }}%
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="text-center">
+                            <span class="badge bg-info">{{ sentiment.label|default('Unknown') }}</span>
+                            {% if sentiment.compound is defined %}
+                            <span class="text-muted ms-2">Score: {{ "%.2f"|format(sentiment.compound) }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- Probability Chart -->
+                    {% if probabilities %}
+                    <div class="mb-4">
+                        <h6 class="text-muted mb-2">Condition Probabilities:</h6>
+                        <div class="chart-container">
+                            <canvas id="probabilityChart"></canvas>
+                        </div>
+                        <script type="application/json" id="probability-data">
+                            {{ probabilities|tojson }}
+                        </script>
+                    </div>
+                    {% endif %}
+                    
+                </div>
+            </div>
+            
+            <!-- Recommendations Card -->
+            {% if recommendations %}
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-pills me-2"></i>
+                        Recommended Medications for {{ condition }}
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted mb-3">
+                        Based on analysis of thousands of patient reviews, here are the most effective medications:
+                    </p>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Medication</th>
+                                    <th>Effectiveness</th>
+                                    <th>Rating</th>
+                                    <th>Reviews</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for drug in recommendations %}
+                                <tr>
+                                    <td><strong>{{ drug.name }}</strong></td>
+                                    <td>
+                                        {% if drug.effectiveness == 'Excellent' %}
+                                            <span class="badge bg-success">{{ drug.effectiveness }}</span>
+                                        {% elif drug.effectiveness == 'Very Good' %}
+                                            <span class="badge bg-primary">{{ drug.effectiveness }}</span>
+                                        {% elif drug.effectiveness == 'Good' %}
+                                            <span class="badge bg-info">{{ drug.effectiveness }}</span>
+                                        {% elif drug.effectiveness == 'Moderate' %}
+                                            <span class="badge bg-warning text-dark">{{ drug.effectiveness }}</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">{{ drug.effectiveness }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <span class="text-warning">
+                                            {% set rating_int = drug.rating|default(0)|round(0, 'floor')|int %}
+                                            {% for i in range(5) %}
+                                                {% if i < rating_int %}
+                                                    ★
+                                                {% else %}
+                                                    ☆
+                                                {% endif %}
+                                            {% endfor %}
+                                        </span>
+                                        {{ "%.1f"|format(drug.rating|default(0)) }}/10
+                                    </td>
+                                    <td>{{ drug.reviews|default(0) }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="alert alert-warning mt-3">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Important:</strong> This is not medical advice. Always consult your healthcare provider before starting or changing any medication.
+                    </div>
+                </div>
+            </div>
+
+            {% elif condition == 'Uncertain' %}
+            <div class="card shadow-lg">
+                <div class="card-header bg-warning text-dark">
+                    <h4 class="mb-0">
+                        <i class="fas fa-question-circle me-2"></i>
+                        Unable to Make Confident Recommendation
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="mb-3">{{ message }}</p>
+                    <p class="mb-0">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        <strong>Suggestion:</strong> Please provide more details about your specific symptoms. 
+                        Mention how long you've been experiencing them and any medications you're currently taking.
+                    </p>
+                </div>
+            </div>
+
+            {% elif condition == 'Out of Scope' %}
+            <div class="card shadow-lg">
+                <div class="card-header bg-secondary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-ban me-2"></i>
+                        Outside Trained Scope
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="mb-3">{{ message }}</p>
+                    <p class="mb-0">
+                        <i class="fas fa-check-circle me-2 text-success"></i>
+                        <strong>I can help with:</strong> Depression, High Blood Pressure, and Type 2 Diabetes.
+                    </p>
+                </div>
+            </div>
+
+            {% elif condition == 'Invalid Input' %}
+            <div class="card shadow-lg">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-edit me-2"></i>
+                        More Information Needed
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="mb-3">{{ message }}</p>
+                    <p class="mb-0">
+                        <i class="fas fa-pencil-alt me-2"></i>
+                        <strong>Try describing:</strong> How you're feeling, how long you've had these symptoms, 
+                        and any medications you've tried.
+                    </p>
+                </div>
+            </div>
+
+            {% else %}
+            <div class="card shadow-lg">
+                <div class="card-header bg-secondary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-pills me-2"></i>
+                        Recommendations Unavailable
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">We couldn't find specific medication recommendations at this time.</p>
+                </div>
+            </div>
+            {% endif %}            
+            <!-- Actions -->
+            <div class="text-center mt-4">
+                <a href="{{ url_for('main.predict') }}" class="btn btn-primary me-2">
+                    <i class="fas fa-redo me-1"></i>New Analysis
+                </a>
+                <a href="{{ url_for('main.index') }}" class="btn btn-outline-secondary">
+                    <i class="fas fa-home me-1"></i>Home
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/result.js') }}"></script>
+{% endblock %}

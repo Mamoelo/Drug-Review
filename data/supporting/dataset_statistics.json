@@ -1,0 +1,30 @@
+{
+  "total_reviews": 14111,
+  "conditions": {
+    "Depression": 9154,
+    "Diabetes, Type 2": 2554,
+    "High Blood Pressure": 2403
+  },
+  "unique_drugs": 361,
+  "rating_distribution": {
+    "1": 1822,
+    "2": 650,
+    "3": 582,
+    "4": 467,
+    "5": 761,
+    "6": 686,
+    "7": 1014,
+    "8": 1807,
+    "9": 2500,
+    "10": 3822
+  },
+  "useful_count_stats": {
+    "mean": 45.405357522500175,
+    "median": 31.0,
+    "max": 1291
+  },
+  "date_range": {
+    "start": "2008-02-25",
+    "end": "2017-12-12"
+  }
+}

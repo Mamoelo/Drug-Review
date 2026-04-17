@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Drug Advisor - About{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        <i class="fas fa-info-circle me-2"></i>
+                        About Drug Advisor
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <h5>What is Drug Advisor?</h5>
+                    <p>
+                        Drug Advisor is an AI-powered system that analyzes patient drug reviews to predict medical conditions 
+                        and recommend effective medications. It uses machine learning models trained on over 18,000 real patient reviews.
+                    </p>
+                    
+                    <h5 class="mt-4">How It Works</h5>
+                    <ol>
+                        <li><strong>Natural Language Processing:</strong> Your symptom description is analyzed using NLP techniques.</li>
+                        <li><strong>Machine Learning Classification:</strong> An ensemble of models predicts the most likely condition.</li>
+                        <li><strong>Recommendation Engine:</strong> Based on historical patient reviews, effective medications are suggested.</li>
+                    </ol>
+                    
+                    <h5 class="mt-4">Model Performance</h5>
+                    <ul>
+                        <li><strong>Accuracy:</strong> 94.0%</li>
+                        <li><strong>Precision:</strong> 94.1%</li>
+                        <li><strong>Recall:</strong> 93.8%</li>
+                        <li><strong>F1 Score:</strong> 93.7%</li>
+                    </ul>
+                    
+                    <h5 class="mt-4">Supported Conditions</h5>
+                    <ul>
+                        <li>Depression</li>
+                        <li>High Blood Pressure (Hypertension)</li>
+                        <li>Type 2 Diabetes</li>
+                    </ul>
+                    
+                    <h5 class="mt-4">Disclaimer</h5>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Medical Disclaimer:</strong> Drug Advisor is for informational purposes only and does not constitute medical advice. 
+                        Always consult with a qualified healthcare provider before making any medical decisions or starting any treatment.
+                    </div>
+                    
+                    <h5 class="mt-4">Technology Stack</h5>
+                    <ul>
+                        <li><strong>Backend:</strong> Flask (Python)</li>
+                        <li><strong>Machine Learning:</strong> scikit-learn, XGBoost</li>
+                        <li><strong>NLP:</strong> TF-IDF, VADER Sentiment</li>
+                        <li><strong>Frontend:</strong> Bootstrap 5, Chart.js</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

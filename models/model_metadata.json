@@ -1,0 +1,16 @@
+{
+  "training_date": "2026-04-16T23:55:09.763929",
+  "training_samples": 14111,
+  "test_samples": 4751,
+  "conditions": [
+    "Depression",
+    "Diabetes, Type 2",
+    "High Blood Pressure"
+  ],
+  "metrics": {
+    "accuracy": 0.9463270890338876,
+    "precision": 0.9476247303361464,
+    "recall": 0.9463270890338876,
+    "f1_score": 0.9453976667542565
+  }
+}
