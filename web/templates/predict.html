@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% extends "base.html" %}
+
 {% block title %}MED.AI - Live Consultation{% endblock %}
 
 {% block extra_css %}
@@ -157,6 +159,37 @@
 {% endblock %}
 
 {% block content %}
+<nav class="main-nav" style="margin-bottom:2rem;">
+    <a href="{{ url_for('main.dashboard') }}" class="main-nav-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.5">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        Limko<span>Medical</span>
+    </a>
+    <ul class="main-nav-links">
+        <li><a href="{{ url_for('main.dashboard') }}" class="{% if request.endpoint == 'main.dashboard' %}active{% endif %}"><i class="fas fa-chart-line me-1"></i>Dashboard</a></li>
+        <li><a href="{{ url_for('main.predict') }}" class="{% if request.endpoint == 'main.predict' %}active{% endif %}"><i class="fas fa-stethoscope me-1"></i>New Consultation</a></li>
+        <li><a href="{{ url_for('main.history') }}" class="{% if request.endpoint == 'main.history' %}active{% endif %}"><i class="fas fa-history me-1"></i>History</a></li>
+        <li><a href="{{ url_for('main.about') }}" class="{% if request.endpoint == 'main.about' %}active{% endif %}"><i class="fas fa-info-circle me-1"></i>About</a></li>
+    </ul>
+    <div class="main-nav-actions">
+        {% if user %}
+        <div class="dropdown">
+            <button class="nav-btn-ghost dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user-circle me-1"></i>{{ user.full_name or user.email.split('@')[0] }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item" href="{{ url_for('main.dashboard') }}"><i class="fas fa-chart-line me-2"></i>Dashboard</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('main.history') }}"><i class="fas fa-history me-2"></i>History</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="{{ url_for('main.logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Sign out</a></li>
+            </ul>
+        </div>
+        {% else %}
+        <a href="{{ url_for('main.login') }}" class="nav-btn-ghost">Sign in</a>
+        {% endif %}
+    </div>
+</nav>
 <div class="predict-page">
     <div class="consultation-container">
 
