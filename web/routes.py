@@ -1,14 +1,26 @@
 """
-Application Routes - With User History and Feedback
+Application Routes - With Authentication, History, and Learning
 """
 
-from flask import Blueprint, render_template, request, jsonify, current_app, session
+from flask import Blueprint, render_template, request, jsonify, current_app, session, redirect, url_for, flash
 from web.services.predictor import PredictionService
 from web.services.recommender import RecommendationService
 from web.services.history_service import HistoryService
-import uuid
+from web.services.auth_service import AuthService
+from functools import wraps
 
 main_bp = Blueprint('main', __name__)
+
+
+def login_required(f):
+    """Decorator to require authentication"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            flash('Please sign in to access this page.', 'error')
+            return redirect(url_for('main.login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 
 def get_predictor():
@@ -34,27 +46,82 @@ def get_history_service():
     return current_app._history
 
 
-def get_user_id():
-    """Get or create user ID from session"""
-    if 'user_id' not in session:
-        session['user_id'] = str(uuid.uuid4())
-    return session['user_id']
+def get_auth_service():
+    if not hasattr(current_app, '_auth'):
+        current_app._auth = AuthService()
+    return current_app._auth
 
 
 @main_bp.route('/')
 def index():
     recommender = get_recommender()
     conditions = recommender.get_all_conditions()
-    
     stats = {'conditions': len(conditions)}
-    return render_template('index.html', stats=stats, conditions=conditions)
+    
+    user = None
+    if 'user_id' in session:
+        auth = get_auth_service()
+        user = auth.get_user_profile(session['user_id'])
+    
+    return render_template('index.html', stats=stats, conditions=conditions, user=user)
+
+
+@main_bp.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        
+        auth = get_auth_service()
+        result = auth.login(email, password)
+        
+        if result['success']:
+            session['user_id'] = result['user_id']
+            session['user_email'] = result['email']
+            session['user_name'] = result.get('full_name', email.split('@')[0])
+            flash('Welcome back!', 'success')
+            return redirect(url_for('main.dashboard'))
+        
+        flash(result['error'], 'error')
+        return render_template('login.html')
+    
+    return render_template('login.html')
+
+
+@main_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        full_name = request.form.get('full_name')
+        age = request.form.get('age', type=int)
+        gender = request.form.get('gender')
+        
+        auth = get_auth_service()
+        result = auth.register(email, password, full_name, age, gender)
+        
+        if result['success']:
+            flash('Account created successfully! Please sign in.', 'success')
+            return redirect(url_for('main.login'))
+        
+        flash(result['error'], 'error')
+        return render_template('register.html')
+    
+    return render_template('register.html')
+
+
+@main_bp.route('/logout')
+def logout():
+    session.clear()
+    flash('You have been signed out.', 'success')
+    return redirect(url_for('main.index'))
 
 
 @main_bp.route('/predict', methods=['GET', 'POST'])
+@login_required
 def predict():
     predictor = get_predictor()
-    history_service = get_history_service()
-    user_id = get_user_id()
+    user_id = session['user_id']
     
     if request.method == 'POST':
         symptoms = request.form.get('symptoms', '').strip()
@@ -66,31 +133,37 @@ def predict():
         
         if result['success']:
             recommender = get_recommender()
+            history_service = get_history_service()
             condition = result['condition']
             
             recommendations = []
             if condition in recommender.get_all_conditions():
                 base_recommendations = recommender.recommend(condition)
                 
-                # Enhance recommendations with user feedback data
-                for drug in base_recommendations:
-                    feedback_stats = history_service.get_drug_feedback_stats(condition, drug['name'])
+                # Get personalized recommendations based on user history
+                personalized = history_service.get_personalized_recommendations(
+                    user_id, condition, base_recommendations
+                )
+                
+                # Enhance with global feedback data
+                for drug in personalized:
+                    feedback_stats = history_service.get_drug_feedback_stats(condition, drug.get('name', drug.get('drug_name', '')))
                     if feedback_stats:
-                        drug['feedback'] = feedback_stats
+                        drug['global_feedback'] = feedback_stats
                     recommendations.append(drug)
             
-            # Save consultation to history
+            # Save consultation
             consultation_id = history_service.save_consultation(
                 user_id, symptoms, condition, result['confidence'], recommendations
             )
             
-            # Get user's previous conditions for context
+            # Get user's previous conditions
             previous_conditions = history_service.get_previous_conditions(user_id)
             
-            # Auto-schedule checkup for certain conditions
+            # Auto-schedule checkup
             checkup_scheduled = None
             if condition in ['Depression', 'Diabetes, Type 2', 'High Blood Pressure']:
-                checkup_id = history_service.schedule_checkup(user_id, consultation_id, days_from_now=30)
+                history_service.schedule_checkup(user_id, consultation_id, days_from_now=30)
                 checkup_scheduled = '30 days'
             
             session['prediction'] = {
@@ -115,10 +188,32 @@ def predict():
     return render_template('predict.html')
 
 
-@main_bp.route('/feedback', methods=['POST'])
-def submit_feedback():
-    """Submit feedback on medication effectiveness"""
+@main_bp.route('/dashboard')
+@login_required
+def dashboard():
     history_service = get_history_service()
+    auth_service = get_auth_service()
+    user_id = session['user_id']
+    
+    user = auth_service.get_user_profile(user_id)
+    consultations = history_service.get_user_history(user_id, limit=10)
+    checkups = history_service.get_upcoming_checkups(user_id)
+    previous_conditions = history_service.get_previous_conditions(user_id)
+    stats = history_service.get_user_stats(user_id)
+    
+    return render_template('dashboard.html',
+                         user=user,
+                         consultations=consultations,
+                         checkups=checkups,
+                         previous_conditions=previous_conditions,
+                         stats=stats)
+
+
+@main_bp.route('/feedback', methods=['POST'])
+@login_required
+def submit_feedback():
+    history_service = get_history_service()
+    user_id = session['user_id']
     
     consultation_id = request.form.get('consultation_id')
     drug_name = request.form.get('drug_name')
@@ -129,7 +224,8 @@ def submit_feedback():
     
     if consultation_id and drug_name:
         history_service.save_feedback(
-            int(consultation_id), drug_name, worked, effectiveness, side_effects, notes
+            int(consultation_id), user_id, drug_name, worked, 
+            effectiveness, side_effects, notes
         )
         return jsonify({'success': True, 'message': 'Thank you for your feedback!'})
     
@@ -137,33 +233,13 @@ def submit_feedback():
 
 
 @main_bp.route('/history')
+@login_required
 def history():
-    """View user's consultation history"""
     history_service = get_history_service()
-    user_id = get_user_id()
+    user_id = session['user_id']
     
     consultations = history_service.get_user_history(user_id)
-    checkups = history_service.get_upcoming_checkups(user_id)
-    
-    return render_template('history.html', 
-                         consultations=consultations, 
-                         checkups=checkups)
-
-
-@main_bp.route('/dashboard')
-def dashboard():
-    """User dashboard with history and checkups"""
-    history_service = get_history_service()
-    user_id = get_user_id()
-    
-    consultations = history_service.get_user_history(user_id, limit=5)
-    checkups = history_service.get_upcoming_checkups(user_id)
-    previous_conditions = history_service.get_previous_conditions(user_id)
-    
-    return render_template('dashboard.html',
-                         consultations=consultations,
-                         checkups=checkups,
-                         previous_conditions=previous_conditions)
+    return render_template('history.html', consultations=consultations)
 
 
 @main_bp.route('/api/predict', methods=['POST'])
@@ -185,6 +261,45 @@ def api_predict():
             result['recommendations'] = []
     
     return jsonify(result)
+
+
+@main_bp.route('/api/learn', methods=['POST'])
+def trigger_learning():
+    """Trigger model learning from all feedback"""
+    history_service = get_history_service()
+    learned_stats = history_service.learn_from_feedback()
+    
+    # Save learned stats to file
+    import json
+    from pathlib import Path
+    
+    learned_path = Path('models/learned_effectiveness.json')
+    learned_path.parent.mkdir(exist_ok=True)
+    with open(learned_path, 'w') as f:
+        json.dump(learned_stats, f, indent=2)
+    
+    return jsonify({
+        'success': True,
+        'conditions_updated': len(learned_stats),
+        'stats': learned_stats
+    })
+
+
+@main_bp.route('/api/schedule-checkup', methods=['POST'])
+@login_required
+def api_schedule_checkup():
+    """API endpoint to schedule a checkup"""
+    data = request.get_json()
+    user_id = session['user_id']
+    
+    condition = data.get('condition')
+    days = int(data.get('days', 30))
+    notes = data.get('notes', '')
+    
+    history_service = get_history_service()
+    checkup_id = history_service.schedule_checkup(user_id, None, days)
+    
+    return jsonify({'success': True, 'checkup_id': checkup_id})
 
 
 @main_bp.route('/about')

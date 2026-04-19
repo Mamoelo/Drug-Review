@@ -250,9 +250,34 @@ body::after { display: none !important; }
         </svg>
         Limko<span>Medical</span>
     </a>
+    
     <div class="home-nav-actions">
-        <button class="nav-btn-ghost">Sign in</button>
-        <a href="{{ url_for('main.predict') }}" class="nav-btn-fill">Get started</a>
+        {% if user %}
+            <!-- User is logged in -->
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="color: #134e4a; font-size: 14px; font-weight: 600;">
+                    <i class="fas fa-user-circle me-1" style="color: #14b8a6;"></i>
+                    {{ user.full_name or user.email.split('@')[0] }}
+                </span>
+                <a href="{{ url_for('main.dashboard') }}" class="nav-btn-ghost" style="text-decoration: none;">
+                    <i class="fas fa-chart-line me-1"></i>Dashboard
+                </a>
+                <a href="{{ url_for('main.logout') }}" class="nav-btn-ghost" style="text-decoration: none; border-color: rgba(239,68,68,0.4); color: #b91c1c;">
+                    <i class="fas fa-sign-out-alt me-1"></i>Sign out
+                </a>
+                <a href="{{ url_for('main.predict') }}" class="nav-btn-fill" style="text-decoration: none;">
+                    Get started
+                </a>
+            </div>
+        {% else %}
+            <!-- User is not logged in -->
+            <a href="{{ url_for('main.login') }}" class="nav-btn-ghost" style="text-decoration: none;">
+                Sign in
+            </a>
+            <a href="{{ url_for('main.register') }}" class="nav-btn-fill" style="text-decoration: none;">
+                Get started
+            </a>
+        {% endif %}
     </div>
 </nav>
 
@@ -261,7 +286,16 @@ body::after { display: none !important; }
 
     <!-- Left: Text + Stats -->
     <div class="hero-content">
-        
+        {% if user %}
+        <div class="tag">
+            <i class="fas fa-hand-wave" style="color: #14b8a6;"></i>
+            Welcome back, {{ user.full_name or user.email.split('@')[0] }}!
+        </div>
+        {% else %}
+        <div class="tag">
+            Doctor Nova at your service
+        </div>
+        {% endif %}
 
         <h1 class="main-title">
             Meet Your <span>Holographic</span> Doctor<br>
@@ -280,6 +314,27 @@ body::after { display: none !important; }
                 How it works
             </a>
         </div>
+
+        {% if user %}
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">{{ stats.conditions }}</div>
+                <div class="stat-label">Conditions Covered</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">AI Support</div>
+            </div>
+            <div class="stat-item">
+                <a href="{{ url_for('main.dashboard') }}" style="text-decoration: none; color: inherit;">
+                    <div class="stat-number">→</div>
+                    <div class="stat-label">View Dashboard</div>
+                </a>
+            </div>
+        </div>
+        {% else %}
+        {% endif %}
+    </div>
 
     <!-- Right: empty col, doctor is absolutely positioned -->
     <div class="doctor-col"></div>

@@ -1,0 +1,446 @@
+{% extends "base.html" %}
+
+{% block title %}Limko Medical — Register{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Same auth-page styles as login.html */
+.auth-page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+    .auth-page { grid-template-columns: 1fr; }
+    .auth-left  { display: none; }
+}
+
+.auth-left {
+    position: relative;
+    overflow: hidden;
+    background: #020c14;
+}
+
+.auth-left-bg {
+    position: absolute;
+    inset: 0;
+    background: url('{{ url_for("static", filename="images/bg-pattern.jpg") }}') center/cover no-repeat;
+    opacity: 0.85;
+}
+
+.auth-left-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 210, 255, 0.015) 2px,
+        rgba(0, 210, 255, 0.015) 4px
+    );
+    pointer-events: none;
+}
+
+.auth-left-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(2, 12, 20, 0.55) 0%,
+        rgba(2, 12, 20, 0.25) 100%
+    );
+}
+
+.auth-left-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.5rem 3rem;
+}
+
+.auth-left-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 800;
+    color: white;
+    text-decoration: none;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.auth-left-logo span { color: #14b8a6; }
+.auth-left-logo svg { width: 22px; height: 22px; }
+
+.auth-left-tagline { padding-bottom: 3rem; }
+
+.auth-left-tagline h2 {
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+}
+
+.auth-left-tagline h2 span { color: #2dd4bf; }
+
+.auth-left-tagline p {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 360px;
+    line-height: 1.65;
+    margin: 0;
+}
+
+/* Right panel */
+.auth-right {
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+    position: relative;
+}
+
+.auth-right::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(20,184,166,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(20,184,166,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+}
+
+.auth-form-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+}
+
+.mobile-logo {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #134e4a;
+    text-decoration: none;
+    margin-bottom: 2rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.mobile-logo span { color: #14b8a6; }
+@media (max-width: 768px) { .mobile-logo { display: inline-flex; } }
+
+.auth-form-header { margin-bottom: 2.2rem; }
+
+.auth-form-header h1 {
+    font-size: 1.9rem;
+    font-weight: 800;
+    color: #134e4a;
+    margin-bottom: 0.4rem;
+    line-height: 1.15;
+}
+
+.auth-form-header p {
+    font-size: 14px;
+    color: #64748b;
+    margin: 0;
+}
+
+.auth-form-header p a {
+    color: #0f766e;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-form-header p a:hover { text-decoration: underline; }
+
+.field-group { margin-bottom: 1.25rem; }
+
+.field-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #134e4a;
+    margin-bottom: 7px;
+}
+
+.field-input {
+    width: 100%;
+    padding: 13px 16px;
+    background: white;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 14px;
+    font-size: 15px;
+    color: #134e4a;
+    font-family: 'Plus Jakarta Sans', inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field-input::placeholder { color: #94a3b8; }
+
+.field-input:focus {
+    border-color: #14b8a6;
+    box-shadow: 0 0 0 4px rgba(20,184,166,0.12);
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.field-input-wrap {
+    position: relative;
+}
+
+.field-input-wrap .field-icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.field-input-wrap .field-icon:hover { color: #0f766e; }
+.field-input-wrap .field-input { padding-right: 44px; }
+
+.auth-submit-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(90deg, #14b8a6, #22d3ee);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', inherit;
+    box-shadow: 0 8px 24px rgba(20,184,166,0.35);
+    transition: box-shadow 0.2s, transform 0.15s;
+    margin-top: 0.8rem;
+}
+
+.auth-submit-btn:hover {
+    box-shadow: 0 12px 32px rgba(20,184,166,0.45);
+    transform: translateY(-1px);
+}
+
+.auth-alert {
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.auth-alert.error {
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.25);
+    color: #b91c1c;
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 1.6rem 0;
+}
+
+.auth-divider span {
+    flex: 1;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.auth-divider p {
+    font-size: 12px;
+    color: #94a3b8;
+    margin: 0;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.social-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px;
+    background: white;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #134e4a;
+    cursor: pointer;
+    font-family: 'Plus Jakarta Sans', inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+}
+
+.social-btn:hover {
+    border-color: #14b8a6;
+    box-shadow: 0 4px 12px rgba(20,184,166,0.12);
+    color: #134e4a;
+}
+
+.terms-text {
+    font-size: 12px;
+    color: #64748b;
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.terms-text a {
+    color: #0f766e;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.55s ease-out both; }
+.delay-1 { animation-delay: 0.08s; }
+.delay-2 { animation-delay: 0.16s; }
+.delay-3 { animation-delay: 0.24s; }
+.delay-4 { animation-delay: 0.32s; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-page">
+
+    <div class="auth-left">
+        <div class="auth-left-bg"></div>
+        <div class="auth-left-overlay"></div>
+        <div class="auth-left-content">
+            <a href="{{ url_for('main.index') }}" class="auth-left-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.5">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+                Limko<span>Medical</span>
+            </a>
+            <div class="auth-left-tagline">
+                <h2>Start your <span>health journey</span> today.</h2>
+                <p>
+                    Join thousands who trust Limko Medical for
+                    health insights and personalized recommendations.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-right">
+        <div class="auth-form-wrap">
+            <a href="{{ url_for('main.index') }}" class="mobile-logo">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.5" style="width:18px;height:18px;">
+                    <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                </svg>
+                Limko<span>Medical</span>
+            </a>
+
+            <div class="auth-form-header fade-up">
+                <h1>Create account</h1>
+                <p>Already have an account? <a href="{{ url_for('main.login') }}">Sign in</a></p>
+            </div>
+
+            {% if error %}
+            <div class="auth-alert error fade-up">
+                <i class="fas fa-exclamation-circle"></i>
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('main.register') }}">
+                <div class="field-group fade-up delay-1">
+                    <label class="field-label" for="full_name">Full name</label>
+                    <input class="field-input" type="text" id="full_name" name="full_name" 
+                           placeholder="Naleli Seola" required autocomplete="name"/>
+                </div>
+
+                <div class="field-group fade-up delay-1">
+                    <label class="field-label" for="email">Email address</label>
+                    <input class="field-input" type="email" id="email" name="email" 
+                           placeholder="you@example.com" required autocomplete="email"/>
+                </div>
+
+                <div class="field-row fade-up delay-2">
+                    <div class="field-group">
+                        <label class="field-label" for="age">Age</label>
+                        <input class="field-input" type="number" id="age" name="age" 
+                               placeholder="25" min="1" max="120"/>
+                    </div>
+                    <div class="field-group">
+                        <label class="field-label" for="gender">Gender</label>
+                        <select class="field-input" id="gender" name="gender" style="appearance: none;">
+                            <option value="">Prefer not to say</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field-group fade-up delay-2">
+                    <label class="field-label" for="password">Password</label>
+                    <div class="field-input-wrap">
+                        <input class="field-input" type="password" id="password" name="password" 
+                               placeholder="Create a strong password" required autocomplete="new-password"/>
+                        <span class="field-icon" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="eyeIcon"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <button type="submit" class="auth-submit-btn fade-up delay-3">
+                    Create account →
+                </button>
+            </form>
+
+            <p class="terms-text fade-up delay-4">
+                By signing up, you agree to our 
+                <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function togglePassword() {
+    const input = document.getElementById('password');
+    const icon  = document.getElementById('eyeIcon');
+    if (input.type === 'password') {
+        input.type = 'text';
+        icon.className = 'fas fa-eye-slash';
+    } else {
+        input.type = 'password';
+        icon.className = 'fas fa-eye';
+    }
+}
+</script>
+{% endblock %}

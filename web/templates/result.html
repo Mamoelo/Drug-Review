@@ -16,7 +16,6 @@
     padding: 0 1.5rem;
 }
 
-/* ── Back link ── */
 .back-link {
     display: inline-flex;
     align-items: center;
@@ -31,7 +30,6 @@
 }
 .back-link:hover { opacity: 1; color: #0f766e; }
 
-/* ── Cards ── */
 .result-card {
     background: white;
     border-radius: 28px;
@@ -74,7 +72,6 @@
 
 .result-card-body { padding: 2rem; }
 
-/* ── Condition display ── */
 .condition-name {
     font-size: 2.8rem;
     font-weight: 800;
@@ -98,7 +95,6 @@
 .confidence-pill.moderate { background: rgba(234,179,8,0.14);  color: #854d0e; }
 .confidence-pill.low      { background: rgba(239,68,68,0.1);   color: #b91c1c; }
 
-/* ── Symptom quote box ── */
 .symptom-quote {
     background: #f8fafc;
     border-left: 4px solid #14b8a6;
@@ -110,7 +106,6 @@
     line-height: 1.6;
 }
 
-/* ── Sentiment progress ── */
 .sentiment-bar .progress {
     height: 28px;
     border-radius: 50px;
@@ -126,22 +121,18 @@
     justify-content: center;
 }
 
-/* ── Probability chart ── */
 .chart-wrap {
     position: relative;
     height: 200px;
 }
 
-/* ── Medications table ── */
 .med-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
 }
 
-.med-table thead tr {
-    background: #f8fafc;
-}
+.med-table thead tr { background: #f8fafc; }
 
 .med-table th {
     padding: 12px 16px;
@@ -162,7 +153,6 @@
 }
 
 .med-table tr:last-child td { border-bottom: none; }
-
 .med-table tr:hover td { background: #f8fafc; }
 
 .med-badge {
@@ -181,7 +171,6 @@
 
 .stars { color: #f59e0b; letter-spacing: 1px; }
 
-/* ── Disclaimer ── */
 .result-disclaimer {
     background: rgba(234,179,8,0.08);
     border: 1px solid rgba(234,179,8,0.3);
@@ -192,7 +181,6 @@
     margin-top: 1.2rem;
 }
 
-/* ── Alert variants ── */
 .alert-teal {
     background: rgba(20,184,166,0.08);
     border: 1px solid rgba(20,184,166,0.25);
@@ -201,8 +189,6 @@
     color: #134e4a;
     margin-bottom: 1.5rem;
 }
-
-.alert-teal h5 { color: #0f766e; font-weight: 700; margin-bottom: 0.4rem; }
 
 .alert-warn {
     background: rgba(234,179,8,0.08);
@@ -213,9 +199,6 @@
     margin-bottom: 1.5rem;
 }
 
-.alert-warn h5 { font-weight: 700; margin-bottom: 0.4rem; }
-
-/* ── Action buttons ── */
 .action-btn-primary {
     background: linear-gradient(90deg, #14b8a6, #22d3ee);
     color: white;
@@ -252,7 +235,47 @@
 
 .action-btn-outline:hover { border-color: #14b8a6; color: #0f766e; }
 
-/* ── Fade in ── */
+.feedback-btn-worked {
+    background: rgba(34,197,94,0.1);
+    border: 1px solid rgba(34,197,94,0.3);
+    color: #15803d;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.feedback-btn-didnt {
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.25);
+    color: #b91c1c;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.feedback-form {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.feedback-success {
+    padding: 1rem;
+    background: rgba(20,184,166,0.08);
+    border-radius: 12px;
+    color: #0f766e;
+    margin-top: 1rem;
+}
+
+.checkup-card {
+    background: linear-gradient(135deg, rgba(20,184,166,0.05), rgba(34,211,238,0.05));
+}
+
 @keyframes fadeUp {
     from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -290,7 +313,7 @@
         </div>
         {% endif %}
 
-        <!-- ── Analysis Results Card ── -->
+        <!-- Analysis Results Card -->
         <div class="result-card fade-up">
             <div class="result-card-header">
                 <div class="header-icon teal">
@@ -303,7 +326,6 @@
             </div>
             <div class="result-card-body">
 
-                <!-- Condition -->
                 <div class="text-center mb-4">
                     <p style="font-size:13px; color:#64748b; margin-bottom:0.5rem; font-weight:600; text-transform:uppercase; letter-spacing:0.08em;">Predicted Condition</p>
                     <div class="condition-name">{{ condition }}</div>
@@ -315,7 +337,6 @@
                     </span>
                 </div>
 
-                <!-- Symptoms quote -->
                 <div style="margin-bottom:1.8rem;">
                     <p style="font-size:13px; color:#64748b; font-weight:600; margin-bottom:0.6rem;">
                         <i class="fas fa-comment-medical me-1" style="color:#14b8a6;"></i> Your Description
@@ -371,7 +392,7 @@
             </div>
         </div>
 
-        <!-- ── Recommendations ── -->
+        <!-- Recommendations -->
         {% if recommendations %}
         <div class="result-card fade-up delay-1">
             <div class="result-card-header">
@@ -431,7 +452,92 @@
             </div>
         </div>
 
-        {% elif condition == 'Uncertain' %}
+        <!-- Feedback Section -->
+        {% if consultation_id and recommendations and not is_ood and condition not in ['Conversational', 'Out of Scope', 'Invalid Input', 'Uncertain'] %}
+        <div class="result-card fade-up delay-2">
+            <div class="result-card-header">
+                <div class="header-icon" style="background: rgba(20,184,166,0.12); color: #0f766e;">
+                    <i class="fas fa-clipboard-check"></i>
+                </div>
+                <h4>How Did It Work?</h4>
+            </div>
+            <div class="result-card-body">
+                <p style="color: #64748b; margin-bottom: 1.5rem;">Let us know if these medications helped you. Your feedback helps us provide better recommendations.</p>
+                
+                {% for drug in recommendations[:3] %}
+                <div class="feedback-item" id="feedback-{{ loop.index }}" style="margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid #f1f5f9;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+                        <h5 style="margin: 0; color: #134e4a; font-weight: 700;">{{ drug.name }}</h5>
+                        <div class="feedback-buttons" id="buttons-{{ loop.index }}">
+                            <button type="button" class="feedback-btn-worked" data-drug="{{ drug.name }}" data-index="{{ loop.index }}">
+                                <i class="fas fa-check-circle"></i> It Worked
+                            </button>
+                            <button type="button" class="feedback-btn-didnt" data-drug="{{ drug.name }}" data-index="{{ loop.index }}">
+                                <i class="fas fa-times-circle"></i> Didn't Work
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="feedback-form" id="form-{{ loop.index }}" style="display: none;">
+                        <input type="hidden" id="worked-{{ loop.index }}" value="">
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 13px; font-weight: 600; color: #134e4a; margin-bottom: 5px; display: block;">Effectiveness (1-10)</label>
+                            <input type="range" id="rating-{{ loop.index }}" min="1" max="10" value="7" style="width: 100%; accent-color: #14b8a6;">
+                            <div style="display: flex; justify-content: space-between; font-size: 12px; color: #64748b;">
+                                <span>1</span>
+                                <span id="rating-value-{{ loop.index }}">7</span>
+                                <span>10</span>
+                            </div>
+                        </div>
+                        <div style="margin-bottom: 1rem;">
+                            <label style="font-size: 13px; font-weight: 600; color: #134e4a; margin-bottom: 5px; display: block;">Side Effects (optional)</label>
+                            <textarea id="side-effects-{{ loop.index }}" rows="2" placeholder="Any side effects you experienced..." style="width: 100%; padding: 12px; border: 1.5px solid #e2e8f0; border-radius: 12px; font-size: 14px; resize: vertical;"></textarea>
+                        </div>
+                        <button type="button" class="submit-feedback-btn" data-drug="{{ drug.name }}" data-index="{{ loop.index }}" style="background: linear-gradient(90deg, #14b8a6, #22d3ee); color: white; border: none; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 700; cursor: pointer;">
+                            <i class="fas fa-paper-plane"></i> Submit Feedback
+                        </button>
+                    </div>
+                    
+                    <div class="feedback-success" id="success-{{ loop.index }}" style="display: none;">
+                        <i class="fas fa-check-circle"></i> Thank you for your feedback!
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Checkup Section -->
+        {% if checkup_scheduled %}
+        <div class="result-card fade-up delay-2 checkup-card">
+            <div class="result-card-header">
+                <div class="header-icon" style="background: rgba(234,179,8,0.12); color: #854d0e;">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h4>Follow-up Checkup Scheduled</h4>
+            </div>
+            <div class="result-card-body">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="font-size: 3rem;">📅</div>
+                    <div>
+                        <p style="margin: 0 0 0.5rem; font-weight: 700; color: #134e4a;">We recommend a follow-up in {{ checkup_scheduled }}</p>
+                        <p style="margin: 0; color: #64748b; font-size: 14px;">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Your checkup has been scheduled. You can view all upcoming checkups in your dashboard.
+                        </p>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <a href="{{ url_for('main.dashboard') }}" style="display: inline-flex; align-items: center; gap: 8px; color: #0f766e; font-weight: 600; text-decoration: none;">
+                        <i class="fas fa-arrow-right"></i> Go to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Fallback cards for non-standard conditions -->
+        {% if condition == 'Uncertain' %}
         <div class="result-card fade-up delay-1">
             <div class="result-card-header">
                 <div class="header-icon yellow"><i class="fas fa-question-circle"></i></div>
@@ -441,11 +547,10 @@
                 <p style="margin-bottom:0.8rem;">{{ message }}</p>
                 <p style="margin:0; color:#64748b; font-size:14px;">
                     <i class="fas fa-lightbulb me-2" style="color:#14b8a6;"></i>
-                    <strong>Suggestion:</strong> Please provide more details about your specific symptoms. Mention how long you've been experiencing them and any medications you're currently taking.
+                    <strong>Suggestion:</strong> Please provide more details about your specific symptoms.
                 </p>
             </div>
         </div>
-
         {% elif condition == 'Out of Scope' %}
         <div class="result-card fade-up delay-1">
             <div class="result-card-header">
@@ -460,7 +565,6 @@
                 </p>
             </div>
         </div>
-
         {% elif condition == 'Invalid Input' %}
         <div class="result-card fade-up delay-1">
             <div class="result-card-header">
@@ -475,8 +579,7 @@
                 </p>
             </div>
         </div>
-
-        {% else %}
+        {% elif not recommendations and condition not in ['Conversational', 'Out of Scope', 'Invalid Input', 'Uncertain'] %}
         <div class="result-card fade-up delay-1">
             <div class="result-card-header">
                 <div class="header-icon gray"><i class="fas fa-pills"></i></div>
@@ -488,24 +591,26 @@
         </div>
         {% endif %}
 
-        <!-- ── Actions ── -->
-        <div class="text-center mt-4 fade-up delay-2">
+        <!-- Actions -->
+        <div class="text-center mt-4 fade-up delay-3">
             <a href="{{ url_for('main.predict') }}" class="action-btn-primary me-3">
                 <i class="fas fa-redo me-2"></i>New Analysis
             </a>
-            <a href="{{ url_for('main.index') }}" class="action-btn-outline">
-                <i class="fas fa-home me-2"></i>Home
+            <a href="{{ url_for('main.dashboard') }}" class="action-btn-outline">
+                <i class="fas fa-home me-2"></i>Dashboard
             </a>
         </div>
 
     </div>
 </div>
+{% endif %}
+
 {% endblock %}
 
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// Recreate chart with teal theme
+// Probability Chart
 document.addEventListener('DOMContentLoaded', function() {
     const canvas = document.getElementById('probabilityChart');
     if (!canvas) return;
@@ -545,6 +650,71 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     } catch(e) { console.error(e); }
+});
+
+// Feedback Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle "It Worked" button clicks
+    document.querySelectorAll('.feedback-btn-worked').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const index = this.dataset.index;
+            document.getElementById(`buttons-${index}`).style.display = 'none';
+            document.getElementById(`form-${index}`).style.display = 'block';
+            document.getElementById(`worked-${index}`).value = 'true';
+        });
+    });
+    
+    // Handle "Didn't Work" button clicks
+    document.querySelectorAll('.feedback-btn-didnt').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const index = this.dataset.index;
+            document.getElementById(`buttons-${index}`).style.display = 'none';
+            document.getElementById(`form-${index}`).style.display = 'block';
+            document.getElementById(`worked-${index}`).value = 'false';
+        });
+    });
+    
+    // Update rating display
+    document.querySelectorAll('input[type="range"]').forEach(slider => {
+        const index = slider.id.split('-')[1];
+        slider.addEventListener('input', function() {
+            document.getElementById(`rating-value-${index}`).textContent = this.value;
+        });
+    });
+    
+    // Handle feedback submission
+    document.querySelectorAll('.submit-feedback-btn').forEach(btn => {
+        btn.addEventListener('click', async function() {
+            const index = this.dataset.index;
+            const drugName = this.dataset.drug;
+            const worked = document.getElementById(`worked-${index}`).value === 'true';
+            const rating = document.getElementById(`rating-${index}`).value;
+            const sideEffects = document.getElementById(`side-effects-${index}`).value;
+            
+            const formData = new FormData();
+            formData.append('consultation_id', '{{ consultation_id }}');
+            formData.append('drug_name', drugName);
+            formData.append('worked', worked);
+            formData.append('effectiveness', rating);
+            formData.append('side_effects', sideEffects);
+            
+            try {
+                const response = await fetch('/feedback', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    document.getElementById(`form-${index}`).style.display = 'none';
+                    document.getElementById(`success-${index}`).style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+                alert('There was an error submitting your feedback. Please try again.');
+            }
+        });
+    });
 });
 </script>
 {% endblock %}
