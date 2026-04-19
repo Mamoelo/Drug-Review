@@ -1,106 +1,296 @@
 {% extends "base.html" %}
 
-{% block title %}Drug Advisor - Home{% endblock %}
+{% block title %}MED.AI - AI-Powered Health Companion{% endblock %}
+
+{% block extra_css %}
+<style>
+body { background: transparent !important; color: #134e4a !important; }
+body::after { display: none !important; }
+
+.hero {
+    position: relative !important;
+    min-height: 100vh !important;
+    overflow: hidden !important;
+    color: #134e4a !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    align-items: center !important;
+    background: none !important;
+}
+
+.hero-bg {
+    position: absolute !important;
+    inset: 0 !important;
+    background: url('{{ url_for("static", filename="images/home-bg.jpg") }}') center/cover no-repeat !important;
+    opacity: 0.95 !important;
+    filter: none !important;
+    z-index: 1 !important;
+}
+
+.hero::before {
+    content: '' !important;
+    position: absolute !important;
+    inset: 0 !important;
+    background: none !important;
+    background-image:
+        linear-gradient(rgba(45, 212, 191, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(45, 212, 191, 0.07) 1px, transparent 1px) !important;
+    background-size: 55px 55px !important;
+    width: auto !important; height: auto !important;
+    left: auto !important; top: auto !important;
+    z-index: 2 !important;
+}
+
+.hero::after { display: none !important; }
+
+.hero-content {
+    position: relative !important;
+    z-index: 10 !important;
+    padding: 5rem 3rem !important;
+}
+
+.tag {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    background: rgba(255,255,255,0.85) !important;
+    border: 1px solid rgba(45, 212, 191, 0.4) !important;
+    color: #0f766e !important;
+    padding: 8px 22px !important;
+    border-radius: 50px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    margin-bottom: 1.5rem !important;
+    font-family: inherit !important;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+}
+
+.main-title {
+    font-size: clamp(3.4rem, 7vw, 5.5rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.05 !important;
+    margin-bottom: 1.5rem !important;
+    color: #134e4a !important;
+    text-shadow: none !important;
+    letter-spacing: -0.5px !important;
+}
+
+.main-title span { color: #14b8a6 !important; }
+
+.subtitle {
+    font-size: 1.1rem !important;
+    line-height: 1.7 !important;
+    color: #1e5a57 !important;
+    max-width: 480px !important;
+    margin-bottom: 3rem !important;
+    font-weight: 400 !important;
+}
+
+.cta-group {
+    display: flex !important;
+    gap: 1rem !important;
+    flex-wrap: wrap !important;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg, #14b8a6, #22d3ee) !important;
+    color: white !important;
+    padding: 16px 36px !important;
+    border-radius: 50px !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    box-shadow: 0 10px 30px rgba(20, 184, 166, 0.4) !important;
+    border: none !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-family: inherit !important;
+}
+
+.btn-primary::before { display: none !important; }
+.btn-primary:hover { transform: none !important; }
+
+.btn-outline {
+    background: transparent !important;
+    border: 2px solid #5eead4 !important;
+    color: #134e4a !important;
+    padding: 15px 34px !important;
+    border-radius: 50px !important;
+    font-weight: 600 !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-family: inherit !important;
+    cursor: pointer !important;
+}
+
+.stats {
+    display: flex !important;
+    gap: 3rem !important;
+    margin-top: 4rem !important;
+    font-family: inherit !important;
+    letter-spacing: 0 !important;
+}
+
+.stat-number {
+    font-size: 2.4rem !important;
+    font-weight: 800 !important;
+    color: #134e4a !important;
+    text-shadow: none !important;
+}
+
+.stat-label {
+    font-size: 1rem !important;
+    color: #64748b !important;
+    margin-top: 4px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-family: inherit !important;
+}
+
+/* Doctor — absolutely centered, transparent PNG = no blend needed */
+.doctor-col {
+    position: static !important;
+    height: 0 !important;
+    overflow: visible !important;
+    padding: 0 !important;
+    z-index: 3;
+}
+
+.holo-doctor {
+    position: absolute !important;
+    top: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    height: 100% !important;
+    width: auto !important;
+    max-width: none !important;
+    object-fit: contain !important;
+    object-position: top center !important;
+    opacity: 0.82 !important;
+    filter: brightness(1.05) contrast(1.05) !important;
+    mix-blend-mode: normal !important;
+    z-index: 3 !important;
+    display: block !important;
+}
+
+/* ── Navbar ── */
+.home-nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    height: 64px;
+    padding: 0 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.5);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255,255,255,0.45);
+    transition: background 0.3s;
+}
+
+.home-nav.scrolled {
+    background: rgba(255,255,255,0.92);
+    border-bottom-color: rgba(45,212,191,0.2);
+}
+
+.home-nav-logo {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 18px; font-weight: 800;
+    color: #134e4a; text-decoration: none;
+    letter-spacing: 0.02em;
+}
+
+.home-nav-logo span { color: #14b8a6; }
+.home-nav-logo svg { width: 20px; height: 20px; }
+
+.home-nav-links {
+    display: flex; gap: 2rem;
+    list-style: none; margin: 0; padding: 0;
+}
+
+.home-nav-links a {
+    font-size: 13px; font-weight: 600;
+    color: #134e4a; text-decoration: none;
+    opacity: 0.7; transition: opacity 0.2s;
+}
+
+.home-nav-links a:hover,
+.home-nav-links a.active { opacity: 1; color: #0f766e; }
+
+.home-nav-actions { display: flex; align-items: center; gap: 10px; }
+
+.nav-btn-ghost {
+    background: transparent;
+    border: 1.5px solid rgba(20,184,166,0.45);
+    color: #0f766e; padding: 7px 18px;
+    border-radius: 50px; font-size: 13px;
+    font-weight: 700; cursor: pointer;
+}
+
+.nav-btn-fill {
+    background: linear-gradient(90deg, #14b8a6, #22d3ee);
+    color: white; border: none;
+    padding: 8px 20px; border-radius: 50px;
+    font-size: 13px; font-weight: 700;
+    cursor: pointer; text-decoration: none;
+}
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <!-- Hero Section -->
-    <div class="row align-items-center mb-5">
-        <div class="col-lg-6">
-            <h1 class="display-4 fw-bold mb-4">
-                Find the Right Medication for Your Condition
-            </h1>
-            <p class="lead mb-4">
-                Describe your symptoms and our AI will recommend the most effective medications based on thousands of patient reviews.
-            </p>
-            <a href="{{ url_for('main.predict') }}" class="btn btn-primary btn-lg">
-                <i class="fas fa-stethoscope me-2"></i>Check Your Symptoms
+
+<nav class="home-nav" id="homeNav">
+    <a href="{{ url_for('main.index') }}" class="home-nav-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.5">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        Limko<span>Medical</span>
+    </a>
+    <div class="home-nav-actions">
+        <button class="nav-btn-ghost">Sign in</button>
+        <a href="{{ url_for('main.predict') }}" class="nav-btn-fill">Get started</a>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="hero-bg"></div>
+
+    <!-- Left: Text + Stats -->
+    <div class="hero-content">
+        
+
+        <h1 class="main-title">
+            Meet Your <span>Holographic</span> Doctor<br>
+        </h1>
+
+        <p class="subtitle">
+            Describe how you feel and get instant diagnosis
+            powered by clinical-grade intelligence.
+        </p>
+
+        <div class="cta-group">
+            <a href="{{ url_for('main.predict') }}" class="btn-primary">
+                Start Consultation →
+            </a>
+            <a href="{{ url_for('main.about') }}" class="btn-outline">
+                How it works
             </a>
         </div>
-        <div class="col-lg-6">
-            <img src="{{ url_for('static', filename='images/hero.svg') }}" alt="Hero" class="img-fluid">
-        </div>
-    </div>
-    
-    <!-- Stats Section -->
-    <div class="row text-center mb-5">
-        <div class="col-md-4 mb-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <i class="fas fa-database fa-3x text-primary mb-3"></i>
-                    <h3>{{ stats.reviews }}</h3>
-                    <p class="text-muted">Patient Reviews Analyzed</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <i class="fas fa-check-circle fa-3x text-success mb-3"></i>
-                    <h3>{{ stats.accuracy }}</h3>
-                    <p class="text-muted">Prediction Accuracy</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <i class="fas fa-notes-medical fa-3x text-info mb-3"></i>
-                    <h3>{{ stats.conditions }}</h3>
-                    <p class="text-muted">Medical Conditions</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Conditions Section -->
-    <div class="row mb-5">
-        <div class="col-12">
-            <h2 class="text-center mb-4">Supported Conditions</h2>
-        </div>
-        {% for condition in conditions %}
-        <div class="col-md-4 mb-3">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body text-center">
-                    <i class="fas fa-heartbeat fa-2x text-primary mb-3"></i>
-                    <h5 class="card-title">{{ condition }}</h5>
-                    <p class="card-text text-muted">
-                        Click below to check symptoms and find effective medications.
-                    </p>
-                    <a href="{{ url_for('main.predict') }}" class="btn btn-outline-primary">
-                        Check Symptoms
-                    </a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-    
-    <!-- How It Works -->
-    <div class="row">
-        <div class="col-12">
-            <h2 class="text-center mb-4">How It Works</h2>
-        </div>
-        <div class="col-md-3 text-center mb-3">
-            <div class="step-circle">1</div>
-            <h5>Describe Symptoms</h5>
-            <p class="text-muted">Tell us how you're feeling in your own words</p>
-        </div>
-        <div class="col-md-3 text-center mb-3">
-            <div class="step-circle">2</div>
-            <h5>AI Analysis</h5>
-            <p class="text-muted">Our model analyzes your description</p>
-        </div>
-        <div class="col-md-3 text-center mb-3">
-            <div class="step-circle">3</div>
-            <h5>Condition Prediction</h5>
-            <p class="text-muted">Get a predicted condition with confidence score</p>
-        </div>
-        <div class="col-md-3 text-center mb-3">
-            <div class="step-circle">4</div>
-            <h5>Drug Recommendations</h5>
-            <p class="text-muted">Receive personalized medication suggestions</p>
-        </div>
-    </div>
-</div>
+
+    <!-- Right: empty col, doctor is absolutely positioned -->
+    <div class="doctor-col"></div>
+
+</section>
+
+<script>
+    const nav = document.getElementById('homeNav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 10);
+    });
+</script>
+
 {% endblock %}

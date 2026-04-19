@@ -1,49 +1,227 @@
 {% extends "base.html" %}
 
-{% block title %}Drug Advisor - Predict{% endblock %}
+{% block title %}MED.AI - Live Consultation{% endblock %}
+
+{% block extra_css %}
+<style>
+.predict-page {
+    background: linear-gradient(135deg, #f8fafc 0%, #e0f2f1 100%);
+    min-height: 100vh;
+    padding-top: 90px;
+}
+
+.consultation-container {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 2.5rem;
+}
+
+/* Doctor Nova Card - Matching your video */
+.doctor-card {
+    background: white;
+    border-radius: 28px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+.doctor-avatar-container {
+    width: 210px;
+    height: 210px;
+    margin: 0 auto 1.8rem;
+    position: relative;
+}
+
+.doctor-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #0f766e;
+    padding: 12px;
+    box-shadow: 
+        0 0 0 14px rgba(20, 184, 166, 0.18),
+        0 0 0 22px rgba(20, 184, 166, 0.08);
+    animation: breathe 4s ease-in-out infinite;
+}
+
+.doctor-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Pulsing Listening Dot */
+.listening-dot {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+    width: 20px;
+    height: 20px;
+    background: #14b8a6;
+    border: 4px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 6px rgba(20, 184, 166, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.doctor-info h3 {
+    margin: 0.8rem 0 0.3rem;
+    font-size: 1.55rem;
+    color: #134e4a;
+    font-weight: 700;
+}
+
+.doctor-info p {
+    color: #64748b;
+    margin: 0;
+    font-size: 0.98rem;
+}
+
+/* Consultation Area */
+.consultation-area {
+    background: white;
+    border-radius: 28px;
+    padding: 2.2rem;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.07);
+}
+
+.consultation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.8rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.consultation-header h4 {
+    margin: 0;
+    color: #134e4a;
+    font-weight: 700;
+}
+
+.online-badge {
+    background: #14b8a6;
+    color: white;
+    font-size: 0.82rem;
+    padding: 5px 16px;
+    border-radius: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Chat Bubble */
+.chat-bubble {
+    background: #f8fafc;
+    padding: 16px 20px;
+    border-radius: 20px;
+    border-top-left-radius: 6px;
+    max-width: 90%;
+    margin-bottom: 1.5rem;
+    line-height: 1.55;
+    color: #334155;
+}
+
+/* Form */
+.form-control {
+    border-radius: 14px;
+    border: 1px solid #cbd5e1;
+    padding: 14px 18px;
+    font-size: 1.02rem;
+}
+
+.form-control:focus {
+    border-color: #14b8a6;
+    box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.12);
+}
+
+/* Animations */
+@keyframes breathe {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 6px rgba(20, 184, 166, 0.3); }
+    50% { opacity: 0.6; box-shadow: 0 0 0 12px rgba(20, 184, 166, 0); }
+}
+</style>
+{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-lg">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">
-                        <i class="fas fa-stethoscope me-2"></i>
-                        Describe Your Symptoms
-                    </h4>
+<div class="predict-page">
+    <div class="consultation-container">
+
+        <!-- Doctor Nova -->
+        <div class="doctor-card">
+            <div class="doctor-avatar-container">
+                <div class="doctor-avatar">
+                    <img src="{{ url_for('static', filename='images/doctor-nova.png') }}" alt="Dr. NOVA">
                 </div>
-                <div class="card-body">
-                    {% if error %}
-                    <div class="alert alert-danger">
-                        <i class="fas fa-exclamation-circle me-2"></i>{{ error }}
-                    </div>
-                    {% endif %}
-                    
-                    <form method="POST" action="{{ url_for('main.predict') }}" id="predict-form">
-                        <div class="mb-3">
-                            <label for="symptoms" class="form-label fw-bold">
-                                How are you feeling?
-                            </label>
-                            <textarea 
-                                class="form-control" 
-                                id="symptoms" 
-                                name="symptoms" 
-                                rows="6" 
-                                placeholder="Describe your symptoms..."
-                                required
-                            >{{ request.form.get('symptoms', '') }}</textarea>
-                        </div>
-                        
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary btn-lg" id="submit-btn">
-                                <i class="fas fa-search me-2"></i>Analyze Symptoms
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                <div class="listening-dot"></div>
+            </div>
+            <div class="doctor-info">
+                <span style="color:#14b8a6; font-size:0.95rem; font-weight:600;">● LISTENING</span>
+                <h3>Dr. NOVA</h3>
+                <p>AI Medical Assistant • v3.1</p>
             </div>
         </div>
+
+        <!-- Live Consultation Area -->
+        <div class="consultation-area">
+            <div class="consultation-header">
+                <div>
+                    <h4>Live Consultation</h4>
+                    <small style="color:#64748b;">End-to-end encrypted • session #{{ session_id|default('YWF PKO') }}</small>
+                </div>
+                <div class="online-badge">
+                    <span style="display:inline-block; width:8px; height:8px; background:white; border-radius:50%;"></span>
+                    Online
+                </div>
+            </div>
+
+            <!-- Doctor Greeting -->
+            <div class="chat-bubble">
+                <strong>DR. NOVA</strong><br>
+                Hello! I'm your AI doctor. Tell me — how are you feeling today?
+            </div>
+
+            <!-- Your original form (logic untouched) -->
+            {% if error %}
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle me-2"></i>{{ error }}
+            </div>
+            {% endif %}
+
+            <form method="POST" action="{{ url_for('main.predict') }}" id="predict-form">
+                <div class="mb-4">
+                    <label for="symptoms" class="form-label fw-bold">How are you feeling?</label>
+                    <textarea 
+                        class="form-control" 
+                        id="symptoms" 
+                        name="symptoms" 
+                        rows="5" 
+                        placeholder="Describe your symptoms..."
+                        required>{{ request.form.get('symptoms', '') }}</textarea>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg" id="submit-btn"
+                            style="background: linear-gradient(90deg, #14b8a6, #22d3ee); border:none;">
+                        <i class="fas fa-search me-2"></i>Analyze Symptoms
+                    </button>
+                </div>
+            </form>
+        </div>
+
     </div>
 </div>
 {% endblock %}
