@@ -1,7 +1,5 @@
 """
 Task 2B: Feature Tuning / Feature Selection
-File: scripts/tune_features.py
-Purpose: Select optimal features for model training
 """
 
 import pandas as pd

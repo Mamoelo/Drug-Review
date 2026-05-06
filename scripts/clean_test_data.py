@@ -1,7 +1,5 @@
 """
 Task 1: Data Gathering and Cleaning - Test Dataset
-File: clean_test_data.py
-Purpose: Clean drugsComTest_raw.csv and output cleaned_test_data.csv
 """
 
 import pandas as pd

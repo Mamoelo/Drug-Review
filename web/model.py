@@ -1,6 +1,5 @@
 """
 Database Models for User History and Feedback
-Uses SQLite - no additional setup required
 """
 
 import sqlite3

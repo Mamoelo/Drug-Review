@@ -1,8 +1,5 @@
 """
-Task 3 & 4: Model Determination and Training
-File: scripts/train_model.py
-Purpose: Train an intelligent model that learns everything from data
-         No hard-coded values - all patterns learned from training data
+Task 3 and 4: Model Determination and Training
 """
 
 import pandas as pd

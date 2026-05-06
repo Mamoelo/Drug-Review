@@ -1,6 +1,6 @@
 """
 run.py
-Drug Advisor - Entry point for Flask application
+Drug Advisor Entry point 
 """
 
 from web import create_app

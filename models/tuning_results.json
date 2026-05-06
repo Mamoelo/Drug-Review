@@ -1,5 +1,5 @@
 {
-  "tuning_date": "2026-04-16T01:20:42.157243",
+  "tuning_date": "2026-04-21T00:38:10.480354",
   "training_samples": 14111,
   "test_samples": 4751,
   "conditions": [
@@ -7,23 +7,42 @@
     "Diabetes, Type 2",
     "High Blood Pressure"
   ],
-  "random_search_best": NaN,
-  "grid_search_best": NaN,
-  "test_accuracy": 0.9381182908861292,
-  "test_precision": 0.9406469956594421,
-  "test_recall": 0.9381182908861292,
-  "test_f1": 0.9366319113827289,
-  "cv_scores": [
-    0.9422600070846617,
-    0.9386959603118356,
-    0.9397590361445783,
-    0.9337349397590361,
-    0.9319631467044649
+  "random_search_best_cv": 0.9616610296751772,
+  "grid_search_best_cv": 0.9618735393725141,
+  "test_accuracy": 0.9739002315302042,
+  "test_precision": 0.9738478156679363,
+  "test_recall": 0.9739002315302042,
+  "test_f1": 0.9737665771096681,
+  "cv_5fold_scores": [
+    0.9663478568898335,
+    0.9691708008504607,
+    0.9642097802976612,
+    0.9688164422395464,
+    0.9617292700212615
   ],
-  "cv_mean": 0.9372826180009154,
-  "cv_std": 0.0038415460737250546,
+  "cv_5fold_mean": 0.9660548300597528,
+  "cv_5fold_std": 0.0028119857323415896,
   "baseline_accuracy": 0.949273837086929,
-  "improvement": -0.011155546200799837,
-  "improvement_pct": -1.1751662971175136,
-  "total_time_seconds": 21357.978707790375
+  "improvement": 0.02462639444327519,
+  "improvement_pct": 2.594235033259433,
+  "best_params": {
+    "classifier__lr__C": 10.0,
+    "classifier__rf__max_depth": 15,
+    "classifier__rf__n_estimators": 100,
+    "classifier__weights": [
+      1,
+      2,
+      3
+    ],
+    "classifier__xgb__learning_rate": 0.2,
+    "classifier__xgb__max_depth": 7,
+    "classifier__xgb__n_estimators": 200,
+    "features__tfidf__max_features": 2500,
+    "features__tfidf__ngram_range": [
+      1,
+      2
+    ]
+  },
+  "total_time_seconds": 9281.4,
+  "total_time_minutes": 154.7
 }

@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
-{% extends "base.html" %}
-
-{% block title %}MED.AI - Live Consultation{% endblock %}
+{% block title %}Limko Medical Live Consultation{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -21,7 +19,6 @@
     gap: 2.5rem;
 }
 
-/* Doctor Nova Card - Matching your video */
 .doctor-card {
     background: white;
     border-radius: 28px;
@@ -46,7 +43,7 @@
     border-radius: 50%;
     background: #0f766e;
     padding: 12px;
-    box-shadow: 
+    box-shadow:
         0 0 0 14px rgba(20, 184, 166, 0.18),
         0 0 0 22px rgba(20, 184, 166, 0.08);
     animation: breathe 4s ease-in-out infinite;
@@ -59,7 +56,6 @@
     object-fit: cover;
 }
 
-/* Pulsing Listening Dot */
 .listening-dot {
     position: absolute;
     bottom: 18px;
@@ -86,7 +82,6 @@
     font-size: 0.98rem;
 }
 
-/* Consultation Area */
 .consultation-area {
     background: white;
     border-radius: 28px;
@@ -103,11 +98,7 @@
     border-bottom: 1px solid #e2e8f0;
 }
 
-.consultation-header h4 {
-    margin: 0;
-    color: #134e4a;
-    font-weight: 700;
-}
+.consultation-header h4 { margin: 0; color: #134e4a; font-weight: 700; }
 
 .online-badge {
     background: #14b8a6;
@@ -120,7 +111,6 @@
     gap: 6px;
 }
 
-/* Chat Bubble */
 .chat-bubble {
     background: #f8fafc;
     padding: 16px 20px;
@@ -132,33 +122,154 @@
     color: #334155;
 }
 
-/* Form */
 .form-control {
     border-radius: 14px;
     border: 1px solid #cbd5e1;
     padding: 14px 18px;
     font-size: 1.02rem;
+    width: 100%;
 }
 
 .form-control:focus {
     border-color: #14b8a6;
     box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.12);
+    outline: none;
 }
 
-/* Animations */
+/* ── Diagnosis field ─────────────────────────────────── */
+.diagnosis-section {
+    background: linear-gradient(135deg, rgba(20,184,166,0.04), rgba(34,211,238,0.04));
+    border: 1px solid rgba(20,184,166,0.18);
+    border-radius: 18px;
+    padding: 1.4rem 1.6rem;
+    margin-bottom: 1.5rem;
+}
+
+.diagnosis-section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+}
+
+.diagnosis-section-header .icon {
+    width: 32px;
+    height: 32px;
+    background: rgba(20,184,166,0.12);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0f766e;
+    font-size: 0.95rem;
+    flex-shrink: 0;
+}
+
+.diagnosis-section-header label {
+    font-weight: 700;
+    color: #134e4a;
+    font-size: 0.97rem;
+    margin: 0;
+}
+
+.diagnosis-hint {
+    font-size: 0.82rem;
+    color: #64748b;
+    margin-bottom: 0.85rem;
+    line-height: 1.5;
+}
+
+.diagnosis-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.diagnosis-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 50px;
+    border: 1.5px solid #cbd5e1;
+    background: white;
+    color: #475569;
+    font-size: 0.88rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.diagnosis-chip:hover {
+    border-color: #14b8a6;
+    color: #0f766e;
+    background: rgba(20,184,166,0.06);
+}
+
+.diagnosis-chip.selected {
+    border-color: #14b8a6;
+    background: rgba(20,184,166,0.1);
+    color: #0f766e;
+    font-weight: 700;
+}
+
+.diagnosis-chip.selected .chip-dot {
+    background: #14b8a6;
+}
+
+.diagnosis-chip.none-chip.selected {
+    border-color: #94a3b8;
+    background: rgba(148,163,184,0.1);
+    color: #475569;
+}
+
+.chip-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #cbd5e1;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.chip-check {
+    display: none;
+    font-size: 0.75rem;
+}
+
+.diagnosis-chip.selected .chip-check { display: inline; }
+.diagnosis-chip.selected .chip-dot   { display: none; }
+
+/* hidden radio that actually submits */
+.diagnosis-radio { display: none; }
+
+/* Impact indicator */
+.diagnosis-impact {
+    margin-top: 0.85rem;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    display: none;
+}
+.diagnosis-impact.show { display: flex; align-items: flex-start; gap: 8px; }
+.impact-confirmed { background: rgba(34,197,94,0.08); color: #15803d; border: 1px solid rgba(34,197,94,0.2); }
+.impact-neutral   { background: rgba(100,116,139,0.07); color: #475569; }
+
 @keyframes breathe {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.03); }
+    50%       { transform: scale(1.03); }
 }
 
 @keyframes pulse {
     0%, 100% { opacity: 1; box-shadow: 0 0 0 6px rgba(20, 184, 166, 0.3); }
-    50% { opacity: 0.6; box-shadow: 0 0 0 12px rgba(20, 184, 166, 0); }
+    50%       { opacity: 0.6; box-shadow: 0 0 0 12px rgba(20, 184, 166, 0); }
 }
 </style>
 {% endblock %}
 
-{% block content %}
+{% block navbar %}
 <nav class="main-nav" style="margin-bottom:2rem;">
     <a href="{{ url_for('main.dashboard') }}" class="main-nav-logo">
         <svg viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.5">
@@ -175,7 +286,8 @@
     <div class="main-nav-actions">
         {% if user %}
         <div class="dropdown">
-            <button class="nav-btn-ghost dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="nav-btn-ghost dropdown-toggle" type="button" id="userDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-user-circle me-1"></i>{{ user.full_name or user.email.split('@')[0] }}
             </button>
             <ul class="dropdown-menu" aria-labelledby="userDropdown">
@@ -190,10 +302,13 @@
         {% endif %}
     </div>
 </nav>
+{% endblock %}
+
+{% block content %}
 <div class="predict-page">
     <div class="consultation-container">
 
-        <!-- Doctor Nova -->
+        <!-- Doctor TM -->
         <div class="doctor-card">
             <div class="doctor-avatar-container">
                 <div class="doctor-avatar">
@@ -203,8 +318,8 @@
             </div>
             <div class="doctor-info">
                 <span style="color:#14b8a6; font-size:0.95rem; font-weight:600;">● LISTENING</span>
-                <h3>Dr. NOVA</h3>
-                <p>AI Medical Assistant • v3.1</p>
+                <h3>Dr. TM</h3>
+                <p>Medical Assistant</p>
             </div>
         </div>
 
@@ -213,21 +328,23 @@
             <div class="consultation-header">
                 <div>
                     <h4>Live Consultation</h4>
-                    <small style="color:#64748b;">End-to-end encrypted • session #{{ session_id|default('YWF PKO') }}</small>
+                    <small style="color:#64748b;">
+                        End-to-end encrypted · session #{{ session_id|default('YWF PKO') }}
+                    </small>
                 </div>
                 <div class="online-badge">
-                    <span style="display:inline-block; width:8px; height:8px; background:white; border-radius:50%;"></span>
+                    <span style="display:inline-block;width:8px;height:8px;background:white;border-radius:50%;"></span>
                     Online
                 </div>
             </div>
 
-            <!-- Doctor Greeting -->
             <div class="chat-bubble">
-                <strong>DR. NOVA</strong><br>
-                Hello! I'm your AI doctor. Tell me — how are you feeling today?
+                <strong>DR. TM</strong><br>
+                Hello! I'm your Medical Assistant. Tell me how are you feeling today?
+                If you have a confirmed diagnosis from your doctor, share it below
+                and I'll tailor my analysis to your condition.
             </div>
 
-            <!-- Your original form (logic untouched) -->
             {% if error %}
             <div class="alert alert-danger">
                 <i class="fas fa-exclamation-circle me-2"></i>{{ error }}
@@ -235,36 +352,114 @@
             {% endif %}
 
             <form method="POST" action="{{ url_for('main.predict') }}" id="predict-form">
+
+                <!-- ── STEP 1: Doctor's diagnosis ─────────────────────── -->
+                <div class="diagnosis-section">
+                    <div class="diagnosis-section-header">
+                        <div class="icon"><i class="fas fa-user-md"></i></div>
+                        <label>Has a doctor already diagnosed you?</label>
+                    </div>
+                    <p class="diagnosis-hint">
+                        Optional — if you have a confirmed diagnosis, selecting it helps the AI
+                        align its analysis with your known condition.
+                    </p>
+
+                    <!-- Hidden radio group — submitted with the form -->
+                    <input type="radio" class="diagnosis-radio" name="user_diagnosis" value="" id="dr_none" checked>
+                    <input type="radio" class="diagnosis-radio" name="user_diagnosis" value="Depression" id="dr_depression">
+                    <input type="radio" class="diagnosis-radio" name="user_diagnosis" value="High Blood Pressure" id="dr_bp">
+                    <input type="radio" class="diagnosis-radio" name="user_diagnosis" value="Diabetes, Type 2" id="dr_diabetes">
+
+                    <div class="diagnosis-chips">
+                        <div class="diagnosis-chip none-chip selected" data-target="dr_none">
+                            <span class="chip-dot"></span>
+                            <i class="chip-check fas fa-check"></i>
+                            Not diagnosed yet
+                        </div>
+                        <div class="diagnosis-chip" data-target="dr_depression">
+                            <span class="chip-dot" style="background:#f87171;"></span>
+                            <i class="chip-check fas fa-check"></i>
+                            Depression
+                        </div>
+                        <div class="diagnosis-chip" data-target="dr_bp">
+                            <span class="chip-dot" style="background:#60a5fa;"></span>
+                            <i class="chip-check fas fa-check"></i>
+                            High Blood Pressure
+                        </div>
+                        <div class="diagnosis-chip" data-target="dr_diabetes">
+                            <span class="chip-dot" style="background:#34d399;"></span>
+                            <i class="chip-check fas fa-check"></i>
+                            Type 2 Diabetes
+                        </div>
+                    </div>
+
+                    <!-- Dynamic feedback message shown when a condition is chosen -->
+                    <div class="diagnosis-impact impact-confirmed" id="diagImpact">
+                        <i class="fas fa-info-circle" style="margin-top:2px;flex-shrink:0;"></i>
+                        <span id="diagImpactText"></span>
+                    </div>
+                </div>
+
+                <!-- ── STEP 2: Symptom description ────────────────────── -->
                 <div class="mb-4">
-                    <label for="symptoms" class="form-label fw-bold">How are you feeling?</label>
-                    <textarea 
-                        class="form-control" 
-                        id="symptoms" 
-                        name="symptoms" 
-                        rows="5" 
-                        placeholder="Describe your symptoms..."
+                    <label for="symptoms" class="form-label fw-bold">
+                        How are you feeling?
+                    </label>
+                    <textarea
+                        class="form-control"
+                        id="symptoms"
+                        name="symptoms"
+                        rows="5"
+                        placeholder="Describe your symptoms in detail — what you feel, how long, how severe…"
                         required>{{ request.form.get('symptoms', '') }}</textarea>
                 </div>
 
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary btn-lg" id="submit-btn"
-                            style="background: linear-gradient(90deg, #14b8a6, #22d3ee); border:none;">
+                            style="background:linear-gradient(90deg,#14b8a6,#22d3ee);border:none;">
                         <i class="fas fa-search me-2"></i>Analyze Symptoms
                     </button>
                 </div>
             </form>
         </div>
-
     </div>
 </div>
-{% endblock %}
 
-{% block extra_js %}
 <script>
-document.getElementById('predict-form').addEventListener('submit', function() {
+// ── Chip selection logic ─────────────────────────────────────────────────────
+const chips   = document.querySelectorAll('.diagnosis-chip');
+const impact  = document.getElementById('diagImpact');
+const impactTxt = document.getElementById('diagImpactText');
+
+const IMPACT_MSGS = {
+    'dr_depression': 'The AI will cross-reference your symptoms against Depression patterns and boost confidence if they align.',
+    'dr_bp':         'The AI will factor your High Blood Pressure diagnosis into the prediction, helping surface the most relevant medications.',
+    'dr_diabetes':   'Your Type 2 Diabetes diagnosis will be used to validate and refine the AI result.',
+    'dr_none':       '',
+};
+
+chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+
+        const targetId = chip.dataset.target;
+        document.getElementById(targetId).checked = true;
+
+        if (targetId === 'dr_none') {
+            impact.classList.remove('show');
+        } else {
+            impactTxt.textContent = IMPACT_MSGS[targetId] || '';
+            impact.classList.add('show');
+        }
+    });
+});
+
+// ── Submit spinner ───────────────────────────────────────────────────────────
+document.getElementById('predict-form').addEventListener('submit', function () {
     const btn = document.getElementById('submit-btn');
     btn.disabled = true;
-    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Analyzing...';
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Analyzing…';
 });
 </script>
 {% endblock %}

@@ -9,283 +9,124 @@
     min-height: 100vh;
     padding: 2rem 0 4rem;
 }
-
-.dashboard-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-}
-
-/* Welcome header */
-.welcome-header {
-    margin-bottom: 2rem;
-}
-
-.welcome-header h1 {
-    font-size: 2rem;
-    font-weight: 800;
-    color: #134e4a;
-    margin-bottom: 0.25rem;
-}
-
-.welcome-header p {
-    color: #64748b;
-    font-size: 1rem;
-}
-
-/* Stats cards */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 2rem;
-}
-
-.stat-card {
-    background: white;
-    border-radius: 20px;
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-}
-
-.stat-card .stat-icon {
-    width: 48px;
-    height: 48px;
-    background: rgba(20,184,166,0.12);
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #0f766e;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.stat-card .stat-value {
-    font-size: 2.2rem;
-    font-weight: 800;
-    color: #134e4a;
-    line-height: 1;
-    margin-bottom: 0.25rem;
-}
-
-.stat-card .stat-label {
-    font-size: 0.85rem;
-    color: #64748b;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-}
-
-/* Main content grid */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-}
-
-.dashboard-card {
-    background: white;
-    border-radius: 24px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    overflow: hidden;
-}
-
-.card-header {
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid #f1f5f9;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.card-header h3 {
-    margin: 0;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #134e4a;
-}
-
-.card-header a {
-    color: #14b8a6;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.card-body {
-    padding: 1.5rem;
-}
-
-/* Conditions list */
-.condition-item {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #f1f5f9;
-}
-
+.dashboard-container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+.welcome-header { margin-bottom: 2rem; }
+.welcome-header h1 { font-size: 2rem; font-weight: 800; color: #134e4a; margin-bottom: 0.25rem; }
+.welcome-header p { color: #64748b; font-size: 1rem; }
+.stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+.stat-card { background: white; border-radius: 20px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+.stat-card .stat-icon { width: 48px; height: 48px; background: rgba(20,184,166,0.12); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: #0f766e; font-size: 1.5rem; margin-bottom: 1rem; }
+.stat-card .stat-value { font-size: 2.2rem; font-weight: 800; color: #134e4a; line-height: 1; margin-bottom: 0.25rem; }
+.stat-card .stat-label { font-size: 0.85rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.dashboard-card { background: white; border-radius: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); overflow: hidden; }
+.card-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; }
+.card-header h3 { margin: 0; font-size: 1.1rem; font-weight: 700; color: #134e4a; }
+.card-header a { color: #14b8a6; font-size: 0.85rem; font-weight: 600; text-decoration: none; }
+.card-body { padding: 1.5rem; }
+.condition-item { display: flex; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #f1f5f9; }
 .condition-item:last-child { border-bottom: none; }
-
-.condition-name {
-    flex: 1;
-    font-weight: 600;
-    color: #134e4a;
-}
-
-.condition-count {
-    background: rgba(20,184,166,0.1);
-    color: #0f766e;
-    padding: 4px 12px;
-    border-radius: 50px;
-    font-size: 0.8rem;
-    font-weight: 700;
-}
-
-/* Checkup list */
-.checkup-item {
-    display: flex;
-    align-items: center;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid #f1f5f9;
-}
-
-.checkup-item:last-child { border-bottom: none; }
-
-.checkup-icon {
-    width: 40px;
-    height: 40px;
-    background: rgba(234,179,8,0.12);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #854d0e;
-    margin-right: 1rem;
-}
-
-.checkup-info { flex: 1; }
-
-.checkup-info h4 {
-    margin: 0 0 4px;
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #134e4a;
-}
-
-.checkup-info p {
-    margin: 0;
-    font-size: 0.8rem;
-    color: #64748b;
-}
-
-.checkup-date {
-    font-weight: 600;
-    color: #854d0e;
-    font-size: 0.85rem;
-}
-
-/* Consultation history */
-.consultation-item {
-    padding: 1rem 0;
-    border-bottom: 1px solid #f1f5f9;
-}
-
-.consultation-item:last-child { border-bottom: none; }
-
-.consultation-meta {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-}
-
-.consultation-condition {
-    font-weight: 700;
-    color: #134e4a;
-}
-
-.consultation-confidence {
-    font-size: 0.75rem;
-    padding: 3px 10px;
-    border-radius: 50px;
-    font-weight: 600;
-}
-
+.condition-name { flex: 1; font-weight: 600; color: #134e4a; }
+.condition-count { background: rgba(20,184,166,0.1); color: #0f766e; padding: 4px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: 700; }
+.consultation-confidence { font-size: 0.75rem; padding: 3px 10px; border-radius: 50px; font-weight: 600; }
 .confidence-high { background: rgba(34,197,94,0.12); color: #15803d; }
 .confidence-moderate { background: rgba(234,179,8,0.14); color: #854d0e; }
 .confidence-low { background: rgba(239,68,68,0.1); color: #b91c1c; }
-
-.consultation-date {
-    margin-left: auto;
-    font-size: 0.75rem;
-    color: #94a3b8;
-}
-
-.consultation-symptoms {
-    color: #64748b;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin-bottom: 0.5rem;
-}
-
-.consultation-link {
-    font-size: 0.8rem;
-    color: #14b8a6;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-/* Action buttons */
-.action-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-}
-
-.btn-primary-large {
-    background: linear-gradient(90deg, #14b8a6, #22d3ee);
-    color: white;
-    padding: 14px 28px;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 700;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.btn-secondary-large {
-    background: white;
-    border: 2px solid #e2e8f0;
-    color: #134e4a;
-    padding: 14px 28px;
-    border-radius: 50px;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.empty-state {
-    text-align: center;
-    padding: 2rem;
-    color: #94a3b8;
-}
-
-.empty-state i {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    opacity: 0.5;
-}
-
-@media (max-width: 768px) {
-    .stats-grid { grid-template-columns: repeat(2, 1fr); }
-    .dashboard-grid { grid-template-columns: 1fr; }
-}
+.diag-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 50px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.02em; }
+.diag-confirmed  { background: rgba(34,197,94,0.1);   color: #15803d; border: 1px solid rgba(34,197,94,0.2); }
+.diag-accepted   { background: rgba(20,184,166,0.1);  color: #0f766e; border: 1px solid rgba(20,184,166,0.2); }
+.diag-overridden { background: rgba(99,102,241,0.1);  color: #4338ca; border: 1px solid rgba(99,102,241,0.2); }
+.diag-conflict   { background: rgba(239,68,68,0.08);  color: #b91c1c; border: 1px solid rgba(239,68,68,0.2); }
+.diag-none       { background: rgba(148,163,184,0.1); color: #64748b; border: 1px solid rgba(148,163,184,0.2); }
+.consultation-item { padding: 1rem 0; border-bottom: 1px solid #f1f5f9; }
+.consultation-item:last-child { border-bottom: none; }
+.consultation-meta { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+.consultation-condition { font-weight: 700; color: #134e4a; }
+.consultation-date { font-size: 0.78rem; color: #94a3b8; margin-left: auto; }
+.consultation-symptoms { color: #64748b; font-size: 0.88rem; font-style: italic; margin-bottom: 0.5rem; padding-left: 0.5rem; border-left: 2px solid #e2e8f0; line-height: 1.5; }
+.consultation-link { font-size: 0.82rem; color: #14b8a6; font-weight: 600; text-decoration: none; }
+.insights-panel { margin-bottom: 1.5rem; }
+.insight-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.insight-card { background: white; border-radius: 18px; padding: 1.25rem 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.04); display: flex; align-items: flex-start; gap: 1rem; }
+.insight-icon { width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+.insight-icon.green  { background: rgba(34,197,94,0.12);  color: #15803d; }
+.insight-icon.red    { background: rgba(239,68,68,0.1);   color: #b91c1c; }
+.insight-icon.teal   { background: rgba(20,184,166,0.12); color: #0f766e; }
+.insight-value { font-size: 1.6rem; font-weight: 800; color: #134e4a; line-height: 1; margin-bottom: 3px; }
+.insight-label { font-size: 0.78rem; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; }
+.conflict-alert { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.15); border-radius: 14px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 0.85rem; }
+.conflict-alert-icon { color: #ef4444; font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+.conflict-alert-text { font-size: 0.88rem; color: #7f1d1d; line-height: 1.55; }
+.empty-state { text-align: center; padding: 2rem; color: #94a3b8; }
+.empty-state i { font-size: 2.5rem; margin-bottom: 1rem; opacity: 0.5; display: block; }
+.empty-state p { margin: 0; font-size: 0.9rem; line-height: 1.6; }
+.action-buttons { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+.btn-primary-large { background: linear-gradient(90deg, #14b8a6, #22d3ee); color: white; padding: 14px 28px; border-radius: 50px; font-size: 1rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: opacity .2s; }
+.btn-primary-large:hover { opacity: .9; color: white; }
+.btn-secondary-large { background: white; border: 2px solid #e2e8f0; color: #134e4a; padding: 14px 28px; border-radius: 50px; font-size: 1rem; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: border-color .2s; }
+.btn-secondary-large:hover { border-color: #14b8a6; color: #0f766e; }
+.checkup-item { display: flex; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #f1f5f9; }
+.checkup-item:last-child { border-bottom: none; }
+.checkup-icon { width: 40px; height: 40px; background: rgba(234,179,8,0.12); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: #854d0e; margin-right: 1rem; flex-shrink: 0; }
+.checkup-info { flex: 1; }
+.checkup-info h4 { margin: 0 0 4px; font-size: 0.95rem; font-weight: 700; color: #134e4a; }
+.checkup-info p { margin: 0; font-size: 0.8rem; color: #64748b; }
+.checkup-action-btn { margin-left: 0.75rem; padding: 6px 14px; border-radius: 50px; background: linear-gradient(90deg, #14b8a6, #22d3ee); color: white; border: none; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: opacity .2s; white-space: nowrap; }
+.checkup-action-btn:hover { opacity: .85; }
+/* Modal */
+.modal-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(15,30,40,0.55); backdrop-filter: blur(4px); align-items: center; justify-content: center; }
+.modal-overlay.open { display: flex; }
+.checkup-modal { background: white; border-radius: 28px; width: 100%; max-width: 580px; max-height: 90vh; overflow-y: auto; padding: 0; box-shadow: 0 24px 60px rgba(0,0,0,0.18); animation: modalIn .25s ease; }
+@keyframes modalIn { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-header { padding: 1.75rem 2rem 1.25rem; border-bottom: 1px solid #f1f5f9; display: flex; align-items: flex-start; justify-content: space-between; }
+.modal-header-left { display: flex; align-items: center; gap: 1rem; }
+.modal-doctor-icon { width: 52px; height: 52px; border-radius: 16px; background: linear-gradient(135deg, #14b8a6, #22d3ee); display: flex; align-items: center; justify-content: center; color: white; font-size: 1.4rem; flex-shrink: 0; }
+.modal-title { font-size: 1.15rem; font-weight: 800; color: #134e4a; margin: 0 0 3px; }
+.modal-subtitle { font-size: 0.82rem; color: #64748b; margin: 0; }
+.modal-close { background: none; border: none; color: #94a3b8; font-size: 1.4rem; cursor: pointer; padding: 4px; line-height: 1; transition: color .2s; }
+.modal-close:hover { color: #475569; }
+.modal-body { padding: 1.5rem 2rem; }
+.step-indicator { display: flex; align-items: center; gap: 0; margin-bottom: 1.75rem; }
+.step-dot { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; transition: all .3s; }
+.step-dot.active  { background: #14b8a6; color: white; }
+.step-dot.done    { background: rgba(20,184,166,0.15); color: #0f766e; }
+.step-dot.pending { background: #f1f5f9; color: #94a3b8; }
+.step-line { flex: 1; height: 2px; background: #f1f5f9; margin: 0 6px; }
+.step-line.done { background: rgba(20,184,166,0.3); }
+.step-label { font-size: 0.7rem; color: #94a3b8; text-align: center; margin-top: 4px; }
+.step-wrapper { display: flex; flex-direction: column; align-items: center; }
+.nova-bubble { display: flex; gap: 0.85rem; margin-bottom: 1.5rem; align-items: flex-start; }
+.nova-avatar { width: 38px; height: 38px; border-radius: 50%; background: #0f766e; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.85rem; flex-shrink: 0; margin-top: 4px; }
+.nova-message { background: #f8fafc; border-radius: 16px; border-top-left-radius: 4px; padding: 12px 16px; font-size: 0.9rem; color: #334155; line-height: 1.55; flex: 1; }
+.feeling-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.7rem; margin-bottom: 1.25rem; }
+.feeling-btn { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 14px 10px; border-radius: 16px; border: 1.5px solid #e2e8f0; background: white; cursor: pointer; transition: all .2s; font-size: 0.82rem; font-weight: 600; color: #475569; }
+.feeling-btn .feeling-emoji { font-size: 1.6rem; }
+.feeling-btn:hover { border-color: #14b8a6; background: rgba(20,184,166,0.04); color: #0f766e; }
+.feeling-btn.selected { border-color: #14b8a6; background: rgba(20,184,166,0.08); color: #0f766e; }
+.feeling-btn.selected-bad { border-color: #ef4444; background: rgba(239,68,68,0.06); color: #b91c1c; }
+.modal-field { margin-bottom: 1.25rem; }
+.modal-field label { display: block; font-size: 0.85rem; font-weight: 700; color: #134e4a; margin-bottom: 6px; }
+.modal-field textarea, .modal-field input, .modal-field select { width: 100%; padding: 12px 16px; border: 1.5px solid #e2e8f0; border-radius: 14px; font-size: 0.95rem; color: #334155; background: white; transition: border-color .2s; font-family: inherit; }
+.modal-field textarea:focus, .modal-field input:focus, .modal-field select:focus { border-color: #14b8a6; box-shadow: 0 0 0 4px rgba(20,184,166,0.1); outline: none; }
+.scale-row { display: flex; gap: 6px; margin-bottom: 6px; }
+.scale-btn { flex: 1; padding: 10px 4px; border-radius: 10px; border: 1.5px solid #e2e8f0; background: white; font-size: 0.8rem; font-weight: 700; color: #94a3b8; cursor: pointer; transition: all .2s; text-align: center; }
+.scale-btn:hover { border-color: #14b8a6; color: #0f766e; }
+.scale-btn.sel-1,.scale-btn.sel-2,.scale-btn.sel-3 { border-color: #ef4444; background: rgba(239,68,68,0.08); color: #b91c1c; }
+.scale-btn.sel-4,.scale-btn.sel-5,.scale-btn.sel-6 { border-color: #eab308; background: rgba(234,179,8,0.08); color: #854d0e; }
+.scale-btn.sel-7,.scale-btn.sel-8 { border-color: #14b8a6; background: rgba(20,184,166,0.08); color: #0f766e; }
+.scale-btn.sel-9,.scale-btn.sel-10 { border-color: #22c55e; background: rgba(34,197,94,0.08); color: #15803d; }
+.scale-label { display: flex; justify-content: space-between; font-size: 0.72rem; color: #94a3b8; }
+.modal-footer { padding: 1.25rem 2rem 1.75rem; display: flex; gap: 0.75rem; justify-content: flex-end; border-top: 1px solid #f1f5f9; }
+.btn-modal-back { background: white; border: 1.5px solid #e2e8f0; color: #475569; padding: 11px 24px; border-radius: 50px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: border-color .2s; }
+.btn-modal-back:hover { border-color: #94a3b8; }
+.btn-modal-next { background: linear-gradient(90deg,#14b8a6,#22d3ee); color: white; padding: 11px 28px; border-radius: 50px; font-size: 0.9rem; font-weight: 700; border: none; cursor: pointer; transition: opacity .2s; }
+.btn-modal-next:hover { opacity: .9; }
+.btn-modal-next:disabled { opacity: .45; cursor: not-allowed; }
+.checkup-success-state { text-align: center; padding: 2rem 1rem; }
+.success-icon { width: 72px; height: 72px; background: rgba(20,184,166,0.12); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem; font-size: 2rem; color: #14b8a6; }
+.success-title { font-size: 1.25rem; font-weight: 800; color: #134e4a; margin-bottom: 0.5rem; }
+.success-sub { font-size: 0.9rem; color: #64748b; line-height: 1.6; }
+@media (max-width: 768px) { .stats-grid { grid-template-columns: repeat(2,1fr); } .dashboard-grid { grid-template-columns: 1fr; } .insight-row { grid-template-columns: 1fr; } .feeling-grid { grid-template-columns: repeat(2,1fr); } }
 </style>
 {% endblock %}
 
@@ -325,220 +166,461 @@
 {% endblock %}
 
 {% block content %}
+{% set ns = namespace(confirmed=0,accepted=0,overridden=0,conflict=0,with_diag=0) %}
+{% for c in consultations %}
+    {% if c.user_diagnosis %}
+        {% set ns.with_diag = ns.with_diag + 1 %}
+        {% if c.diagnosis_agreement == 'confirmed'  %}{% set ns.confirmed  = ns.confirmed  + 1 %}{% endif %}
+        {% if c.diagnosis_agreement == 'accepted'   %}{% set ns.accepted   = ns.accepted   + 1 %}{% endif %}
+        {% if c.diagnosis_agreement == 'overridden' %}{% set ns.overridden = ns.overridden + 1 %}{% endif %}
+        {% if c.diagnosis_agreement == 'conflict'   %}{% set ns.conflict   = ns.conflict   + 1 %}{% endif %}
+    {% endif %}
+{% endfor %}
+{% set conflict_consultations = consultations | selectattr('diagnosis_agreement','equalto','conflict') | list %}
+
 <div class="dashboard-page">
-    <div class="dashboard-container">
+  <div class="dashboard-container">
 
-        <!-- Welcome -->
-        <div class="welcome-header">
-            <h1>Welcome back, {{ user.full_name or user.email.split('@')[0] }}!</h1>
-            <p>Here's your health overview and upcoming checkups.</p>
-        </div>
-
-        <!-- Stats -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-notes-medical"></i></div>
-                <div class="stat-value">{{ stats.total_consultations }}</div>
-                <div class="stat-label">Consultations</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-heartbeat"></i></div>
-                <div class="stat-value">{{ stats.conditions_treated }}</div>
-                <div class="stat-label">Conditions</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-star"></i></div>
-                <div class="stat-value">{{ stats.feedback_given }}</div>
-                <div class="stat-label">Feedback Given</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                <div class="stat-value">{{ stats.pending_checkups }}</div>
-                <div class="stat-label">Pending Checkups</div>
-            </div>
-        </div>
-
-        <!-- Main Grid -->
-        <div class="dashboard-grid">
-            <!-- Left Column -->
-            <div>
-                <!-- Previous Conditions -->
-                <div class="dashboard-card" style="margin-bottom: 1.5rem;">
-                    <div class="card-header">
-                        <h3><i class="fas fa-history me-2" style="color: #14b8a6;"></i>Your Conditions</h3>
-                    </div>
-                    <div class="card-body">
-                        {% if previous_conditions %}
-                            {% for cond in previous_conditions %}
-                            <div class="condition-item">
-                                <span class="condition-name">{{ cond.condition }}</span>
-                                <span class="condition-count">{{ cond.count }} consultation{{ 's' if cond.count > 1 }}</span>
-                            </div>
-                            {% endfor %}
-                        {% else %}
-                            <div class="empty-state">
-                                <i class="fas fa-clipboard-list"></i>
-                                <p>No conditions recorded yet.<br>Start a consultation to get started.</p>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-
-                <!-- Upcoming Checkups -->
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h3><i class="fas fa-calendar-alt me-2" style="color: #eab308;"></i>Upcoming Checkups</h3>
-                        <a href="#">View all →</a>
-                    </div>
-                    <div class="card-body">
-                        {% if checkups %}
-                            {% for checkup in checkups %}
-                            <div class="checkup-item">
-                                <div class="checkup-icon">
-                                    <i class="fas fa-stethoscope"></i>
-                                </div>
-                                <div class="checkup-info">
-                                    <h4>{{ checkup.condition or 'General Checkup' }}</h4>
-                                    <p>{{ checkup.symptoms[:50] + '...' if checkup.symptoms else 'Follow-up appointment' }}</p>
-                                </div>
-                                <div class="checkup-date">
-                                    {{ checkup.scheduled_date }}
-                                </div>
-                            </div>
-                            {% endfor %}
-                        {% else %}
-                            <div class="empty-state">
-                                <i class="fas fa-calendar"></i>
-                                <p>No upcoming checkups.<br>Schedule one after your next consultation!</p>
-                            </div>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Column - Recent Consultations -->
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h3><i class="fas fa-clock me-2" style="color: #14b8a6;"></i>Recent Consultations</h3>
-                    <a href="{{ url_for('main.history') }}">View all →</a>
-                </div>
-                <div class="card-body">
-                    {% if consultations %}
-                        {% for consult in consultations[:5] %}
-                        <div class="consultation-item">
-                            <div class="consultation-meta">
-                                <span class="consultation-condition">{{ consult.condition }}</span>
-                                {% set cl = 'High' if consult.confidence >= 0.7 else ('Moderate' if consult.confidence >= 0.5 else 'Low') %}
-                                <span class="consultation-confidence confidence-{{ cl|lower }}">
-                                    {{ (consult.confidence * 100)|int }}% confidence
-                                </span>
-                                <span class="consultation-date">{{ consult.created_at[:10] }}</span>
-                            </div>
-                            <div class="consultation-symptoms">
-                                "{{ consult.symptoms[:100] }}{% if consult.symptoms|length > 100 %}...{% endif %}"
-                            </div>
-                            <a href="#" class="consultation-link">View details →</a>
-                        </div>
-                        {% endfor %}
-                    {% else %}
-                        <div class="empty-state">
-                            <i class="fas fa-notes-medical"></i>
-                            <p>No consultations yet.<br>Start your first consultation now!</p>
-                        </div>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="action-buttons">
-            <a href="{{ url_for('main.predict') }}" class="btn-primary-large">
-                <i class="fas fa-stethoscope"></i> New Consultation
-            </a>
-            <a href="{{ url_for('main.history') }}" class="btn-secondary-large">
-                <i class="fas fa-history"></i> View Full History
-            </a>
-        </div>
-
-        <!-- Schedule Checkup Section -->
-        <div style="margin-top: 2rem;">
-            <div class="dashboard-card">
-                <div class="card-header">
-                    <h3><i class="fas fa-calendar-plus me-2" style="color: #14b8a6;"></i>Schedule a Checkup</h3>
-                </div>
-                <div class="card-body">
-                    <p style="color: #64748b; margin-bottom: 1.5rem;">Schedule a follow-up appointment to track your progress.</p>
-                    
-                    <form id="schedule-checkup-form">
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
-                            <div>
-                                <label style="font-size: 13px; font-weight: 600; color: #134e4a; margin-bottom: 5px; display: block;">Condition</label>
-                                <select id="checkup-condition" style="width: 100%; padding: 12px; border: 1.5px solid #e2e8f0; border-radius: 12px; font-size: 14px;">
-                                    <option value="">Select condition</option>
-                                    {% for cond in previous_conditions %}
-                                    <option value="{{ cond.condition }}">{{ cond.condition }}</option>
-                                    {% endfor %}
-                                    <option value="General">General Checkup</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label style="font-size: 13px; font-weight: 600; color: #134e4a; margin-bottom: 5px; display: block;">When</label>
-                                <select id="checkup-when" style="width: 100%; padding: 12px; border: 1.5px solid #e2e8f0; border-radius: 12px; font-size: 14px;">
-                                    <option value="7">In 1 week</option>
-                                    <option value="14">In 2 weeks</option>
-                                    <option value="30" selected>In 1 month</option>
-                                    <option value="60">In 2 months</option>
-                                    <option value="90">In 3 months</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div style="margin-bottom: 1rem;">
-                            <label style="font-size: 13px; font-weight: 600; color: #134e4a; margin-bottom: 5px; display: block;">Notes (optional)</label>
-                            <textarea id="checkup-notes" rows="2" placeholder="Any specific concerns..." style="width: 100%; padding: 12px; border: 1.5px solid #e2e8f0; border-radius: 12px; font-size: 14px; resize: vertical;"></textarea>
-                        </div>
-                        <button type="submit" style="background: linear-gradient(90deg, #14b8a6, #22d3ee); color: white; border: none; padding: 12px 24px; border-radius: 50px; font-size: 14px; font-weight: 700; cursor: pointer;">
-                            <i class="fas fa-calendar-check"></i> Schedule Checkup
-                        </button>
-                    </form>
-                    <div id="checkup-success" style="display: none; margin-top: 1rem; padding: 1rem; background: rgba(20,184,166,0.08); border-radius: 12px; color: #0f766e;">
-                        <i class="fas fa-check-circle"></i> Checkup scheduled successfully!
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script>
-        document.getElementById('schedule-checkup-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const condition = document.getElementById('checkup-condition').value;
-            const days = document.getElementById('checkup-when').value;
-            const notes = document.getElementById('checkup-notes').value;
-            
-            if (!condition) {
-                alert('Please select a condition');
-                return;
-            }
-            
-            try {
-                const response = await fetch('/api/schedule-checkup', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ condition, days, notes })
-                });
-                const result = await response.json();
-                
-                if (result.success) {
-                    document.getElementById('checkup-success').style.display = 'block';
-                    this.reset();
-                    setTimeout(() => location.reload(), 2000);
-                }
-            } catch (error) {
-                console.error('Error scheduling checkup:', error);
-            }
-        });
-        </script>
-
+    <div class="welcome-header">
+      <h1>Welcome back, {{ user.full_name or user.email.split('@')[0] }}!</h1>
+      <p>Here's your health overview and upcoming checkups.</p>
     </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-notes-medical"></i></div>
+        <div class="stat-value">{{ stats.total_consultations }}</div>
+        <div class="stat-label">Consultations</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-heartbeat"></i></div>
+        <div class="stat-value">{{ stats.conditions_treated }}</div>
+        <div class="stat-label">Conditions</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-star"></i></div>
+        <div class="stat-value">{{ stats.feedback_given }}</div>
+        <div class="stat-label">Feedback Given</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+        <div class="stat-value">{{ stats.pending_checkups }}</div>
+        <div class="stat-label">Pending Checkups</div>
+      </div>
+    </div>
+
+    {% if ns.with_diag > 0 %}
+    <div class="insights-panel">
+      <div style="padding:0 0 0.85rem;">
+        <h3 style="font-size:1rem;font-weight:700;color:#134e4a;margin:0;">
+          <i class="fas fa-user-md me-2" style="color:#14b8a6;"></i>Diagnosis Agreement
+        </h3>
+      </div>
+      <div class="insight-row">
+        <div class="insight-card">
+          <div class="insight-icon green"><i class="fas fa-check-double"></i></div>
+          <div><div class="insight-value">{{ ns.confirmed }}</div><div class="insight-label">Confirmed</div></div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-icon teal"><i class="fas fa-handshake"></i></div>
+          <div><div class="insight-value">{{ ns.accepted + ns.overridden }}</div><div class="insight-label">Diagnosis accepted</div></div>
+        </div>
+        <div class="insight-card">
+          <div class="insight-icon red"><i class="fas fa-exclamation-triangle"></i></div>
+          <div><div class="insight-value">{{ ns.conflict }}</div><div class="insight-label">Conflicts</div></div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+
+    {% if conflict_consultations %}
+    <div class="conflict-alert">
+      <div class="conflict-alert-icon"><i class="fas fa-exclamation-circle"></i></div>
+      <div class="conflict-alert-text">
+        <strong>Attention:</strong> {{ conflict_consultations|length }} consultation{{ 's' if conflict_consultations|length > 1 }} showed a disagreement between your doctor's diagnosis and our analysis.
+        {% for c in conflict_consultations[:2] %}
+        On <strong>{{ c.created_at[:10] }}</strong>, doctor said <strong>{{ c.user_diagnosis }}</strong> but we predicted <strong>{{ c.condition }}</strong>.
+        {% endfor %}
+        Please discuss with your healthcare provider.
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="dashboard-grid">
+      <div>
+        <div class="dashboard-card" style="margin-bottom:1.5rem;">
+          <div class="card-header">
+            <h3><i class="fas fa-history me-2" style="color:#14b8a6;"></i>Your Conditions</h3>
+          </div>
+          <div class="card-body">
+            {% if previous_conditions %}
+              {% for cond in previous_conditions %}
+              <div class="condition-item">
+                <span class="condition-name">{{ cond.condition }}</span>
+                <span class="condition-count">{{ cond.count }} consultation{{ 's' if cond.count > 1 }}</span>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="empty-state"><i class="fas fa-clipboard-list"></i><p>No conditions recorded yet.<br>Start a consultation to get started.</p></div>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-header">
+            <h3><i class="fas fa-calendar-alt me-2" style="color:#eab308;"></i>Upcoming Checkups</h3>
+          </div>
+          <div class="card-body">
+            {% if checkups %}
+              {% for checkup in checkups %}
+              <div class="checkup-item">
+                <div class="checkup-icon"><i class="fas fa-stethoscope"></i></div>
+                <div class="checkup-info">
+                  <h4>Follow-up checkup</h4>
+                  <p><i class="far fa-calendar me-1"></i>{{ checkup.scheduled_date }}</p>
+                </div>
+                <button class="checkup-action-btn" onclick="openCheckupModal('{{ checkup.checkup_id }}','{{ checkup.scheduled_date }}')">Check in →</button>
+              </div>
+              {% endfor %}
+            {% else %}
+              <div class="empty-state"><i class="fas fa-calendar"></i><p>No upcoming checkups.<br>Schedule one after your next consultation!</p></div>
+            {% endif %}
+            <div style="margin-top:1rem;text-align:center;">
+              <button onclick="openNewCheckupModal()" style="background:none;border:1.5px dashed #cbd5e1;color:#64748b;padding:10px 20px;border-radius:50px;font-size:0.85rem;font-weight:600;cursor:pointer;width:100%;transition:all .2s;" onmouseover="this.style.borderColor='#14b8a6';this.style.color='#0f766e';" onmouseout="this.style.borderColor='#cbd5e1';this.style.color='#64748b';">
+                <i class="fas fa-plus me-1"></i> Schedule new checkup
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dashboard-card">
+        <div class="card-header">
+          <h3><i class="fas fa-clock me-2" style="color:#14b8a6;"></i>Recent Consultations</h3>
+          <a href="{{ url_for('main.history') }}">View all →</a>
+        </div>
+        <div class="card-body">
+          {% if consultations %}
+            {% for consult in consultations[:5] %}
+            <div class="consultation-item">
+              <div class="consultation-meta">
+                <span class="consultation-condition">{{ consult.condition }}</span>
+                {% set cl = 'High' if consult.confidence >= 0.7 else ('Moderate' if consult.confidence >= 0.5 else 'Low') %}
+                <span class="consultation-confidence confidence-{{ cl|lower }}">{{ (consult.confidence * 100)|int }}% confidence</span>
+                {% if consult.user_diagnosis %}
+                  {% if consult.diagnosis_agreement == 'confirmed' %}<span class="diag-badge diag-confirmed"><i class="fas fa-check-circle"></i> Confirmed</span>
+                  {% elif consult.diagnosis_agreement == 'accepted' %}<span class="diag-badge diag-accepted"><i class="fas fa-handshake"></i> Accepted</span>
+                  {% elif consult.diagnosis_agreement == 'overridden' %}<span class="diag-badge diag-overridden"><i class="fas fa-user-md"></i> Dr. override</span>
+                  {% elif consult.diagnosis_agreement == 'conflict' %}<span class="diag-badge diag-conflict"><i class="fas fa-exclamation-triangle"></i> Conflict</span>
+                  {% endif %}
+                {% else %}
+                  <span class="diag-badge diag-none"><i class="fas fa-stethoscope"></i> No diagnosis</span>
+                {% endif %}
+                <span class="consultation-date">{{ consult.created_at[:10] }}</span>
+              </div>
+              {% if consult.user_diagnosis %}
+              <div style="font-size:0.78rem;color:#64748b;margin-bottom:0.4rem;">
+                <i class="fas fa-user-md" style="color:#14b8a6;margin-right:4px;"></i>
+                Doctor's diagnosis: <strong style="color:#134e4a;">{{ consult.user_diagnosis }}</strong>
+                {% if consult.diagnosis_agreement == 'conflict' %} · Predicted: <strong style="color:#b91c1c;">{{ consult.condition }}</strong>{% endif %}
+              </div>
+              {% endif %}
+              <div class="consultation-symptoms">"{{ consult.symptoms[:100] }}{% if consult.symptoms|length > 100 %}...{% endif %}"</div>
+              <a href="#" class="consultation-link">View details →</a>
+            </div>
+            {% endfor %}
+          {% else %}
+            <div class="empty-state"><i class="fas fa-notes-medical"></i><p>No consultations yet.<br>Start your first consultation now!</p></div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <a href="{{ url_for('main.predict') }}" class="btn-primary-large"><i class="fas fa-stethoscope"></i> New Consultation</a>
+      <a href="{{ url_for('main.history') }}" class="btn-secondary-large"><i class="fas fa-history"></i> View Full History</a>
+    </div>
+
+  </div>
 </div>
+
+<!-- CHECKUP MODAL -->
+<div class="modal-overlay" id="checkupOverlay">
+  <div class="checkup-modal" id="checkupModal">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-doctor-icon"><i class="fas fa-stethoscope"></i></div>
+        <div>
+          <p class="modal-title">Dr. NOVA Follow-up</p>
+          <p class="modal-subtitle">Scheduled checkup · <span id="modalCheckupDate"></span></p>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeCheckupModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom:1.5rem;">
+        <div class="step-indicator">
+          <div class="step-wrapper"><div class="step-dot active" id="sdot1">1</div><div class="step-label">How you feel</div></div>
+          <div class="step-line" id="sline1"></div>
+          <div class="step-wrapper"><div class="step-dot pending" id="sdot2">2</div><div class="step-label">Symptoms</div></div>
+          <div class="step-line" id="sline2"></div>
+          <div class="step-wrapper"><div class="step-dot pending" id="sdot3">3</div><div class="step-label">Medication</div></div>
+        </div>
+      </div>
+
+      <div id="step1">
+        <div class="nova-bubble">
+          <div class="nova-avatar"><i class="fas fa-robot"></i></div>
+          <div class="nova-message"><strong>DR. NOVA:</strong> Good to see you for your follow-up! First — <strong>how are you feeling today</strong> compared to your last visit?</div>
+        </div>
+        <div class="feeling-grid" id="feelingGrid">
+          <button class="feeling-btn" data-value="much_better" onclick="selectFeeling(this)"><span class="feeling-emoji">😄</span>Much better</button>
+          <button class="feeling-btn" data-value="better" onclick="selectFeeling(this)"><span class="feeling-emoji">🙂</span>Better</button>
+          <button class="feeling-btn" data-value="same" onclick="selectFeeling(this)"><span class="feeling-emoji">😐</span>About the same</button>
+          <button class="feeling-btn" data-value="worse" onclick="selectFeeling(this)"><span class="feeling-emoji">😔</span>A bit worse</button>
+          <button class="feeling-btn" data-value="much_worse" onclick="selectFeeling(this)"><span class="feeling-emoji">😣</span>Much worse</button>
+          <button class="feeling-btn" data-value="new_symptoms" onclick="selectFeeling(this)"><span class="feeling-emoji">🤒</span>New symptoms</button>
+        </div>
+        <div class="modal-field" id="feelingNotesField" style="display:none;">
+          <label>Tell me more <span style="color:#94a3b8;font-weight:400;">(optional)</span></label>
+          <textarea id="feelingNotes" rows="2" placeholder="Anything specific you'd like to share…"></textarea>
+        </div>
+      </div>
+
+      <div id="step2" style="display:none;">
+        <div class="nova-bubble">
+          <div class="nova-avatar"><i class="fas fa-robot"></i></div>
+          <div class="nova-message" id="novaStep2Msg"><strong>DR. NOVA:</strong> Thank you. On a scale of 1–10, how would you rate your <strong>current symptom severity</strong>?</div>
+        </div>
+        <div class="modal-field">
+          <label>Symptom severity</label>
+          <div class="scale-row" id="severityScale">
+            <button class="scale-btn" data-v="1" onclick="selectScale(this)">1</button>
+            <button class="scale-btn" data-v="2" onclick="selectScale(this)">2</button>
+            <button class="scale-btn" data-v="3" onclick="selectScale(this)">3</button>
+            <button class="scale-btn" data-v="4" onclick="selectScale(this)">4</button>
+            <button class="scale-btn" data-v="5" onclick="selectScale(this)">5</button>
+            <button class="scale-btn" data-v="6" onclick="selectScale(this)">6</button>
+            <button class="scale-btn" data-v="7" onclick="selectScale(this)">7</button>
+            <button class="scale-btn" data-v="8" onclick="selectScale(this)">8</button>
+            <button class="scale-btn" data-v="9" onclick="selectScale(this)">9</button>
+            <button class="scale-btn" data-v="10" onclick="selectScale(this)">10</button>
+          </div>
+          <div class="scale-label"><span>Barely noticeable</span><span>Severe</span></div>
+        </div>
+        <div class="modal-field">
+          <label>Any new or changed symptoms?</label>
+          <textarea id="newSymptoms" rows="3" placeholder="e.g. headaches started this week, fatigue improved, blood pressure readings…"></textarea>
+        </div>
+      </div>
+
+      <div id="step3" style="display:none;">
+        <div class="nova-bubble">
+          <div class="nova-avatar"><i class="fas fa-robot"></i></div>
+          <div class="nova-message"><strong>DR. NOVA:</strong> Almost done! Let me ask about your medication. Honest answers help me give you the best advice.</div>
+        </div>
+        <div class="modal-field">
+          <label>Are you taking your prescribed medication?</label>
+          <select id="medAdherence">
+            <option value="">Select…</option>
+            <option value="yes_all">Yes — taking all of it as prescribed</option>
+            <option value="yes_most">Mostly — occasionally miss a dose</option>
+            <option value="stopped">I stopped taking it</option>
+            <option value="not_started">Haven't started yet</option>
+            <option value="no_meds">No medication prescribed</option>
+          </select>
+        </div>
+        <div class="modal-field" id="stopReasonField" style="display:none;">
+          <label>Why did you stop?</label>
+          <select id="stopReason">
+            <option value="">Select reason…</option>
+            <option value="side_effects">Side effects</option>
+            <option value="felt_better">Felt better / thought I didn't need it</option>
+            <option value="cost">Cost / access issues</option>
+            <option value="not_working">Didn't seem to be working</option>
+            <option value="other">Other reason</option>
+          </select>
+        </div>
+        <div class="modal-field">
+          <label>Anything else to tell Dr. NOVA? <span style="color:#94a3b8;font-weight:400;">(optional)</span></label>
+          <textarea id="extraNotes" rows="3" placeholder="Any concerns, questions, or observations since your last visit…"></textarea>
+        </div>
+
+      </div>
+
+      <div id="stepSuccess" style="display:none;">
+        <div class="checkup-success-state">
+          <div class="success-icon"><i class="fas fa-check"></i></div>
+          <div class="success-title">Checkup complete!</div>
+          <p class="success-sub" id="successMsg">Thank you for checking in. Dr. NOVA has recorded your update.</p>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer" id="modalFooter">
+      <button class="btn-modal-back" id="backBtn" style="display:none;" onclick="prevStep()">← Back</button>
+      <button class="btn-modal-next" id="nextBtn" onclick="nextStep()" disabled>Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- NEW CHECKUP MODAL -->
+<div class="modal-overlay" id="newCheckupOverlay">
+  <div class="checkup-modal" style="max-width:440px;">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-doctor-icon"><i class="fas fa-calendar-plus"></i></div>
+        <div><p class="modal-title">Schedule a Checkup</p><p class="modal-subtitle">Set a reminder with Dr. NOVA</p></div>
+      </div>
+      <button class="modal-close" onclick="closeNewCheckupModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="nova-bubble">
+        <div class="nova-avatar"><i class="fas fa-robot"></i></div>
+        <div class="nova-message"><strong>DR. NOVA:</strong> Regular checkups help me track your progress. When would you like to check in?</div>
+      </div>
+      <div class="modal-field">
+        <label>Condition to monitor</label>
+        <select id="newCheckupCondition">
+          <option value="">Select condition</option>
+          {% for cond in previous_conditions %}<option value="{{ cond.condition }}">{{ cond.condition }}</option>{% endfor %}
+          <option value="General">General wellness</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>When</label>
+        <select id="newCheckupWhen">
+          <option value="7">In 1 week</option>
+          <option value="14">In 2 weeks</option>
+          <option value="30" selected>In 1 month</option>
+          <option value="60">In 2 months</option>
+          <option value="90">In 3 months</option>
+        </select>
+      </div>
+      <div class="modal-field">
+        <label>Notes <span style="color:#94a3b8;font-weight:400;">(optional)</span></label>
+        <textarea id="newCheckupNotes" rows="2" placeholder="Any specific concerns to revisit…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-modal-back" onclick="closeNewCheckupModal()">Cancel</button>
+      <button class="btn-modal-next" onclick="submitNewCheckup()"><i class="fas fa-calendar-check me-1"></i> Schedule</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let currentStep = 1, currentCheckupId = null, selectedFeeling = null, selectedSeverity = null;
+const FEELING_MSGS = {
+  much_better: "That's wonderful! Let's confirm a few more details.",
+  better: "Good progress! Let's check on your symptoms.",
+  same: "Understood. Let's take a closer look at how things stand.",
+  worse: "I'm sorry to hear that. Let's assess your symptoms carefully.",
+  much_worse: "I'm concerned. Please answer carefully so I can help.",
+  new_symptoms: "New symptoms are important to document. Let's go through them."
+};
+function openCheckupModal(id, date) {
+  currentCheckupId = id;
+  document.getElementById('modalCheckupDate').textContent = date || '';
+  resetModal();
+  document.getElementById('checkupOverlay').classList.add('open');
+}
+function openNewCheckupModal() { document.getElementById('newCheckupOverlay').classList.add('open'); }
+function closeCheckupModal()   { document.getElementById('checkupOverlay').classList.remove('open'); }
+function closeNewCheckupModal(){ document.getElementById('newCheckupOverlay').classList.remove('open'); }
+document.getElementById('checkupOverlay').addEventListener('click', function(e){ if(e.target===this) closeCheckupModal(); });
+document.getElementById('newCheckupOverlay').addEventListener('click', function(e){ if(e.target===this) closeNewCheckupModal(); });
+function resetModal() {
+  currentStep = 1; selectedFeeling = null; selectedSeverity = null;
+  ['step1','step2','step3','stepSuccess'].forEach((id,i)=>{ document.getElementById(id).style.display = i===0?'block':'none'; });
+  document.getElementById('feelingNotesField').style.display = 'none';
+  document.getElementById('stopReasonField').style.display = 'none';
+  document.getElementById('modalFooter').style.display = 'flex';
+  document.querySelectorAll('.feeling-btn').forEach(b=>b.classList.remove('selected','selected-bad'));
+  document.querySelectorAll('.scale-btn').forEach(b=>{ b.className='scale-btn'; });
+  ['feelingNotes','newSymptoms','extraNotes'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('medAdherence').value='';
+  updateStepUI();
+}
+function selectFeeling(btn) {
+  document.querySelectorAll('.feeling-btn').forEach(b=>b.classList.remove('selected','selected-bad'));
+  selectedFeeling = btn.dataset.value;
+  btn.classList.add(['worse','much_worse','new_symptoms'].includes(selectedFeeling)?'selected-bad':'selected');
+  document.getElementById('feelingNotesField').style.display = 'block';
+  document.getElementById('nextBtn').disabled = false;
+}
+function selectScale(btn) {
+  const v = parseInt(btn.dataset.v);
+  document.querySelectorAll('#severityScale .scale-btn').forEach(b=>{ b.className='scale-btn'; });
+  btn.classList.add('sel-'+v);
+  selectedSeverity = v;
+}
+document.getElementById('medAdherence').addEventListener('change', function(){
+  document.getElementById('stopReasonField').style.display = ['stopped','not_started'].includes(this.value)?'block':'none';
+});
+function nextStep() {
+  if(currentStep===1 && !selectedFeeling){ alert('Please tell Dr. NOVA how you are feeling today.'); return; }
+  if(currentStep===1){
+    document.getElementById('novaStep2Msg').innerHTML =
+      '<strong>DR. NOVA:</strong> '+FEELING_MSGS[selectedFeeling]+' On a scale of 1–10, how would you rate your <strong>current symptom severity</strong>?';
+  }
+  if(currentStep < 3){ currentStep++; showStep(currentStep); } else { submitCheckup(); }
+}
+function prevStep() { if(currentStep>1){ currentStep--; showStep(currentStep); } }
+function showStep(n) {
+  ['step1','step2','step3'].forEach((id,i)=>{ document.getElementById(id).style.display=(i+1===n)?'block':'none'; });
+  updateStepUI();
+}
+function updateStepUI() {
+  const dots=[document.getElementById('sdot1'),document.getElementById('sdot2'),document.getElementById('sdot3')];
+  const lines=[document.getElementById('sline1'),document.getElementById('sline2')];
+  dots.forEach((d,i)=>{ d.className='step-dot '+(i+1<currentStep?'done':i+1===currentStep?'active':'pending'); });
+  lines.forEach((l,i)=>{ l.className='step-line '+(i+1<currentStep?'done':''); });
+  document.getElementById('backBtn').style.display = currentStep>1?'inline-block':'none';
+  document.getElementById('nextBtn').textContent = currentStep===3?'Complete checkup ✓':'Continue →';
+  if(currentStep!==1) document.getElementById('nextBtn').disabled = false;
+}
+async function submitCheckup() {
+  const payload = {
+    checkup_id: currentCheckupId,
+    feeling: selectedFeeling,
+    feeling_notes: document.getElementById('feelingNotes').value,
+    severity: selectedSeverity,
+    new_symptoms: document.getElementById('newSymptoms').value,
+    med_adherence: document.getElementById('medAdherence').value,
+    stop_reason: document.getElementById('stopReason')?document.getElementById('stopReason').value:'',
+    extra_notes: document.getElementById('extraNotes').value,
+  };
+  try {
+    const res = await fetch('/api/complete-checkup', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)
+    });
+    const data = await res.json();
+    document.getElementById('step3').style.display='none';
+    document.getElementById('stepSuccess').style.display='block';
+    document.getElementById('modalFooter').style.display='none';
+    const nextDate = data.next_checkup_date;
+    const nextDays = data.next_checkup_days;
+    document.getElementById('successMsg').innerHTML =
+      'Thank you for checking in. Dr. NOVA has recorded your update.'
+      + (nextDate
+          ? ' Your next checkup has been automatically scheduled for <strong>' + nextDate + '</strong> (' + nextDays + ' days from now).'
+          : '')
+      + ' Stay consistent with your medication.';
+    setTimeout(()=>{ closeCheckupModal(); location.reload(); }, 3200);
+  } catch(err){ console.error(err); alert('Something went wrong. Please try again.'); }
+}
+async function submitNewCheckup() {
+  const condition = document.getElementById('newCheckupCondition').value;
+  const days = document.getElementById('newCheckupWhen').value;
+  const notes = document.getElementById('newCheckupNotes').value;
+  if(!condition){ alert('Please select a condition.'); return; }
+  try {
+    const res = await fetch('/api/schedule-checkup', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({condition,days,notes})
+    });
+    const data = await res.json();
+    if(data.success){ closeNewCheckupModal(); setTimeout(()=>location.reload(),400); }
+  } catch(err){ console.error(err); alert('Could not schedule. Please try again.'); }
+}
+</script>
 {% endblock %}

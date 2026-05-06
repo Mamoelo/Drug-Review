@@ -1,7 +1,6 @@
 """
 services/recommender.py
-Recommendation Service - Recommends drugs based on condition
-Learns everything from the training data - no hard-coded values
+Recommends drugs based on condition
 """
 
 import pandas as pd

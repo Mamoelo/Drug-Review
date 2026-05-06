@@ -1,0 +1,886 @@
+{% extends "base.html" %}
+
+{% block title %}Admin — Limko Medical{% endblock %}
+
+{% block navbar %}
+<nav class="main-nav">
+    <a href="{{ url_for('main.index') }}" class="main-nav-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.5">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        Limko<span>Medical</span>
+    </a>
+    <ul class="main-nav-links">
+        <li><a href="{{ url_for('main.admin') }}" class="active"><i class="fas fa-shield-alt me-1"></i>Admin Dashboard</a></li>
+    </ul>
+    <div class="main-nav-actions">
+        <a href="{{ url_for('main.admin_logout') }}" class="nav-btn-ghost">
+            <i class="fas fa-sign-out-alt me-1"></i>Sign out
+        </a>
+    </div>
+</nav>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ── Page shell ── */
+    .admin-shell {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* ── Page header ── */
+    .admin-header {
+        margin-bottom: 2.5rem;
+        border-bottom: 1px solid rgba(20,184,166,0.18);
+        padding-bottom: 1.5rem;
+    }
+
+    .admin-header h1 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        color: #134e4a;
+        margin: 0 0 0.3rem;
+    }
+
+    .admin-header p {
+        font-size: 0.875rem;
+        color: #64748b;
+        margin: 0;
+    }
+
+    .badge-dataset {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        background: rgba(20,184,166,0.12);
+        color: #0f766e;
+        border-radius: 50px;
+        padding: 4px 12px;
+        margin-bottom: 0.75rem;
+    }
+
+    /* ── Section titles ── */
+    .section-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #134e4a;
+        margin: 0 0 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section-title::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgba(20,184,166,0.2);
+    }
+
+    .section-title i { color: #14b8a6; font-size: 0.95rem; }
+
+    /* ── Stat cards (top row) ── */
+    .stat-card {
+        background: white;
+        border-radius: 16px;
+        padding: 1.5rem;
+        border: 1px solid rgba(20,184,166,0.12);
+        box-shadow: 0 2px 12px rgba(15,118,110,0.07);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #14b8a6, #22d3ee);
+    }
+
+    .stat-card .stat-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-card .stat-value {
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: #134e4a;
+        line-height: 1;
+        margin-bottom: 0.35rem;
+    }
+
+    .stat-card .stat-sub {
+        font-size: 0.78rem;
+        color: #94a3b8;
+    }
+
+    .stat-card .stat-icon {
+        position: absolute;
+        right: 1.25rem;
+        top: 1.25rem;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: rgba(20,184,166,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #14b8a6;
+        font-size: 1rem;
+    }
+
+    /* ── Content cards ── */
+    .content-card {
+        background: white;
+        border-radius: 16px;
+        padding: 1.75rem;
+        border: 1px solid rgba(20,184,166,0.12);
+        box-shadow: 0 2px 12px rgba(15,118,110,0.07);
+    }
+
+    /* ── Condition table ── */
+    .cond-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+    }
+
+    .cond-table th {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: #94a3b8;
+        padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid #f1f5f9;
+        text-align: left;
+    }
+
+    .cond-table td {
+        padding: 0.85rem 0.75rem;
+        border-bottom: 1px solid #f8fafc;
+        color: #134e4a;
+        vertical-align: middle;
+    }
+
+    .cond-table tr:last-child td { border-bottom: none; }
+
+    .cond-dot {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 8px;
+    }
+
+    .pct-bar {
+        height: 6px;
+        border-radius: 3px;
+        background: #f1f5f9;
+        overflow: hidden;
+        width: 100%;
+        min-width: 80px;
+    }
+
+    .pct-bar-fill {
+        height: 100%;
+        border-radius: 3px;
+        transition: width 0.8s ease;
+    }
+
+    /* ── Accuracy table ── */
+    .acc-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.875rem;
+    }
+
+    .acc-table th {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: #94a3b8;
+        padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid #f1f5f9;
+        text-align: left;
+    }
+
+    .acc-table td {
+        padding: 0.85rem 0.75rem;
+        border-bottom: 1px solid #f8fafc;
+        color: #134e4a;
+        vertical-align: middle;
+    }
+
+    .acc-table tr:last-child td { border-bottom: none; }
+
+    .acc-badge {
+        display: inline-block;
+        font-size: 0.8rem;
+        font-weight: 700;
+        border-radius: 8px;
+        padding: 4px 12px;
+        background: rgba(20,184,166,0.1);
+        color: #0f766e;
+    }
+
+    .acc-badge.best {
+        background: linear-gradient(90deg,#14b8a6,#22d3ee);
+        color: white;
+    }
+
+    .acc-na {
+        color: #cbd5e1;
+        font-size: 0.8rem;
+        font-style: italic;
+    }
+
+    /* ── F1 score progress ── */
+    .f1-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0.85rem 0;
+        border-bottom: 1px solid #f8fafc;
+    }
+
+    .f1-row:last-child { border-bottom: none; }
+
+    .f1-label {
+        width: 150px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #134e4a;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+    }
+
+    .f1-bar-wrap {
+        flex: 1;
+        background: #f1f5f9;
+        height: 10px;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .f1-bar-fill {
+        height: 100%;
+        border-radius: 5px;
+        transition: width 0.9s ease;
+    }
+
+    .f1-value {
+        width: 52px;
+        text-align: right;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: #0f766e;
+        flex-shrink: 0;
+    }
+
+    .f1-na {
+        color: #cbd5e1;
+        font-size: 0.78rem;
+        font-style: italic;
+    }
+
+    /* ── Compute button ── */
+    .btn-compute {
+        background: linear-gradient(90deg,#14b8a6,#22d3ee);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 10px 22px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: opacity 0.2s;
+    }
+
+    .btn-compute:hover { opacity: 0.9; }
+    .btn-compute:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .compute-notice {
+        background: #f0fdf9;
+        border: 1px solid rgba(20,184,166,0.25);
+        border-radius: 12px;
+        padding: 1rem 1.25rem;
+        font-size: 0.82rem;
+        color: #0f766e;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .compute-notice i { margin-top: 2px; flex-shrink: 0; }
+
+    /* ── Chart container ── */
+    .chart-wrap {
+        position: relative;
+        height: 260px;
+    }
+
+    /* ── Highlight chip ── */
+    .highlight-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(20,184,166,0.1);
+        color: #0f766e;
+        font-size: 0.72rem;
+        font-weight: 700;
+        border-radius: 50px;
+        padding: 3px 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-shell">
+
+    <!-- ── Header ── -->
+    <div class="admin-header d-flex align-items-start justify-content-between flex-wrap gap-3">
+        <div>
+            <div class="badge-dataset">
+                <i class="fas fa-database"></i> drugsComTrain_raw.csv
+            </div>
+            <h1><i class="fas fa-shield-alt me-2" style="color:#14b8a6;"></i>Admin Dashboard</h1>
+            <p>Dataset overview and model performance intelligence</p>
+        </div>
+        <a href="{{ url_for('main.admin_logout') }}"
+           style="font-size:0.8rem;font-weight:700;color:#94a3b8;text-decoration:none;
+                  display:inline-flex;align-items:center;gap:6px;margin-top:0.5rem;">
+            <i class="fas fa-sign-out-alt"></i> Sign out
+        </a>
+    </div>
+
+    <!-- ── Row 1: Top stat cards ── -->
+    <div class="row g-3 mb-4">
+        <div class="col-12 col-sm-4">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-table"></i></div>
+                <div class="stat-label">Total Records</div>
+                <div class="stat-value">{{ "{:,}".format(csv_stats.total_records) }}</div>
+                <div class="stat-sub">drugsComTrain_raw.csv</div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-4">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-star"></i></div>
+                <div class="stat-label">Mean Rating</div>
+                <div class="stat-value">{{ csv_stats.mean_rating }}</div>
+                <div class="stat-sub">out of 10 · all conditions</div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-4">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-chart-bar"></i></div>
+                <div class="stat-label">Rating Std Dev</div>
+                <div class="stat-value">{{ csv_stats.rating_std }}</div>
+                <div class="stat-sub">spread across ratings</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Row 2: Condition Distribution ── -->
+    <div class="mb-4">
+        <div class="section-title"><i class="fas fa-pills"></i> Condition Distribution</div>
+        <div class="row g-3">
+
+            <!-- Doughnut chart -->
+            <div class="col-12 col-md-5">
+                <div class="content-card h-100 d-flex flex-column justify-content-center">
+                    <div class="chart-wrap">
+                        <canvas id="conditionChart"></canvas>
+                    </div>
+                    <div class="d-flex justify-content-center gap-3 mt-3 flex-wrap">
+                        <span class="highlight-chip" style="background:rgba(99,102,241,0.1);color:#4f46e5;">
+                            <span style="width:8px;height:8px;border-radius:50%;background:#6366f1;display:inline-block;"></span> Depression
+                        </span>
+                        <span class="highlight-chip" style="background:rgba(236,72,153,0.1);color:#be185d;">
+                            <span style="width:8px;height:8px;border-radius:50%;background:#ec4899;display:inline-block;"></span> High BP
+                        </span>
+                        <span class="highlight-chip" style="background:rgba(20,184,166,0.1);color:#0f766e;">
+                            <span style="width:8px;height:8px;border-radius:50%;background:#14b8a6;display:inline-block;"></span> Diabetes
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail table -->
+            <div class="col-12 col-md-7">
+                <div class="content-card h-100">
+                    <table class="cond-table">
+                        <thead>
+                            <tr>
+                                <th>Condition</th>
+                                <th>Count</th>
+                                <th>Share</th>
+                                <th style="min-width:100px;">Distribution</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span class="cond-dot" style="background:#6366f1;"></span>
+                                    Depression
+                                </td>
+                                <td><strong>{{ "{:,}".format(csv_stats.depression_count) }}</strong></td>
+                                <td><strong>{{ csv_stats.depression_pct }}%</strong></td>
+                                <td>
+                                    <div class="pct-bar">
+                                        <div class="pct-bar-fill" style="width:{{ csv_stats.depression_pct }}%;background:#6366f1;"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="cond-dot" style="background:#ec4899;"></span>
+                                    High Blood Pressure
+                                </td>
+                                <td><strong>{{ "{:,}".format(csv_stats.hbp_count) }}</strong></td>
+                                <td><strong>{{ csv_stats.hbp_pct }}%</strong></td>
+                                <td>
+                                    <div class="pct-bar">
+                                        <div class="pct-bar-fill" style="width:{{ csv_stats.hbp_pct }}%;background:#ec4899;"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="cond-dot" style="background:#14b8a6;"></span>
+                                    Diabetes, Type 2
+                                </td>
+                                <td><strong>{{ "{:,}".format(csv_stats.diabetes_count) }}</strong></td>
+                                <td><strong>{{ csv_stats.diabetes_pct }}%</strong></td>
+                                <td>
+                                    <div class="pct-bar">
+                                        <div class="pct-bar-fill" style="width:{{ csv_stats.diabetes_pct }}%;background:#14b8a6;"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr style="background:#f8fafc;">
+                                <td style="color:#94a3b8;font-size:0.8rem;">Other conditions</td>
+                                {% set other = csv_stats.total_records - csv_stats.depression_count - csv_stats.hbp_count - csv_stats.diabetes_count %}
+                                {% set other_pct = (other / csv_stats.total_records * 100)|round(2) %}
+                                <td style="color:#94a3b8;font-size:0.8rem;">{{ "{:,}".format(other) }}</td>
+                                <td style="color:#94a3b8;font-size:0.8rem;">{{ other_pct }}%</td>
+                                <td>
+                                    <div class="pct-bar">
+                                        <div class="pct-bar-fill" style="width:{{ other_pct }}%;background:#e2e8f0;"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Row 3: Model Performance ── -->
+    <div class="mb-4">
+        <div class="section-title"><i class="fas fa-brain"></i> Model Performance</div>
+
+        <!-- Compute notice (shown only when model stats not yet computed) -->
+        {% if not model_stats %}
+        <div class="compute-notice">
+            <i class="fas fa-info-circle"></i>
+            <div>
+                Individual model accuracies and per-class F1 scores are not yet computed.
+                Click <strong>Compute Model Statistics</strong> below — this runs once and caches the result
+                (may take 20–40 seconds).
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="row g-3">
+
+            <!-- Accuracy chart + table -->
+            <div class="col-12 col-lg-7">
+                <div class="content-card">
+                    <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#94a3b8;margin-bottom:1rem;">
+                        Accuracy Comparison
+                    </div>
+                    <div class="chart-wrap" style="height:220px;">
+                        <canvas id="accuracyChart"></canvas>
+                    </div>
+
+                    <table class="acc-table mt-3">
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>Accuracy</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody id="acc-table-body">
+                            <tr>
+                                <td><i class="fas fa-circle-nodes me-1" style="color:#6366f1;"></i> Logistic Regression</td>
+                                <td>
+                                    {% if model_stats.lr_accuracy %}
+                                    <span class="acc-badge" id="lr-badge">{{ model_stats.lr_accuracy }}%</span>
+                                    {% else %}
+                                    <span class="acc-na" id="lr-badge">—</span>
+                                    {% endif %}
+                                </td>
+                                <td style="font-size:0.78rem;color:#94a3b8;">Full pipeline (tuned features)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-tree me-1" style="color:#22c55e;"></i> Random Forest</td>
+                                <td>
+                                    {% if model_stats.rf_accuracy %}
+                                    <span class="acc-badge" id="rf-badge">{{ model_stats.rf_accuracy }}%</span>
+                                    {% else %}
+                                    <span class="acc-na" id="rf-badge">—</span>
+                                    {% endif %}
+                                </td>
+                                <td style="font-size:0.78rem;color:#94a3b8;">Full pipeline (tuned features)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-bolt me-1" style="color:#f59e0b;"></i> XGBoost</td>
+                                <td>
+                                    {% if model_stats.xgb_accuracy %}
+                                    <span class="acc-badge" id="xgb-badge">{{ model_stats.xgb_accuracy }}%</span>
+                                    {% else %}
+                                    <span class="acc-na" id="xgb-badge">—</span>
+                                    {% endif %}
+                                </td>
+                                <td style="font-size:0.78rem;color:#94a3b8;">Full pipeline (tuned features)</td>
+                            </tr>
+                            <tr>
+                                <td><i class="fas fa-star me-1" style="color:#14b8a6;"></i> Ensemble (Tuned)</td>
+                                <td>
+                                    {% if tuning_stats.ensemble_accuracy %}
+                                    <span class="acc-badge best" id="ens-badge">{{ tuning_stats.ensemble_accuracy }}%</span>
+                                    {% else %}
+                                    <span class="acc-na" id="ens-badge">—</span>
+                                    {% endif %}
+                                </td>
+                                <td style="font-size:0.78rem;color:#94a3b8;">LR + RF + XGBoost (weights 1:2:3)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Per-class F1 -->
+            <div class="col-12 col-lg-5">
+                <div class="content-card h-100">
+                    <div style="font-size:0.78rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#94a3b8;margin-bottom:1.25rem;">
+                        Ensemble F1-Score by Class
+                    </div>
+
+                    <div id="f1-rows">
+                        {% set dep_f1 = model_stats.per_class_f1.get('Depression') if model_stats.per_class_f1 else None %}
+                        {% set hbp_f1 = model_stats.per_class_f1.get('High Blood Pressure') if model_stats.per_class_f1 else None %}
+                        {% set dia_f1 = model_stats.per_class_f1.get('Diabetes, Type 2') if model_stats.per_class_f1 else None %}
+
+                        <!-- Depression -->
+                        <div class="f1-row">
+                            <div class="f1-label">
+                                <span style="width:8px;height:8px;border-radius:50%;background:#6366f1;display:inline-block;flex-shrink:0;"></span>
+                                Depression
+                            </div>
+                            <div class="f1-bar-wrap">
+                                <div class="f1-bar-fill" id="dep-bar"
+                                     style="width:{{ (dep_f1 * 100)|round(1) if dep_f1 else 0 }}%;background:#6366f1;"></div>
+                            </div>
+                            <div class="f1-value" id="dep-f1">
+                                {% if dep_f1 %}<span>{{ (dep_f1 * 100)|round(2) }}%</span>
+                                {% else %}<span class="f1-na">—</span>{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- High Blood Pressure -->
+                        <div class="f1-row">
+                            <div class="f1-label">
+                                <span style="width:8px;height:8px;border-radius:50%;background:#ec4899;display:inline-block;flex-shrink:0;"></span>
+                                High BP
+                            </div>
+                            <div class="f1-bar-wrap">
+                                <div class="f1-bar-fill" id="hbp-bar"
+                                     style="width:{{ (hbp_f1 * 100)|round(1) if hbp_f1 else 0 }}%;background:#ec4899;"></div>
+                            </div>
+                            <div class="f1-value" id="hbp-f1">
+                                {% if hbp_f1 %}<span>{{ (hbp_f1 * 100)|round(2) }}%</span>
+                                {% else %}<span class="f1-na">—</span>{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Diabetes Type 2 -->
+                        <div class="f1-row">
+                            <div class="f1-label">
+                                <span style="width:8px;height:8px;border-radius:50%;background:#14b8a6;display:inline-block;flex-shrink:0;"></span>
+                                Diabetes T2
+                            </div>
+                            <div class="f1-bar-wrap">
+                                <div class="f1-bar-fill" id="dia-bar"
+                                     style="width:{{ (dia_f1 * 100)|round(1) if dia_f1 else 0 }}%;background:#14b8a6;"></div>
+                            </div>
+                            <div class="f1-value" id="dia-f1">
+                                {% if dia_f1 %}<span>{{ (dia_f1 * 100)|round(2) }}%</span>
+                                {% else %}<span class="f1-na">—</span>{% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Compute button -->
+                    {% if not model_stats %}
+                    <div class="mt-4 pt-3 border-top" style="border-color:#f1f5f9 !important;">
+                        <button class="btn-compute" id="compute-btn" onclick="computeStats()">
+                            <i class="fas fa-calculator" id="compute-icon"></i>
+                            <span id="compute-label">Compute Model Statistics</span>
+                        </button>
+                        <div id="compute-error" class="mt-2" style="font-size:0.78rem;color:#ef4444;display:none;"></div>
+                    </div>
+                    {% else %}
+                    <div class="mt-4 pt-3 border-top d-flex align-items-center justify-content-between flex-wrap gap-2" style="border-color:#f1f5f9 !important;">
+                        <span style="font-size:0.72rem;color:#94a3b8;">
+                            Computed {{ model_stats.computed_at[:10] if model_stats.computed_at else '' }}
+                        </span>
+                        <button class="btn-compute" id="compute-btn" onclick="computeStats()" style="font-size:0.78rem;padding:7px 16px;">
+                            <i class="fas fa-sync-alt" id="compute-icon"></i>
+                            <span id="compute-label">Recompute</span>
+                        </button>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Row 4: Summary bar (baseline vs ensemble) ── -->
+    {% if tuning_stats %}
+    <div class="mb-4">
+        <div class="section-title"><i class="fas fa-trophy"></i> Tuning Improvement</div>
+        <div class="content-card">
+            <div class="row g-4 align-items-center">
+                <div class="col-12 col-md-6">
+                    <div style="font-size:0.78rem;color:#94a3b8;margin-bottom:0.4rem;">Baseline — TF-IDF + Logistic Regression</div>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <div style="flex:1;background:#f1f5f9;height:14px;border-radius:7px;overflow:hidden;">
+                            <div style="height:100%;width:{{ tuning_stats.baseline_accuracy }}%;background:#94a3b8;border-radius:7px;"></div>
+                        </div>
+                        <span style="font-weight:700;color:#64748b;font-size:0.9rem;width:54px;text-align:right;">{{ tuning_stats.baseline_accuracy }}%</span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div style="font-size:0.78rem;color:#0f766e;margin-bottom:0.4rem;">Tuned Ensemble — LR + RF + XGBoost</div>
+                    <div style="display:flex;align-items:center;gap:12px;">
+                        <div style="flex:1;background:#f1f5f9;height:14px;border-radius:7px;overflow:hidden;">
+                            <div style="height:100%;width:{{ tuning_stats.ensemble_accuracy }}%;background:linear-gradient(90deg,#14b8a6,#22d3ee);border-radius:7px;"></div>
+                        </div>
+                        <span style="font-weight:800;color:#0f766e;font-size:0.9rem;width:54px;text-align:right;">{{ tuning_stats.ensemble_accuracy }}%</span>
+                    </div>
+                </div>
+            </div>
+            {% if tuning_stats.baseline_accuracy and tuning_stats.ensemble_accuracy %}
+            {% set gain = (tuning_stats.ensemble_accuracy - tuning_stats.baseline_accuracy)|round(2) %}
+            <div class="mt-3 pt-3" style="border-top:1px solid #f1f5f9;font-size:0.82rem;color:#0f766e;">
+                <i class="fas fa-arrow-trend-up me-1"></i>
+                Tuning improved accuracy by <strong>+{{ gain }} percentage points</strong> over the baseline.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// ── Chart data from Jinja ──────────────────────────────────────────────────
+const condData = {
+    depression: {{ csv_stats.depression_count }},
+    hbp:        {{ csv_stats.hbp_count }},
+    diabetes:   {{ csv_stats.diabetes_count }},
+};
+
+const accData = {
+    lr:       {{ model_stats.lr_accuracy  if model_stats.lr_accuracy  else 'null' }},
+    rf:       {{ model_stats.rf_accuracy  if model_stats.rf_accuracy  else 'null' }},
+    xgb:      {{ model_stats.xgb_accuracy if model_stats.xgb_accuracy else 'null' }},
+    ensemble: {{ tuning_stats.ensemble_accuracy if tuning_stats.ensemble_accuracy else 'null' }},
+};
+
+// ── Doughnut chart — Condition Distribution ────────────────────────────────
+(function () {
+    const ctx = document.getElementById('conditionChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Depression', 'High Blood Pressure', 'Diabetes, Type 2'],
+            datasets: [{
+                data:            [condData.depression, condData.hbp, condData.diabetes],
+                backgroundColor: ['#6366f1', '#ec4899', '#14b8a6'],
+                borderColor:     ['#fff', '#fff', '#fff'],
+                borderWidth:     3,
+                hoverOffset:     8,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '66%',
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => {
+                            const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                            const pct   = ((ctx.raw / total) * 100).toFixed(1);
+                            return `  ${ctx.label}: ${ctx.raw.toLocaleString()} (${pct}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+})();
+
+// ── Bar chart — Accuracy Comparison ────────────────────────────────────────
+let accChart;
+
+function buildAccuracyChart(lr, rf, xgb, ens) {
+    const labels  = ['Logistic Regression', 'Random Forest', 'XGBoost', 'Ensemble'];
+    const values  = [lr, rf, xgb, ens];
+    const colors  = ['#6366f1', '#22c55e', '#f59e0b', '#14b8a6'];
+    const alphas  = values.map((v, i) => v === null ? 'rgba(203,213,225,0.4)' : colors[i]);
+
+    const ctx = document.getElementById('accuracyChart').getContext('2d');
+
+    if (accChart) accChart.destroy();
+
+    accChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels,
+            datasets: [{
+                label:           'Accuracy (%)',
+                data:            values.map(v => v ?? 0),
+                backgroundColor: alphas,
+                borderRadius:    8,
+                borderSkipped:   false,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => ctx.raw === 0 ? '  Not computed' : `  ${ctx.raw}%`
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    min: 85,
+                    max: 100,
+                    grid: { color: 'rgba(0,0,0,0.05)' },
+                    ticks: { callback: v => v + '%', font: { size: 11 } },
+                },
+                y: {
+                    grid: { display: false },
+                    ticks: { font: { size: 12 } },
+                }
+            }
+        }
+    });
+}
+
+buildAccuracyChart(accData.lr, accData.rf, accData.xgb, accData.ensemble);
+
+// ── Compute model stats via AJAX ───────────────────────────────────────────
+function computeStats() {
+    const btn   = document.getElementById('compute-btn');
+    const icon  = document.getElementById('compute-icon');
+    const label = document.getElementById('compute-label');
+    const errEl = document.getElementById('compute-error');
+
+    btn.disabled = true;
+    icon.className  = 'fas fa-spinner fa-spin';
+    label.textContent = 'Computing… (this may take 30 s)';
+    if (errEl) errEl.style.display = 'none';
+
+    fetch('/admin/compute-stats', { method: 'POST' })
+        .then(r => r.json())
+        .then(data => {
+            if (!data.success) throw new Error(data.error || 'Unknown error');
+
+            const s = data.stats;
+
+            // Update accuracy badges
+            function setBadge(id, val) {
+                const el = document.getElementById(id);
+                if (!el) return;
+                el.className  = 'acc-badge';
+                el.textContent = val + '%';
+            }
+
+            setBadge('lr-badge',  s.lr_accuracy);
+            setBadge('rf-badge',  s.rf_accuracy);
+            setBadge('xgb-badge', s.xgb_accuracy);
+
+            // Rebuild chart
+            buildAccuracyChart(s.lr_accuracy, s.rf_accuracy, s.xgb_accuracy, accData.ensemble);
+
+            // Update F1 bars
+            const f1 = s.per_class_f1 || {};
+            function setF1(barId, valId, value) {
+                const pct = value ? (value * 100).toFixed(1) : 0;
+                const barEl = document.getElementById(barId);
+                const valEl = document.getElementById(valId);
+                if (barEl) barEl.style.width = pct + '%';
+                if (valEl) valEl.innerHTML = value
+                    ? '<span>' + (value * 100).toFixed(2) + '%</span>'
+                    : '<span class="f1-na">—</span>';
+            }
+
+            setF1('dep-bar', 'dep-f1', f1['Depression']);
+            setF1('hbp-bar', 'hbp-f1', f1['High Blood Pressure']);
+            setF1('dia-bar', 'dia-f1', f1['Diabetes, Type 2']);
+
+            // Reset button to recompute style
+            btn.disabled = false;
+            icon.className  = 'fas fa-sync-alt';
+            label.textContent = 'Recompute';
+        })
+        .catch(err => {
+            btn.disabled = false;
+            icon.className  = 'fas fa-exclamation-circle';
+            label.textContent = 'Retry';
+            if (errEl) {
+                errEl.textContent = 'Error: ' + err.message;
+                errEl.style.display = 'block';
+            } else {
+                alert('Computation failed: ' + err.message);
+            }
+        });
+}
+</script>
+{% endblock %}

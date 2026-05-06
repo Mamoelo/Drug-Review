@@ -1,7 +1,5 @@
 """
 Task 2A: Feature Extraction
-File: scripts/engineer_features.py
-Purpose: Extract numerical features from cleaned text data
 """
 
 import pandas as pd

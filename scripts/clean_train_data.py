@@ -1,7 +1,6 @@
 """
 Task 1: Data Gathering and Cleaning - Training Dataset
-File: clean_train_data.py
-Purpose: Clean drugsComTrain_raw.csv and output cleaned_train_data.csv
+
 """
 
 import pandas as pd

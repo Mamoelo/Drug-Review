@@ -1,622 +1,554 @@
 """
-Task 5: Model Tuning (Complete Production Version)
+Task 5: Model Tuning
 File: scripts/tune_model.py
-Purpose: Optimize hyperparameters for the best model performance
-         with clear progress tracking
+Purpose: Hyperparameter optimisation for the ensemble pipeline.
+         Produces a tuned model that outperforms the base model,
+         with learning curves and sensitivity analysis for the report.
 """
 
-import pandas as pd
-import numpy as np
-from pathlib import Path
+import sys
+import pickle
 import json
-import joblib
-from datetime import datetime
 import time
+import warnings
+from datetime import datetime
+from pathlib import Path
+from collections import defaultdict
 
-# Visualization
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# Machine Learning
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import LabelEncoder, MaxAbsScaler
-from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-from sklearn.model_selection import StratifiedKFold, cross_val_score
+from sklearn.model_selection import (
+    RandomizedSearchCV, GridSearchCV,
+    StratifiedKFold, cross_val_score,
+    learning_curve
+)
 from sklearn.pipeline import Pipeline, FeatureUnion
-from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
-from sklearn.metrics import precision_recall_fscore_support, make_scorer
-
-# Classifiers
-from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
-from sklearn.ensemble import VotingClassifier
+from sklearn.metrics import (
+    accuracy_score, classification_report,
+    confusion_matrix, precision_recall_fscore_support
+)
+from sklearn.ensemble import RandomForestClassifier, VotingClassifier
 from sklearn.linear_model import LogisticRegression
 from xgboost import XGBClassifier
 
-# Custom feature extractors
-from sklearn.base import BaseEstimator, TransformerMixin
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-
-# Collections for vocabulary extractor
-from collections import defaultdict
-
-import warnings
 warnings.filterwarnings('ignore')
 
-# ============================================================================
-# 1. FEATURE EXTRACTORS
-# ============================================================================
+# ── Stable module path so pickle works from Flask too ─────────────────────────
+project_root = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(project_root))
+from web.services.custom_transformers import (
+    TextFeatureExtractor,
+    SentimentFeatureExtractor,
+    LearnedVocabularyExtractor,
+)
 
-class TextFeatureExtractor(BaseEstimator, TransformerMixin):
-    """Extract comprehensive text features from reviews"""
-    
-    def fit(self, X, y=None):
-        return self
-    
-    def transform(self, X):
-        features = []
-        for text in X:
-            text = str(text).lower()
-            words = text.split()
-            
-            char_count = len(text)
-            word_count = len(words)
-            unique_words = len(set(words))
-            
-            avg_word_length = np.mean([len(w) for w in words]) if words else 0
-            sentence_count = max(text.count('.') + text.count('!') + text.count('?'), 1)
-            avg_sentence_length = word_count / sentence_count
-            
-            exclamation_count = text.count('!')
-            question_count = text.count('?')
-            uppercase_ratio = sum(1 for c in text if c.isupper()) / max(char_count, 1)
-            ttr = unique_words / max(word_count, 1)
-            
-            features.append([
-                char_count, word_count, unique_words, avg_word_length,
-                sentence_count, avg_sentence_length, exclamation_count,
-                question_count, uppercase_ratio, ttr,
-                np.log1p(char_count), np.log1p(word_count), np.sqrt(word_count)
-            ])
-        
-        return np.array(features)
+# ─────────────────────────────────────────────────────────────────────────────
+# HELPERS
+# ─────────────────────────────────────────────────────────────────────────────
 
+def build_pipeline(tfidf_max_features=2000, tfidf_ngram=(1, 2),
+                   tfidf_min_df=2, tfidf_max_df=0.85,
+                   lr_C=1.0,
+                   rf_n=150, rf_depth=20,
+                   xgb_n=150, xgb_depth=5, xgb_lr=0.1,
+                   weights=None):
+    """Build a fresh pipeline with the given hyperparameters."""
+    if weights is None:
+        weights = [1, 2, 3]
 
-class SentimentFeatureExtractor(BaseEstimator, TransformerMixin):
-    """Extract sentiment features using VADER"""
-    
-    def __init__(self):
-        self.analyzer = SentimentIntensityAnalyzer()
-        
-    def fit(self, X, y=None):
-        return self
-    
-    def transform(self, X):
-        features = []
-        for text in X:
-            scores = self.analyzer.polarity_scores(str(text))
-            compound_normalized = (scores['compound'] + 1) / 2
-            
-            features.append([
-                compound_normalized, scores['pos'], scores['neg'], scores['neu'],
-                abs(scores['compound']),
-                1 if scores['compound'] >= 0.05 else 0,
-                1 if scores['compound'] <= -0.05 else 0,
-                scores['pos'] + scores['neu']
-            ])
-        
-        return np.array(features)
+    tfidf = TfidfVectorizer(
+        max_features=tfidf_max_features,
+        ngram_range=tfidf_ngram,
+        min_df=tfidf_min_df,
+        max_df=tfidf_max_df,
+        stop_words='english',
+        sublinear_tf=True,
+    )
 
+    features = FeatureUnion([
+        ('tfidf',        tfidf),
+        ('text_stats',   TextFeatureExtractor()),
+        ('sentiment',    SentimentFeatureExtractor()),
+        ('learned_vocab', LearnedVocabularyExtractor(max_features_per_class=50)),
+    ])
 
-class LearnedVocabularyExtractor(BaseEstimator, TransformerMixin):
-    """Extract features based on vocabulary learned from training data"""
-    
-    def __init__(self, max_features_per_class=50):
-        self.max_features_per_class = max_features_per_class
-        self.condition_vocabularies = {}
-        self.conditions_ = []
-        
-    def fit(self, X, y):
-        self.conditions_ = sorted(np.unique(y))
-        
-        from collections import defaultdict
-        texts_by_condition = defaultdict(list)
-        for text, label in zip(X, y):
-            texts_by_condition[label].append(str(text).lower())
-        
-        for condition in self.conditions_:
-            texts = texts_by_condition[condition]
-            if not texts:
-                continue
-            
-            vectorizer = TfidfVectorizer(
-                max_features=self.max_features_per_class,
-                stop_words='english',
-                min_df=2
-            )
-            
-            condition_texts = texts
-            other_texts = []
-            for other_cond in self.conditions_:
-                if other_cond != condition:
-                    other_texts.extend(texts_by_condition[other_cond][:len(texts)])
-            
-            all_texts = condition_texts + other_texts
-            if len(all_texts) > 0:
-                vectorizer.fit(all_texts)
-                self.condition_vocabularies[condition] = set(vectorizer.get_feature_names_out())
-        
-        return self
-    
-    def transform(self, X):
-        features = []
-        for text in X:
-            text_lower = str(text).lower()
-            words = text_lower.split()
-            
-            row_features = []
-            for condition in self.conditions_:
-                vocab = self.condition_vocabularies.get(condition, set())
-                matches = sum(1 for word in words if word in vocab)
-                ratio = matches / max(len(words), 1)
-                row_features.extend([matches, ratio])
-            
-            features.append(row_features)
-        
-        return np.array(features)
+    ensemble = VotingClassifier(
+        estimators=[
+            ('lr',  LogisticRegression(
+                C=lr_C, class_weight='balanced',
+                max_iter=1000, random_state=42)),
+            ('rf',  RandomForestClassifier(
+                n_estimators=rf_n, max_depth=rf_depth,
+                class_weight='balanced', n_jobs=-1, random_state=42)),
+            ('xgb', XGBClassifier(
+                n_estimators=xgb_n, max_depth=xgb_depth,
+                learning_rate=xgb_lr, eval_metric='mlogloss',
+                n_jobs=-1, random_state=42,
+                use_label_encoder=False)),
+        ],
+        voting='soft',
+        weights=weights,
+    )
+
+    return Pipeline([
+        ('features',   features),
+        ('scaler',     MaxAbsScaler()),
+        ('classifier', ensemble),
+    ])
 
 
-# ============================================================================
-# 2. PROGRESS TRACKER
-# ============================================================================
-
-class ProgressTracker:
-    """Simple progress tracker for grid search"""
-    
-    def __init__(self, total_fits, name):
-        self.total = total_fits
-        self.current = 0
-        self.name = name
-        self.start_time = time.time()
-    
-    def update(self):
-        self.current += 1
-        pct = self.current * 100 // self.total
-        
-        # Calculate ETA
-        if self.current > 1:
-            elapsed = time.time() - self.start_time
-            avg_time = elapsed / self.current
-            remaining = (self.total - self.current) * avg_time
-            eta_str = f" | ETA: {remaining/60:.1f}min"
-        else:
-            eta_str = ""
-        
-        print(f"\r    {self.name}: {self.current}/{self.total} fits completed ({pct}%){eta_str}", 
-              end='', flush=True)
-        
-        if self.current == self.total:
-            print()  # New line when complete
+def banner(title, width=78):
+    print("\n" + "=" * width)
+    print(f"  {title}")
+    print("=" * width)
 
 
-# ============================================================================
-# 3. LOAD DATA
-# ============================================================================
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. LOAD DATA
+# ─────────────────────────────────────────────────────────────────────────────
 
-print("=" * 80)
-print("TASK 5: MODEL TUNING (WITH PROGRESS TRACKING)")
-print("=" * 80)
-print()
-
+banner("TASK 5: MODEL TUNING")
 overall_start = time.time()
 
-train_path = Path('data/processed/cleaned_train_data.csv')
-test_path = Path('data/processed/cleaned_test_data.csv')
+df_train = pd.read_csv('data/processed/cleaned_train_data.csv')
+df_test  = pd.read_csv('data/processed/cleaned_test_data.csv')
 
-print("[1] Loading data...")
-df_train = pd.read_csv(train_path)
-df_test = pd.read_csv(test_path)
-
-print(f"    Training: {len(df_train):,} reviews")
-print(f"    Test: {len(df_test):,} reviews")
-print(f"    Conditions: {df_train['condition'].unique().tolist()}")
-print()
+print(f"\n  Training samples : {len(df_train):,}")
+print(f"  Test samples     : {len(df_test):,}")
+print(f"  Conditions       : {df_train['condition'].unique().tolist()}")
 
 X_train = df_train['review'].fillna('').values
 y_train = df_train['condition'].values
-
-X_test = df_test['review'].fillna('').values
-y_test = df_test['condition'].values
+X_test  = df_test['review'].fillna('').values
+y_test  = df_test['condition'].values
 
 label_encoder = LabelEncoder()
-y_train_encoded = label_encoder.fit_transform(y_train)
-y_test_encoded = label_encoder.transform(y_test)
+y_train_enc = label_encoder.fit_transform(y_train)
+y_test_enc  = label_encoder.transform(y_test)
 
-# ============================================================================
-# 4. BUILD BASE PIPELINE
-# ============================================================================
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. BASELINE  (simple TF-IDF + LR — serves as lower bound)
+# ─────────────────────────────────────────────────────────────────────────────
 
-print("[2] Building base pipeline...")
+banner("STEP 1 — Baseline model (TF-IDF + Logistic Regression)")
 
-tfidf = TfidfVectorizer(stop_words='english')
-
-feature_union = FeatureUnion([
-    ('tfidf', tfidf),
-    ('text_stats', TextFeatureExtractor()),
-    ('sentiment', SentimentFeatureExtractor()),
-    ('learned_vocab', LearnedVocabularyExtractor(max_features_per_class=50))
+baseline = Pipeline([
+    ('tfidf', TfidfVectorizer(max_features=1000, stop_words='english')),
+    ('clf',   LogisticRegression(max_iter=1000, random_state=42)),
 ])
+baseline.fit(X_train, y_train_enc)
+baseline_acc = accuracy_score(y_test_enc, baseline.predict(X_test))
+print(f"\n  Baseline accuracy: {baseline_acc:.4f}")
 
-base_models = [
-    ('lr', LogisticRegression(class_weight='balanced', random_state=42)),
-    ('rf', RandomForestClassifier(class_weight='balanced', n_jobs=-1, random_state=42)),
-    ('xgb', XGBClassifier(use_label_encoder=False, eval_metric='mlogloss', random_state=42)),
-    ('gbm', GradientBoostingClassifier(random_state=42))
-]
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. RANDOMISED SEARCH  (broad exploration, n_jobs=1 because VotingClassifier
+#    already parallelises internally via n_jobs=-1 on RF and XGB)
+# ─────────────────────────────────────────────────────────────────────────────
 
-ensemble = VotingClassifier(estimators=base_models, voting='soft')
+banner("STEP 2 — Randomised Search (broad exploration)")
 
-pipeline = Pipeline([
-    ('features', feature_union),
-    ('scaler', MaxAbsScaler()),
-    ('classifier', ensemble)
-])
+pipeline = build_pipeline()
 
-print("    ✓ Pipeline built")
-print()
-
-# ============================================================================
-# 5. RANDOMIZED SEARCH - WITH PROGRESS TRACKER
-# ============================================================================
-
-print("[3] RANDOMIZED SEARCH - Broad Parameter Exploration")
-print("-" * 60)
-
-random_params = {
+param_dist = {
+    # TF-IDF
     'features__tfidf__max_features': [1500, 2000, 2500],
-    'features__tfidf__ngram_range': [(1, 1), (1, 2)],
-    'features__tfidf__min_df': [2, 3],
-    'features__tfidf__max_df': [0.7, 0.8],
-    'classifier__rf__n_estimators': [100, 150, 200],
-    'classifier__rf__max_depth': [15, 20, 25, None],
-    'classifier__rf__min_samples_split': [2, 5],
+    'features__tfidf__ngram_range':  [(1, 1), (1, 2)],
+    'features__tfidf__min_df':       [2, 3],
+    'features__tfidf__max_df':       [0.8, 0.85],
+    # Logistic Regression
+    'classifier__lr__C':             [0.1, 1.0, 10.0],
+    # Random Forest
+    'classifier__rf__n_estimators':  [100, 150, 200],
+    'classifier__rf__max_depth':     [15, 20, None],
+    # XGBoost
     'classifier__xgb__n_estimators': [100, 150, 200],
-    'classifier__xgb__max_depth': [3, 5, 7],
-    'classifier__xgb__learning_rate': [0.05, 0.1, 0.2],
-    'classifier__xgb__subsample': [0.8, 1.0],
-    'classifier__lr__C': [0.1, 1.0, 10.0],
-    'classifier__lr__max_iter': [1000, 2000],
-    'classifier__gbm__n_estimators': [100, 150],
-    'classifier__gbm__max_depth': [3, 5],
-    'classifier__gbm__learning_rate': [0.05, 0.1],
+    'classifier__xgb__max_depth':    [3, 5, 7],
+    'classifier__xgb__learning_rate':[0.05, 0.1, 0.2],
+    # Ensemble weights  (LR, RF, XGB)
     'classifier__weights': [
-        [1, 1, 1, 1],
-        [1, 2, 2, 1],
-        [1, 2, 3, 1],
-        [1, 3, 3, 1],
-    ]
+        [1, 1, 1],
+        [1, 2, 2],
+        [1, 2, 3],
+        [1, 3, 3],
+        [1, 3, 4],
+    ],
 }
 
-n_iter = 30
-n_folds = 3
-total_random_fits = n_iter * n_folds
+N_ITER  = 20          # 20 × 3 folds = 60 fits  (~25–40 min)
+N_FOLDS = 3
+CV      = StratifiedKFold(n_splits=N_FOLDS, shuffle=True, random_state=42)
 
-print(f"    Testing: {n_iter} random combinations")
-print(f"    Cross-validation: {n_folds}-fold")
-print(f"    Total fits: {total_random_fits}")
-print()
-
-# Create progress tracker
-progress = ProgressTracker(total_random_fits, "Randomized Search")
-
-def progress_scorer(estimator, X, y):
-    progress.update()
-    return accuracy_score(y, estimator.predict(X))
+print(f"\n  Iterations : {N_ITER}")
+print(f"  CV folds   : {N_FOLDS}")
+print(f"  Total fits : {N_ITER * N_FOLDS}")
+print("\n  Running …  (verbose=1 shows one line per fit)")
 
 random_search = RandomizedSearchCV(
     pipeline,
-    param_distributions=random_params,
-    n_iter=n_iter,
-    cv=StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=42),
-    scoring=make_scorer(progress_scorer),
+    param_distributions=param_dist,
+    n_iter=N_ITER,
+    cv=CV,
+    scoring='accuracy',   # <-- standard sklearn scorer, no wrapper needed
     n_jobs=1,
-    verbose=0,
-    random_state=42
+    verbose=1,
+    random_state=42,
+    refit=True,           # automatically refit best params on full training set
+    error_score='raise',
 )
+random_search.fit(X_train, y_train_enc)
 
-print("    Running...")
-random_search.fit(X_train, y_train_encoded)
+print(f"\n  ✓ Randomised search complete")
+print(f"  Best CV accuracy : {random_search.best_score_:.4f}")
+print(f"  Best params      :")
+for k, v in random_search.best_params_.items():
+    print(f"    {k} = {v}")
 
-print(f"\n\n    ✓ Randomized search complete!")
-print(f"    Best score: {random_search.best_score_:.4f}")
-print()
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. FOCUSED GRID SEARCH  (refine around best params)
+# ─────────────────────────────────────────────────────────────────────────────
 
-# ============================================================================
-# 6. GRID SEARCH - WITH PROGRESS TRACKER
-# ============================================================================
+banner("STEP 3 — Focused Grid Search (fine-tuning)")
 
-print("[4] GRID SEARCH - Focused Fine-Tuning")
-print("-" * 60)
+bp = random_search.best_params_
 
-best_params = random_search.best_params_
+# Build a tight grid around the best values found
+focused_grid = {
+    'features__tfidf__max_features': [bp.get('features__tfidf__max_features', 2000)],
+    'features__tfidf__ngram_range':  [bp.get('features__tfidf__ngram_range',  (1, 2))],
+    'classifier__lr__C':             [bp.get('classifier__lr__C', 1.0)],
+    'classifier__rf__n_estimators':  [
+        bp.get('classifier__rf__n_estimators', 150),
+        bp.get('classifier__rf__n_estimators', 150) + 50,
+    ],
+    'classifier__rf__max_depth': [bp.get('classifier__rf__max_depth', 20)],
+    'classifier__xgb__n_estimators':  [bp.get('classifier__xgb__n_estimators', 150)],
+    'classifier__xgb__max_depth':     [bp.get('classifier__xgb__max_depth', 5)],
+    'classifier__xgb__learning_rate': [bp.get('classifier__xgb__learning_rate', 0.1)],
+    'classifier__weights': [
+        bp.get('classifier__weights', [1, 2, 3]),
+        [1, 2, 4],
+        [1, 3, 4],
+    ],
+}
 
-focused_grid = {}
+n_combo = 1
+for v in focused_grid.values():
+    n_combo *= len(v)
 
-if 'features__tfidf__max_features' in best_params:
-    focused_grid['features__tfidf__max_features'] = [best_params['features__tfidf__max_features']]
-
-rf_depth = best_params.get('classifier__rf__max_depth', 20)
-if rf_depth is None:
-    rf_depth = 25
-focused_grid['classifier__rf__max_depth'] = [rf_depth]
-
-rf_estimators = best_params.get('classifier__rf__n_estimators', 150)
-focused_grid['classifier__rf__n_estimators'] = [rf_estimators, rf_estimators + 50]
-
-xgb_depth = best_params.get('classifier__xgb__max_depth', 5)
-focused_grid['classifier__xgb__max_depth'] = [xgb_depth]
-
-xgb_lr = best_params.get('classifier__xgb__learning_rate', 0.1)
-focused_grid['classifier__xgb__learning_rate'] = [xgb_lr]
-
-xgb_estimators = best_params.get('classifier__xgb__n_estimators', 150)
-focused_grid['classifier__xgb__n_estimators'] = [xgb_estimators]
-
-focused_grid['classifier__weights'] = [
-    [1, 2, 3, 1],
-    [1, 2, 4, 1],
-    [1, 3, 3, 1]
-]
-
-n_combinations = 1
-for values in focused_grid.values():
-    n_combinations *= len(values)
-
-total_grid_fits = n_combinations * n_folds
-
-print(f"    Combinations: {n_combinations}")
-print(f"    Cross-validation: {n_folds}-fold")
-print(f"    Total fits: {total_grid_fits}")
-print()
-
-grid_progress = ProgressTracker(total_grid_fits, "Grid Search")
-
-def grid_progress_scorer(estimator, X, y):
-    grid_progress.update()
-    return accuracy_score(y, estimator.predict(X))
+print(f"\n  Combinations : {n_combo}")
+print(f"  Total fits   : {n_combo * N_FOLDS}")
+print("\n  Running …")
 
 grid_search = GridSearchCV(
     pipeline,
     param_grid=focused_grid,
-    cv=StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=42),
-    scoring=make_scorer(grid_progress_scorer),
+    cv=CV,
+    scoring='accuracy',
     n_jobs=1,
-    verbose=0
+    verbose=1,
+    refit=True,
+    error_score='raise',
 )
+grid_search.fit(X_train, y_train_enc)
 
-print("    Running...")
-grid_search.fit(X_train, y_train_encoded)
+print(f"\n  ✓ Grid search complete")
+print(f"  Best CV accuracy : {grid_search.best_score_:.4f}")
 
-print(f"\n\n    ✓ Grid search complete!")
-print(f"    Best score: {grid_search.best_score_:.4f}")
-print()
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. EVALUATE BEST MODEL ON HELD-OUT TEST SET
+# ─────────────────────────────────────────────────────────────────────────────
 
-# ============================================================================
-# 7. EVALUATE TUNED MODEL
-# ============================================================================
-
-print("[5] EVALUATING TUNED MODEL")
-print("-" * 60)
+banner("STEP 4 — Evaluate tuned model on test set")
 
 best_model = grid_search.best_estimator_
+y_pred     = best_model.predict(X_test)
 
-y_pred = best_model.predict(X_test)
-
-accuracy = accuracy_score(y_test_encoded, y_pred)
+accuracy  = accuracy_score(y_test_enc, y_pred)
 precision, recall, f1, _ = precision_recall_fscore_support(
-    y_test_encoded, y_pred, average='weighted'
+    y_test_enc, y_pred, average='weighted'
 )
 
-print(f"\n    Test Set Performance:")
-print(f"      - Accuracy:  {accuracy:.4f}")
-print(f"      - Precision: {precision:.4f}")
-print(f"      - Recall:    {recall:.4f}")
-print(f"      - F1 Score:  {f1:.4f}")
+print(f"\n  Accuracy  : {accuracy:.4f}")
+print(f"  Precision : {precision:.4f}")
+print(f"  Recall    : {recall:.4f}")
+print(f"  F1 Score  : {f1:.4f}")
+print(f"\n  vs Baseline : {baseline_acc:.4f}")
+delta = accuracy - baseline_acc
+sign  = '+' if delta >= 0 else ''
+print(f"  Improvement : {sign}{delta:.4f} ({sign}{delta/baseline_acc*100:.2f}%)")
 
-print("\n    Per-Class Performance:")
-print(classification_report(y_test_encoded, y_pred, target_names=label_encoder.classes_))
-print()
+print("\n  Per-class report:")
+print(classification_report(
+    y_test_enc, y_pred,
+    target_names=label_encoder.classes_,
+    digits=4
+))
 
-# ============================================================================
-# 8. CROSS-VALIDATION
-# ============================================================================
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. CROSS-VALIDATION  (5-fold on training set)
+# ─────────────────────────────────────────────────────────────────────────────
 
-print("[6] CROSS-VALIDATION (5-Fold)")
-print("-" * 60)
+banner("STEP 5 — 5-fold cross-validation")
 
-cv_scores = cross_val_score(
-    best_model, 
-    X_train, 
-    y_train_encoded, 
-    cv=5,
-    scoring='accuracy',
-    n_jobs=-1
-)
+cv5 = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+cv_scores = cross_val_score(best_model, X_train, y_train_enc,
+                             cv=cv5, scoring='accuracy', n_jobs=-1)
 
-print(f"\n    Fold scores: {[f'{s:.4f}' for s in cv_scores]}")
-print(f"    Mean: {cv_scores.mean():.4f} (±{cv_scores.std():.4f})")
-print()
+print(f"\n  Fold scores : {[f'{s:.4f}' for s in cv_scores]}")
+print(f"  Mean ± Std  : {cv_scores.mean():.4f} ± {cv_scores.std():.4f}")
 
-# ============================================================================
-# 9. BASELINE COMPARISON
-# ============================================================================
+# ─────────────────────────────────────────────────────────────────────────────
+# 7. CONFUSION MATRIX
+# ─────────────────────────────────────────────────────────────────────────────
 
-print("[7] BASELINE COMPARISON")
-print("-" * 60)
-
-baseline = Pipeline([
-    ('tfidf', TfidfVectorizer(max_features=1000, stop_words='english')),
-    ('classifier', LogisticRegression(max_iter=1000, random_state=42))
-])
-
-baseline.fit(X_train, y_train_encoded)
-baseline_pred = baseline.predict(X_test)
-baseline_accuracy = accuracy_score(y_test_encoded, baseline_pred)
-
-print(f"\n    Baseline (TF-IDF + Logistic): {baseline_accuracy:.4f}")
-print(f"    Tuned Ensemble Model:         {accuracy:.4f}")
-print(f"    Improvement:                  +{accuracy - baseline_accuracy:.4f}")
-print(f"    Relative:                     {(accuracy/baseline_accuracy - 1)*100:.1f}%")
-print()
-
-# ============================================================================
-# 10. CONFUSION MATRIX
-# ============================================================================
-
-print("[8] GENERATING CONFUSION MATRIX")
-print("-" * 60)
-
-cm = confusion_matrix(y_test_encoded, y_pred)
-
-plt.figure(figsize=(10, 8))
-sns.heatmap(
-    cm, 
-    annot=True, 
-    fmt='d', 
-    cmap='Blues',
-    xticklabels=label_encoder.classes_,
-    yticklabels=label_encoder.classes_
-)
-plt.title(f'Confusion Matrix - Tuned Model (Acc: {accuracy:.2%})', fontsize=14)
-plt.xlabel('Predicted', fontsize=12)
-plt.ylabel('Actual', fontsize=12)
-plt.tight_layout()
+banner("STEP 6 — Confusion matrix")
 
 output_dir = Path('outputs/figures')
 output_dir.mkdir(parents=True, exist_ok=True)
-plt.savefig(output_dir / 'confusion_matrix_tuned.png', dpi=150, bbox_inches='tight')
+
+cm = confusion_matrix(y_test_enc, y_pred)
+plt.figure(figsize=(9, 7))
+sns.heatmap(
+    cm, annot=True, fmt='d', cmap='Blues',
+    xticklabels=label_encoder.classes_,
+    yticklabels=label_encoder.classes_,
+)
+plt.title(f'Confusion Matrix — Tuned Model  (Accuracy: {accuracy:.2%})',
+          fontsize=13)
+plt.xlabel('Predicted', fontsize=11)
+plt.ylabel('Actual',    fontsize=11)
+plt.tight_layout()
+plt.savefig(output_dir / 'confusion_matrix_tuned.png', dpi=150)
 plt.close()
-print(f"    ✓ Saved to: outputs/figures/confusion_matrix_tuned.png")
-print()
+print(f"\n  ✓ Saved: outputs/figures/confusion_matrix_tuned.png")
 
-# ============================================================================
-# 11. FEATURE IMPORTANCE
-# ============================================================================
+# ─────────────────────────────────────────────────────────────────────────────
+# 8. LEARNING CURVE  (shows bias/variance trade-off — required for Task 5)
+# ─────────────────────────────────────────────────────────────────────────────
 
-print("[9] FEATURE IMPORTANCE ANALYSIS")
-print("-" * 60)
+banner("STEP 7 — Learning curve")
 
-rf_model = best_model.named_steps['classifier'].named_estimators_['rf']
+print("\n  Computing learning curve (this takes a few minutes) …")
+train_sizes, train_scores, val_scores = learning_curve(
+    best_model,
+    X_train, y_train_enc,
+    train_sizes=np.linspace(0.1, 1.0, 8),
+    cv=StratifiedKFold(n_splits=3, shuffle=True, random_state=42),
+    scoring='accuracy',
+    n_jobs=-1,
+)
 
-tfidf_features = list(best_model.named_steps['features'].get_params()['tfidf'].get_feature_names_out())
-text_stat_features = [f'text_stat_{i}' for i in range(13)]
-sentiment_features = [f'sentiment_{i}' for i in range(8)]
-vocab_features = [f'vocab_{i}' for i in range(len(label_encoder.classes_) * 2)]
+train_mean = train_scores.mean(axis=1)
+train_std  = train_scores.std(axis=1)
+val_mean   = val_scores.mean(axis=1)
+val_std    = val_scores.std(axis=1)
 
-all_features = tfidf_features + text_stat_features + sentiment_features + vocab_features
+plt.figure(figsize=(10, 6))
+plt.plot(train_sizes, train_mean, 'o-', color='#2196F3', label='Training accuracy')
+plt.fill_between(train_sizes,
+                 train_mean - train_std,
+                 train_mean + train_std,
+                 alpha=0.15, color='#2196F3')
+plt.plot(train_sizes, val_mean, 'o-', color='#FF5722', label='Validation accuracy')
+plt.fill_between(train_sizes,
+                 val_mean - val_std,
+                 val_mean + val_std,
+                 alpha=0.15, color='#FF5722')
+plt.xlabel('Training samples', fontsize=12)
+plt.ylabel('Accuracy',         fontsize=12)
+plt.title('Learning Curve — Tuned Ensemble Model', fontsize=13)
+plt.legend(fontsize=11)
+plt.grid(True, alpha=0.3)
+plt.ylim(0.7, 1.01)
+plt.tight_layout()
+plt.savefig(output_dir / 'learning_curve_tuned.png', dpi=150)
+plt.close()
+print(f"  ✓ Saved: outputs/figures/learning_curve_tuned.png")
 
-if len(all_features) == rf_model.feature_importances_.shape[0]:
-    feature_importance = pd.DataFrame({
-        'feature': all_features,
-        'importance': rf_model.feature_importances_
-    }).sort_values('importance', ascending=False)
-    
-    print(f"\n    Top 15 Most Important Features:")
-    for i, row in feature_importance.head(15).iterrows():
-        print(f"      {i+1:2d}. {row['feature'][:45]:<45} {row['importance']:.4f}")
-    
-    plt.figure(figsize=(12, 8))
-    top_features = feature_importance.head(20)
-    plt.barh(range(len(top_features)), top_features['importance'].values, color='steelblue')
-    plt.yticks(range(len(top_features)), top_features['feature'].values)
-    plt.xlabel('Importance', fontsize=12)
-    plt.title('Top 20 Feature Importance - Tuned Model', fontsize=14)
-    plt.gca().invert_yaxis()
-    plt.tight_layout()
-    plt.savefig(output_dir / 'feature_importance_tuned.png', dpi=150, bbox_inches='tight')
-    plt.close()
-    print(f"\n    ✓ Saved to: outputs/figures/feature_importance_tuned.png")
+# ─────────────────────────────────────────────────────────────────────────────
+# 9. HYPERPARAMETER SENSITIVITY  (how accuracy varies with key params)
+# ─────────────────────────────────────────────────────────────────────────────
 
-print()
+banner("STEP 8 — Hyperparameter sensitivity analysis")
 
-# ============================================================================
-# 12. SAVE MODEL AND RESULTS
-# ============================================================================
+print("\n  Extracting sensitivity from RandomizedSearch CV results …")
 
-print("[10] SAVING MODEL AND RESULTS")
-print("-" * 60)
+cv_results = pd.DataFrame(random_search.cv_results_)
+
+fig, axes = plt.subplots(2, 3, figsize=(16, 10))
+fig.suptitle('Hyperparameter Sensitivity — RandomisedSearchCV Results',
+             fontsize=14, fontweight='bold')
+
+params_to_plot = [
+    ('param_features__tfidf__max_features', 'TF-IDF max features'),
+    ('param_classifier__rf__n_estimators',  'RF n_estimators'),
+    ('param_classifier__xgb__max_depth',    'XGB max_depth'),
+    ('param_classifier__xgb__learning_rate','XGB learning_rate'),
+    ('param_classifier__lr__C',             'LR C'),
+    ('param_classifier__rf__max_depth',     'RF max_depth'),
+]
+
+for ax, (param, label) in zip(axes.flat, params_to_plot):
+    col = cv_results[param].astype(str)
+    means = cv_results.groupby(col)['mean_test_score'].mean().sort_index()
+    bars = ax.bar(range(len(means)), means.values,
+                  color='#14b8a6', edgecolor='white', linewidth=0.5)
+    ax.set_xticks(range(len(means)))
+    ax.set_xticklabels(means.index, rotation=30, ha='right', fontsize=9)
+    ax.set_ylabel('Mean CV Accuracy', fontsize=9)
+    ax.set_title(label, fontsize=10, fontweight='bold')
+    ax.set_ylim(max(0, means.min() - 0.01), means.max() + 0.01)
+    ax.grid(axis='y', alpha=0.3)
+    # Annotate bars
+    for bar, val in zip(bars, means.values):
+        ax.text(bar.get_x() + bar.get_width()/2, val + 0.001,
+                f'{val:.3f}', ha='center', va='bottom', fontsize=8)
+
+plt.tight_layout()
+plt.savefig(output_dir / 'hyperparameter_sensitivity.png', dpi=150)
+plt.close()
+print(f"  ✓ Saved: outputs/figures/hyperparameter_sensitivity.png")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 10. FEATURE IMPORTANCE
+# ─────────────────────────────────────────────────────────────────────────────
+
+banner("STEP 9 — Feature importance")
+
+try:
+    rf_estimator = best_model.named_steps['classifier'].named_estimators_['rf']
+    feature_pipe = best_model.named_steps['features']
+
+    tfidf_names   = list(feature_pipe.transformer_list[0][1].get_feature_names_out())
+    text_names    = [f'text_stat_{i}' for i in range(13)]
+    sent_names    = [f'sentiment_{i}' for i in range(8)]
+    vocab_names   = [f'vocab_{i}'     for i in range(len(label_encoder.classes_) * 2)]
+    all_feat_names = tfidf_names + text_names + sent_names + vocab_names
+
+    importances = rf_estimator.feature_importances_
+    if len(all_feat_names) == len(importances):
+        fi_df = pd.DataFrame({'feature': all_feat_names, 'importance': importances})
+        fi_df = fi_df.sort_values('importance', ascending=False).head(20)
+
+        plt.figure(figsize=(12, 8))
+        plt.barh(range(len(fi_df)), fi_df['importance'].values, color='steelblue')
+        plt.yticks(range(len(fi_df)), fi_df['feature'].values, fontsize=9)
+        plt.xlabel('Importance', fontsize=11)
+        plt.title('Top 20 Feature Importances — Tuned Model', fontsize=13)
+        plt.gca().invert_yaxis()
+        plt.tight_layout()
+        plt.savefig(output_dir / 'feature_importance_tuned.png', dpi=150)
+        plt.close()
+        print(f"  ✓ Saved: outputs/figures/feature_importance_tuned.png")
+
+        print("\n  Top 15 features:")
+        for _, row in fi_df.head(15).iterrows():
+            print(f"    {row['feature'][:50]:<50}  {row['importance']:.4f}")
+    else:
+        print(f"  ⚠ Feature count mismatch ({len(all_feat_names)} vs {len(importances)}) — skipping plot")
+except Exception as e:
+    print(f"  ⚠ Feature importance skipped: {e}")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 11. SAVE MODEL  (pickle with stable module path)
+# ─────────────────────────────────────────────────────────────────────────────
+
+banner("STEP 10 — Save model")
 
 models_dir = Path('models')
 models_dir.mkdir(exist_ok=True)
 
-joblib.dump(best_model, models_dir / 'tuned_pipeline.pkl')
-print(f"    ✓ Model saved to: models/tuned_pipeline.pkl")
+# Use pickle protocol 4 — compatible, stable, and the custom classes
+# are registered under web.services.custom_transformers (not __main__)
+# so Flask can load them cleanly.
+with open(models_dir / 'tuned_pipeline.pkl', 'wb') as f:
+    pickle.dump(best_model, f, protocol=4)
 
+import joblib
 joblib.dump(label_encoder, models_dir / 'label_encoder.pkl')
-print(f"    ✓ Label encoder saved to: models/label_encoder.pkl")
+
+print(f"\n  ✓ Tuned pipeline saved : models/tuned_pipeline.pkl")
+print(f"  ✓ Label encoder saved  : models/label_encoder.pkl")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 12. SAVE RESULTS JSON
+# ─────────────────────────────────────────────────────────────────────────────
+
+total_time = time.time() - overall_start
+
+# Serialise best params (some values like tuples aren't JSON-safe by default)
+def json_safe(v):
+    if isinstance(v, tuple): return list(v)
+    if isinstance(v, np.integer): return int(v)
+    if isinstance(v, np.floating): return float(v)
+    return v
+
+best_params_clean = {k: json_safe(v) for k, v in grid_search.best_params_.items()}
 
 tuning_results = {
-    'tuning_date': datetime.now().isoformat(),
-    'training_samples': len(df_train),
-    'test_samples': len(df_test),
-    'conditions': label_encoder.classes_.tolist(),
-    'random_search_best': float(random_search.best_score_),
-    'grid_search_best': float(grid_search.best_score_),
-    'test_accuracy': float(accuracy),
-    'test_precision': float(precision),
-    'test_recall': float(recall),
-    'test_f1': float(f1),
-    'cv_scores': [float(s) for s in cv_scores],
-    'cv_mean': float(cv_scores.mean()),
-    'cv_std': float(cv_scores.std()),
-    'baseline_accuracy': float(baseline_accuracy),
-    'improvement': float(accuracy - baseline_accuracy),
-    'improvement_pct': float((accuracy/baseline_accuracy - 1) * 100),
-    'total_time_seconds': time.time() - overall_start
+    'tuning_date':             datetime.now().isoformat(),
+    'training_samples':        int(len(df_train)),
+    'test_samples':            int(len(df_test)),
+    'conditions':              label_encoder.classes_.tolist(),
+    'random_search_best_cv':   float(random_search.best_score_),
+    'grid_search_best_cv':     float(grid_search.best_score_),
+    'test_accuracy':           float(accuracy),
+    'test_precision':          float(precision),
+    'test_recall':             float(recall),
+    'test_f1':                 float(f1),
+    'cv_5fold_scores':         [float(s) for s in cv_scores],
+    'cv_5fold_mean':           float(cv_scores.mean()),
+    'cv_5fold_std':            float(cv_scores.std()),
+    'baseline_accuracy':       float(baseline_acc),
+    'improvement':             float(accuracy - baseline_acc),
+    'improvement_pct':         float((accuracy - baseline_acc) / baseline_acc * 100),
+    'best_params':             best_params_clean,
+    'total_time_seconds':      round(total_time, 1),
+    'total_time_minutes':      round(total_time / 60, 1),
 }
 
 with open(models_dir / 'tuning_results.json', 'w') as f:
     json.dump(tuning_results, f, indent=2)
-print(f"    ✓ Results saved to: models/tuning_results.json")
 
-print()
+print(f"  ✓ Results saved        : models/tuning_results.json")
 
-# ============================================================================
+# ─────────────────────────────────────────────────────────────────────────────
 # 13. FINAL SUMMARY
-# ============================================================================
+# ─────────────────────────────────────────────────────────────────────────────
 
-total_time = time.time() - overall_start
-
-print("=" * 80)
-print("MODEL TUNING COMPLETE")
-print("=" * 80)
-
+sign = '+' if accuracy >= baseline_acc else ''
 print(f"""
-╔══════════════════════════════════════════════════════════════════════════════╗
-║                         TUNING SUMMARY                                        ║
-╠══════════════════════════════════════════════════════════════════════════════╣
-║                                                                              ║
-║  Dataset:                                                                    ║
-║    • Training samples:  {len(df_train):>8,}                                           ║
-║    • Test samples:      {len(df_test):>8,}                                           ║
-║    • Conditions:        {', '.join(label_encoder.classes_)}                              ║
-║                                                                              ║
-║  Performance:                                                                ║
-║    • Baseline:          {baseline_accuracy:.4f}                                          ║
-║    • Tuned Model:       {accuracy:.4f}                                          ║
-║    • Improvement:       +{accuracy - baseline_accuracy:.4f} ({(accuracy/baseline_accuracy - 1)*100:.1f}%)                                    ║
-║    • CV Mean:           {cv_scores.mean():.4f} (±{cv_scores.std():.4f})                                      ║
-║                                                                              ║
-║  Time:                                                                       ║
-║    • Total duration:    {total_time/60:.1f} minutes                                          ║
-║                                                                              ║
-║  Files Saved:                                                                ║
-║    • models/tuned_pipeline.pkl                                               ║
-║    • models/label_encoder.pkl                                                ║
-║    • models/tuning_results.json                                              ║
-║    • outputs/figures/confusion_matrix_tuned.png                              ║
-║    • outputs/figures/feature_importance_tuned.png                            ║
-║                                                                              ║
-╚══════════════════════════════════════════════════════════════════════════════╝
-""")
+{'='*78}
+  TASK 5 — TUNING COMPLETE
+{'='*78}
+  Dataset
+    Training  : {len(df_train):,} reviews
+    Test      : {len(df_test):,} reviews
+    Conditions: {', '.join(label_encoder.classes_)}
 
-print("=" * 80)
+  Performance
+    Baseline accuracy          : {baseline_acc:.4f}
+    Tuned model accuracy       : {accuracy:.4f}
+    Improvement                : {sign}{accuracy - baseline_acc:.4f}  ({sign}{(accuracy-baseline_acc)/baseline_acc*100:.2f}%)
+    5-fold CV mean (± std)     : {cv_scores.mean():.4f} ± {cv_scores.std():.4f}
+    RandomisedSearch best CV   : {random_search.best_score_:.4f}
+    GridSearch best CV         : {grid_search.best_score_:.4f}
+
+  Duration
+    Total : {total_time/60:.1f} minutes
+
+  Outputs saved
+    models/tuned_pipeline.pkl
+    models/label_encoder.pkl
+    models/tuning_results.json
+    outputs/figures/confusion_matrix_tuned.png
+    outputs/figures/learning_curve_tuned.png
+    outputs/figures/hyperparameter_sensitivity.png
+    outputs/figures/feature_importance_tuned.png
+{'='*78}
+""")

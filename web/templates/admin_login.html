@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Login — Limko Medical{% endblock %}
+
+{% block navbar %}
+<nav class="main-nav">
+    <a href="{{ url_for('main.index') }}" class="main-nav-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#14b8a6" stroke-width="2.5">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+        </svg>
+        Limko<span>Medical</span>
+    </a>
+    <ul class="main-nav-links"></ul>
+    <div class="main-nav-actions">
+        <a href="{{ url_for('main.index') }}" class="nav-btn-ghost">Back to site</a>
+    </div>
+</nav>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .admin-login-shell {
+        min-height: calc(100vh - 64px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem 1rem;
+        background: #f8fafc;
+    }
+
+    .admin-login-card {
+        width: 100%;
+        max-width: 400px;
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem 2rem;
+        border: 1px solid rgba(20,184,166,0.14);
+        box-shadow: 0 8px 40px rgba(15,118,110,0.1);
+    }
+
+    .admin-lock-icon {
+        width: 56px;
+        height: 56px;
+        background: linear-gradient(135deg, #14b8a6, #22d3ee);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        color: white;
+        font-size: 1.4rem;
+    }
+
+    .admin-login-card h2 {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: #134e4a;
+        text-align: center;
+        margin: 0 0 0.3rem;
+    }
+
+    .admin-login-card p {
+        font-size: 0.82rem;
+        color: #94a3b8;
+        text-align: center;
+        margin: 0 0 2rem;
+    }
+
+    .field-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #64748b;
+        margin-bottom: 0.4rem;
+        display: block;
+    }
+
+    .field-input {
+        width: 100%;
+        border: 1.5px solid #e2e8f0;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 0.9rem;
+        font-family: inherit;
+        color: #134e4a;
+        background: #f8fafc;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        box-sizing: border-box;
+    }
+
+    .field-input:focus {
+        border-color: #14b8a6;
+        box-shadow: 0 0 0 3px rgba(20,184,166,0.15);
+        background: white;
+    }
+
+    .error-box {
+        background: #fef2f2;
+        border: 1px solid rgba(239,68,68,0.25);
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 0.82rem;
+        color: #dc2626;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-admin-login {
+        width: 100%;
+        background: linear-gradient(90deg, #14b8a6, #22d3ee);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: inherit;
+        margin-top: 1.5rem;
+        transition: opacity 0.2s;
+    }
+
+    .btn-admin-login:hover { opacity: 0.9; }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 1.25rem;
+        font-size: 0.8rem;
+        color: #94a3b8;
+        text-decoration: none;
+    }
+
+    .back-link:hover { color: #0f766e; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="admin-login-shell">
+    <div class="admin-login-card">
+
+        <div class="admin-lock-icon">
+            <i class="fas fa-shield-alt"></i>
+        </div>
+
+        <h2>Admin Access</h2>
+        <p>Restricted to authorised personnel only</p>
+
+        {% if error %}
+        <div class="error-box">
+            <i class="fas fa-exclamation-circle"></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="{{ url_for('main.admin_login') }}">
+            <div class="mb-3">
+                <label class="field-label" for="username">Username</label>
+                <input class="field-input" type="text" id="username" name="username"
+                       placeholder="admin" autocomplete="username" required>
+            </div>
+            <div class="mb-0">
+                <label class="field-label" for="password">Password</label>
+                <input class="field-input" type="password" id="password" name="password"
+                       placeholder="••••••••" autocomplete="current-password" required>
+            </div>
+            <button type="submit" class="btn-admin-login">
+                <i class="fas fa-sign-in-alt me-2"></i>Sign in to Admin
+            </button>
+        </form>
+
+        <a href="{{ url_for('main.index') }}" class="back-link">
+            <i class="fas fa-arrow-left me-1"></i>Back to main site
+        </a>
+    </div>
+</div>
+{% endblock %}

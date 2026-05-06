@@ -1,0 +1,11 @@
+{
+  "lr_accuracy": 97.12,
+  "rf_accuracy": 91.12,
+  "xgb_accuracy": 97.1,
+  "per_class_f1": {
+    "Depression": 0.9833,
+    "Diabetes, Type 2": 0.9635,
+    "High Blood Pressure": 0.9474
+  },
+  "computed_at": "2026-04-30T04:15:00.990678"
+}
