@@ -329,7 +329,7 @@
                 <div>
                     <h4>Live Consultation</h4>
                     <small style="color:#64748b;">
-                        End-to-end encrypted · session #{{ session_id|default('YWF PKO') }}
+                        Our Conversation Is End-to-end encrypted 
                     </small>
                 </div>
                 <div class="online-badge">
@@ -357,11 +357,11 @@
                 <div class="diagnosis-section">
                     <div class="diagnosis-section-header">
                         <div class="icon"><i class="fas fa-user-md"></i></div>
-                        <label>Has a doctor already diagnosed you?</label>
+                        <label>Has your doctor already diagnosed you?</label>
                     </div>
                     <p class="diagnosis-hint">
-                        Optional — if you have a confirmed diagnosis, selecting it helps the AI
-                        align its analysis with your known condition.
+                        Optional, if you have a confirmed diagnosis, selecting it helps DR TM
+                        align analysis with your known condition.
                     </p>
 
                     <!-- Hidden radio group — submitted with the form -->
@@ -432,9 +432,9 @@ const impact  = document.getElementById('diagImpact');
 const impactTxt = document.getElementById('diagImpactText');
 
 const IMPACT_MSGS = {
-    'dr_depression': 'The AI will cross-reference your symptoms against Depression patterns and boost confidence if they align.',
-    'dr_bp':         'The AI will factor your High Blood Pressure diagnosis into the prediction, helping surface the most relevant medications.',
-    'dr_diabetes':   'Your Type 2 Diabetes diagnosis will be used to validate and refine the AI result.',
+    'dr_depression': 'DR TM will cross-reference your symptoms against Depression patterns and boost confidence if they align.',
+    'dr_bp':         'DR TM will factor your High Blood Pressure diagnosis into the prediction, helping surface the most relevant medications.',
+    'dr_diabetes':   'Your Type 2 Diabetes diagnosis will be used to validate and refine the DR TM results.',
     'dr_none':       '',
 };
 

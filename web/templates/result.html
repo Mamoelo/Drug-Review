@@ -331,10 +331,10 @@
                     <div class="condition-name">{{ condition }}</div>
 
                     {% set cl = confidence_level %}
-                    <span class="confidence-pill {{ 'high' if cl == 'High' else ('moderate' if cl == 'Moderate' else 'low') }}">
+                    <!--<span class="confidence-pill {{ 'high' if cl == 'High' else ('moderate' if cl == 'Moderate' else 'low') }}">
                         {% if cl == 'High' %}✓{% elif cl == 'Moderate' %}~{% else %}!{% endif %}
                         {{ confidence_level }} Confidence ({{ "%.1f"|format(confidence * 100) }}%)
-                    </span>
+                    </span>-->
                 </div>
 
                 <div style="margin-bottom:1.8rem;">
@@ -344,7 +344,7 @@
                     <div class="symptom-quote">"{{ symptoms }}"</div>
                 </div>
 
-                <!-- Sentiment -->
+                <!-- Sentiment 
                 {% if sentiment %}
                 {% set pos_val = sentiment.positive|default(sentiment.pos)|default(0) %}
                 {% set neu_val = sentiment.neutral|default(sentiment.neu)|default(0) %}
@@ -364,15 +364,15 @@
                         {% if neg_pct > 0 %}
                         <div class="progress-bar bg-danger" style="width:{{ neg_pct }}%;">Negative {{ neg_pct }}%</div>
                         {% endif %}
-                    </div>
-                    <div class="text-center">
+                    </div>-->
+                    <!--<div class="text-center">
                         <span style="background:rgba(14,165,233,0.12); color:#0369a1; padding:4px 14px; border-radius:50px; font-size:12px; font-weight:700;">
                             {{ sentiment.label|default('Unknown') }}
                         </span>
                         {% if sentiment.compound is defined %}
                         <span style="color:#94a3b8; font-size:13px; margin-left:8px;">Score: {{ "%.2f"|format(sentiment.compound) }}</span>
                         {% endif %}
-                    </div>
+                    </div>-->
                 </div>
                 {% endif %}
 
@@ -561,7 +561,7 @@
                 <p style="margin-bottom:0.8rem;">{{ message }}</p>
                 <p style="margin:0; color:#64748b; font-size:14px;">
                     <i class="fas fa-check-circle me-2" style="color:#14b8a6;"></i>
-                    <strong>I can help with:</strong> Depression, High Blood Pressure, and Type 2 Diabetes.
+                    <strong>I can help with:</strong> Depression, High Blood Pressure and Type 2 Diabetes.
                 </p>
             </div>
         </div>

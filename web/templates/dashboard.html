@@ -209,7 +209,7 @@
       </div>
     </div>
 
-    {% if ns.with_diag > 0 %}
+    <!--{% if ns.with_diag > 0 %}
     <div class="insights-panel">
       <div style="padding:0 0 0.85rem;">
         <h3 style="font-size:1rem;font-weight:700;color:#134e4a;margin:0;">
@@ -231,7 +231,7 @@
         </div>
       </div>
     </div>
-    {% endif %}
+    {% endif %}-->
 
     {% if conflict_consultations %}
     <div class="conflict-alert">
@@ -305,7 +305,7 @@
             <div class="consultation-item">
               <div class="consultation-meta">
                 <span class="consultation-condition">{{ consult.condition }}</span>
-                {% set cl = 'High' if consult.confidence >= 0.7 else ('Moderate' if consult.confidence >= 0.5 else 'Low') %}
+                <!--{% set cl = 'High' if consult.confidence >= 0.7 else ('Moderate' if consult.confidence >= 0.5 else 'Low') %}
                 <span class="consultation-confidence confidence-{{ cl|lower }}">{{ (consult.confidence * 100)|int }}% confidence</span>
                 {% if consult.user_diagnosis %}
                   {% if consult.diagnosis_agreement == 'confirmed' %}<span class="diag-badge diag-confirmed"><i class="fas fa-check-circle"></i> Confirmed</span>
@@ -315,7 +315,7 @@
                   {% endif %}
                 {% else %}
                   <span class="diag-badge diag-none"><i class="fas fa-stethoscope"></i> No diagnosis</span>
-                {% endif %}
+                {% endif %}-->
                 <span class="consultation-date">{{ consult.created_at[:10] }}</span>
               </div>
               {% if consult.user_diagnosis %}
@@ -326,7 +326,7 @@
               </div>
               {% endif %}
               <div class="consultation-symptoms">"{{ consult.symptoms[:100] }}{% if consult.symptoms|length > 100 %}...{% endif %}"</div>
-              <a href="#" class="consultation-link">View details →</a>
+              
             </div>
             {% endfor %}
           {% else %}

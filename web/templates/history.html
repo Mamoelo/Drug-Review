@@ -186,10 +186,10 @@
                 <div class="history-header">
                     <div class="history-condition">
                         <span class="condition-badge">{{ consult.condition }}</span>
-                        {% set cl = 'High' if consult.confidence >= 0.7 else ('Moderate' if consult.confidence >= 0.5 else 'Low') %}
+                        <!--{% set cl = 'High' if consult.confidence >= 0.7 else ('Moderate' if consult.confidence >= 0.5 else 'Low') %}
                         <span class="confidence-badge confidence-{{ cl|lower }}">
                             {{ (consult.confidence * 100)|int }}% confidence
-                        </span>
+                        </span>-->
                     </div>
                     <div class="history-date">
                         <i class="far fa-calendar-alt me-1"></i>
@@ -206,9 +206,7 @@
                         <i class="fas fa-pills"></i>
                         {{ consult.recommendations|length }} medication{{ 's' if consult.recommendations|length != 1 }} recommended
                     </span>
-                    <a href="#" class="view-details">
-                        View full report →
-                    </a>
+                    
                 </div>
             </div>
             {% endfor %}
